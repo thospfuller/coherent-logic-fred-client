@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <!-- Direct to file: jdbc:h2:~/FREDUpdates -->
+        <!-- ;DB_CLOSE_DELAY=-1 is here to fix the JdbcSQLException: Table
+             "DEFAULTOBJECT" not found; SQL statement exception.
+             ;MVCC=TRUE
+             jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+             jdbc:h2:tcp://localhost/~/FREDUpdates
+          -->
+        <property name="url" value="jdbc:h2:tcp://localhost/~/NewTest" />
+        <property name="username" value="sa" />
+        <property name="password" value="password" />
+    </bean>
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.coherentlogic.fred.client.core.domain"/>
+
+        <property name="annotatedClasses">
+            <util:list>
+                <value>com.coherentlogic.fred.client.core.domain.DefaultObject</value>
+                <value>com.coherentlogic.fred.client.core.domain.Category</value>
+                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
+                <value>com.coherentlogic.fred.client.core.domain.IdentityObject</value>
+                <value>com.coherentlogic.fred.client.core.domain.Seriess</value>
+                <value>com.coherentlogic.fred.client.core.domain.Series</value>
+                <value>com.coherentlogic.fred.client.core.domain.Category</value>
+                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
+            </util:list>
+        </property>
+
+        <property name="hibernateProperties">
+            <util:properties>
+                <prop key="dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+            </util:properties>
+        </property>
+    </bean>
+
+    <bean id="txManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager" />
+
+    <bean name="seriessDAO" class="com.coherentlogic.fred.client.db.integration.dao.SeriessDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean name="categoriesDAO" class="com.coherentlogic.fred.client.db.integration.dao.CategoriesDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+</beans>

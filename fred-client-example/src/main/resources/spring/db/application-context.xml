@@ -1,0 +1,122 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.coherentlogic" />
+
+    <import resource="jpa-beans.xml"/>
+
+    <bean id="fredRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean id="xstreamMessageConverter"
+                    class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                    <property name="marshaller" ref="xstreamMarshaller" />
+                    <property name="unmarshaller" ref="xstreamMarshaller" />
+                </bean>
+                <bean id="applicationZipMessageConverter"
+                    class="com.coherentlogic.fred.client.core.converters.ApplicationZipMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="fredDateConverter" class="com.thoughtworks.xstream.converters.basic.DateConverter">
+        <constructor-arg name="defaultFormat" value="yyyy-MM-dd"/>
+        <constructor-arg name="acceptableFormats">
+            <list>
+                <value>yyyy-MM-dd</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="lenient" value="false"/>
+    </bean>
+
+    <bean id="fredOutputTypeConverter" class="com.coherentlogic.fred.client.core.converters.OutputTypeEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.OutputType"/>
+    </bean>
+
+    <bean id="fredSortOrderConverter" class="com.coherentlogic.fred.client.core.converters.SortOrderEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.SortOrder"/>
+    </bean>
+
+    <bean id="fredOrderByEnumConverter" class="com.coherentlogic.fred.client.core.converters.OrderByEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.OrderBy"/>
+    </bean>
+
+    <bean id="fredFilterValueEnumConverter" class="com.coherentlogic.fred.client.core.converters.FilterValueEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.FilterValue"/>
+    </bean>
+
+    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <!-- Underscores in attributes cause problems with XStream and the stream driver below
+             addresses this issue - in particular see the XmlFriendlyReplacer.
+          -->
+        <property name="streamDriver">
+            <bean class="com.thoughtworks.xstream.io.xml.XppDriver">
+                <constructor-arg>
+                    <bean class="com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer">
+                        <constructor-arg index="0" value="_-"/>
+                        <constructor-arg index="1" value="_"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+        <property name="autodetectAnnotations" value="true" />
+        <property name="annotatedClasses">
+            <array>
+                <value>com.coherentlogic.fred.client.core.domain.Sources</value>
+                <value>com.coherentlogic.fred.client.core.domain.Source</value>
+                <value>com.coherentlogic.fred.client.core.domain.Seriess</value>
+                <value>com.coherentlogic.fred.client.core.domain.Series</value>
+                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
+                <value>com.coherentlogic.fred.client.core.domain.Category</value>
+                <value>com.coherentlogic.fred.client.core.domain.Observations</value>
+                <value>com.coherentlogic.fred.client.core.domain.Observation</value>
+                <value>com.coherentlogic.fred.client.core.domain.Releases</value>
+                <value>com.coherentlogic.fred.client.core.domain.Release</value>
+                <value>com.coherentlogic.fred.client.core.domain.VintageDates</value>
+                <value>com.coherentlogic.fred.client.core.domain.VintageDate</value>
+                <value>com.coherentlogic.fred.client.core.domain.ReleaseDates</value>
+                <value>com.coherentlogic.fred.client.core.domain.ReleaseDate</value>
+            </array>
+        </property>
+        <!-- TODO: Consider using annotations exclusively and remove the
+                   converters from here.
+          -->
+        <property name="converters">
+            <array>
+                <ref bean="fredDateConverter"/>
+                <ref bean="fredOutputTypeConverter"/>
+                <ref bean="fredSortOrderConverter"/>
+                <ref bean="fredOrderByEnumConverter"/>
+                <ref bean="fredFilterValueEnumConverter"/>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="seriessRequestBuilderFactory" class="com.coherentlogic.fred.client.example.SeriessRequestBuilderFactory">
+        <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
+        <constructor-arg name="uri" value="http://api.stlouisfed.org/fred/series/search"/>
+        <!-- NOTE: You must supply your own API key to run this example.
+          -->
+        <constructor-arg name="apiKey" value="#{T(java.lang.System).getenv('FRED_API_KEY')}"/>
+    </bean>
+
+    <bean id="seriessRequestBuilder" class="com.coherentlogic.fred.client.core.builders.RequestBuilder"
+     factory-bean="seriessRequestBuilderFactory" factory-method="getInstance"/>
+
+    <bean id="basicExample" class="com.coherentlogic.fred.client.db.integration.BasicExample">
+        <constructor-arg name="seriessRequestBuilder" ref="seriessRequestBuilder"/>
+        <constructor-arg name="seriessDAO" ref="seriessDAO"/>
+    </bean>
+</beans>

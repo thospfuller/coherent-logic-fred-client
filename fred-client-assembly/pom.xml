@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ${project.parent.groupId}.${project.parent.artifactId} -->
+    <groupId>com.coherentlogic.fred.client</groupId>
+    <artifactId>fred-client-assembly</artifactId>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.coherentlogic.fred</groupId>
+        <artifactId>client</artifactId>
+        <version>1.0.4-RELEASE</version>
+    </parent>
+
+    <name>fred-client-assembly</name>
+    <url>fred-client-assembly</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.coherentlogic.fred.client</groupId>
+            <artifactId>fred-client-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.fred.client</groupId>
+            <artifactId>fred-client-misc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.fred.client</groupId>
+            <artifactId>fred-client-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.fred.client</groupId>
+            <artifactId>fred-client-db-int</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.fred.client</groupId>
+            <artifactId>fred-client-webstart-application</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- minimizeJar>true</minimizeJar -->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <mainClass>com.coherentlogic.fred.client.webstart.application.FREDClientGUI</mainClass>
+                                        <!-- SplashScreen-Image>C:/development/projects/FRED-CLIENT-SVN-CO/fred-client-webstart-application/target/classes/logo-small.png</SplashScreen-Image -->
+                                    </manifestEntries>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.tooling</resource>
+                                </transformer>
+                            </transformers>
+                            <relocations>
+                                <!-- relocation> <pattern>org.apache.log4j</pattern> <shadedPattern>com.coherentlogic.org.apache.log4j</shadedPattern> 
+                                    </relocation -->
+                            </relocations>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>junit:junit</exclude>
+                                    <exclude>org.mockito:mockito-all</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

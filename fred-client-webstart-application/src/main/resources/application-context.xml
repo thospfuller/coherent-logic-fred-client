@@ -1,0 +1,262 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="api-key-beans.xml"/>
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.coherentlogic.fred.client.webstart.application" />
+
+    <bean id="fredRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean id="xstreamMessageConverter"
+                    class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                    <property name="marshaller" ref="xstreamMarshaller" />
+                    <property name="unmarshaller" ref="xstreamMarshaller" />
+                </bean>
+                <bean id="applicationZipMessageConverter"
+                    class="com.coherentlogic.fred.client.core.converters.ApplicationZipMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="fredDateConverter" class="com.thoughtworks.xstream.converters.basic.DateConverter">
+        <constructor-arg name="defaultEraFormat" value="#{null}"/>
+        <constructor-arg name="defaultFormat" value="yyyy-MM-dd"/>
+        <constructor-arg name="acceptableFormats">
+            <list>
+                <value>yyyy-MM-dd</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="locale" value="#{ T(java.util.Locale).ENGLISH}"/>
+        <constructor-arg name="timeZone" value="#{ T(java.util.TimeZone).getTimeZone('GMT-6')}"/>
+        <constructor-arg name="lenient" value="false"/>
+    </bean>
+
+    <bean id="fredOutputTypeConverter" class="com.coherentlogic.fred.client.core.converters.OutputTypeEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.OutputType"/>
+    </bean>
+
+    <bean id="fredSortOrderConverter" class="com.coherentlogic.fred.client.core.converters.SortOrderEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.SortOrder"/>
+    </bean>
+
+    <bean id="fredOrderByEnumConverter" class="com.coherentlogic.fred.client.core.converters.OrderByEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.OrderBy"/>
+    </bean>
+
+    <bean id="fredFilterValueEnumConverter" class="com.coherentlogic.fred.client.core.converters.FilterValueEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.FilterValue"/>
+    </bean>
+
+    <bean id="xstreamMarshaller" class="com.coherentlogic.coherent.data.model.core.xstream.CustomXStreamMarshaller">
+        <!-- Underscores in attributes cause problems with XStream and the stream driver below
+             addresses this issue - in particular see the XmlFriendlyReplacer.
+          -->
+        <property name="streamDriver">
+            <bean class="com.thoughtworks.xstream.io.xml.XppDriver">
+                <constructor-arg>
+                    <bean class="com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer">
+                        <constructor-arg index="0" value="_-"/>
+                        <constructor-arg index="1" value="_"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+        <property name="autodetectAnnotations" value="true" />
+        <property name="annotatedClasses">
+            <array>
+                <value>com.coherentlogic.fred.client.core.domain.Sources</value>
+                <value>com.coherentlogic.fred.client.core.domain.Source</value>
+                <value>com.coherentlogic.fred.client.core.domain.Seriess</value>
+                <value>com.coherentlogic.fred.client.core.domain.Series</value>
+                <value>com.coherentlogic.fred.client.core.domain.Categories</value>
+                <value>com.coherentlogic.fred.client.core.domain.Category</value>
+                <value>com.coherentlogic.fred.client.core.domain.Observations</value>
+                <value>com.coherentlogic.fred.client.core.domain.Observation</value>
+                <value>com.coherentlogic.fred.client.core.domain.Releases</value>
+                <value>com.coherentlogic.fred.client.core.domain.Release</value>
+                <value>com.coherentlogic.fred.client.core.domain.VintageDates</value>
+                <value>com.coherentlogic.fred.client.core.domain.VintageDate</value>
+                <value>com.coherentlogic.fred.client.core.domain.ReleaseDates</value>
+                <value>com.coherentlogic.fred.client.core.domain.ReleaseDate</value>
+                <value>com.coherentlogic.fred.client.core.domain.Tags</value>
+                <value>com.coherentlogic.fred.client.core.domain.Tag</value>
+            </array>
+        </property>
+        <!-- TODO: Consider using annotations exclusively and remove the
+                   converters from here.
+          -->
+        <property name="converters">
+            <array>
+                <ref bean="fredDateConverter"/>
+                <ref bean="fredOutputTypeConverter"/>
+                <ref bean="fredSortOrderConverter"/>
+                <ref bean="fredOrderByEnumConverter"/>
+                <ref bean="fredFilterValueEnumConverter"/>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="cacheServiceProvider" class="com.coherentlogic.coherent.data.model.core.cache.MapCompliantCacheServiceProvider">
+        <constructor-arg name="cache"><util:map/></constructor-arg>
+    </bean>
+
+    <bean id="queryBuilderFactory" class="com.coherentlogic.fred.client.core.factories.QueryBuilderFactory">
+        <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
+        <constructor-arg name="uri" value="http://api.stlouisfed.org/fred/"/>
+        <constructor-arg name="cacheServiceProvider" ref="cacheServiceProvider"/>
+        <!-- NOTE: You must supply your own API key to run this example.
+          -->
+        <constructor-arg name="apiKey" ref="fredApiKey"/>
+    </bean>
+
+    <!-- org.springframework.core.io.UrlResource classpath:src/main/resources/ -->
+    <!-- When reading from eclipse, don't include the classpath, however (check this) you'll
+         probably need the classpath when running from a jar.
+      -->
+
+    <bean id="getSeriessExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetSeriessExample.groovy"/>
+    </bean>
+
+    <bean id="getSeriessExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getSeriessExampleResource"/>
+    </bean>
+
+    <bean id="getSeriessExample" class="java.lang.String"
+     factory-bean="getSeriessExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getCategoriesExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetCategoriesExample.groovy"/>
+    </bean>
+
+    <bean id="getCategoriesExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getCategoriesExampleResource"/>
+    </bean>
+
+    <bean id="getCategoriesExample" class="java.lang.String"
+     factory-bean="getCategoriesExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getObservationsExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetObservationsExample.groovy"/>
+    </bean>
+
+    <bean id="getObservationsExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getObservationsExampleResource"/>
+    </bean>
+
+    <bean id="getObservationsExample" class="java.lang.String"
+     factory-bean="getObservationsExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getReleasesExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetReleasesExample.groovy"/>
+    </bean>
+
+    <bean id="getReleasesExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getReleasesExampleResource"/>
+    </bean>
+
+    <bean id="getReleasesExample" class="java.lang.String"
+     factory-bean="getReleasesExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getVintageDatesExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetVintageDatesExample.groovy"/>
+    </bean>
+
+    <bean id="getVintageDatesExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getVintageDatesExampleResource"/>
+    </bean>
+
+    <bean id="getVintageDatesExample" class="java.lang.String"
+     factory-bean="getVintageDatesExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getReleaseDatesExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetReleaseDatesExample.groovy"/>
+    </bean>
+
+    <bean id="getReleaseDatesExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getReleaseDatesExampleResource"/>
+    </bean>
+
+    <bean id="getReleaseDatesExample" class="java.lang.String"
+     factory-bean="getReleaseDatesExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getSourcesExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetSourcesExample.groovy"/>
+    </bean>
+
+    <bean id="getTagsExampleResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetTagsExample.groovy"/>
+    </bean>
+
+    <bean id="getTagsExample2Resource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg name="path" value="GetTagsExample2.groovy"/>
+    </bean>
+
+    <bean id="getSourcesExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getSourcesExampleResource"/>
+    </bean>
+
+    <bean id="getSourcesExample" class="java.lang.String"
+     factory-bean="getSourcesExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getTagsExampleFactory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getTagsExampleResource"/>
+    </bean>
+
+    <bean id="getTagsExample2Factory" class="com.coherentlogic.fred.client.webstart.application.ExampleFactory">
+        <constructor-arg name="resource" ref="getTagsExample2Resource"/>
+    </bean>
+
+    <bean id="getTagsExample" class="java.lang.String"
+     factory-bean="getTagsExampleFactory" factory-method="getInstance"/>
+
+    <bean id="getTagsExample2" class="java.lang.String"
+     factory-bean="getTagsExample2Factory" factory-method="getInstance"/>
+
+    <util:map id="requestBuilderFactoryMap">
+        <entry key="Seriess" value-ref="queryBuilderFactory"/>
+        <entry key="Categories" value-ref="queryBuilderFactory"/>
+        <entry key="Observations" value-ref="queryBuilderFactory"/>
+        <entry key="Releases" value-ref="queryBuilderFactory"/>
+        <entry key="VintageDates" value-ref="queryBuilderFactory"/>
+        <entry key="ReleaseDates" value-ref="queryBuilderFactory"/>
+        <entry key="Sources" value-ref="queryBuilderFactory"/>
+        <entry key="Tags" value-ref="queryBuilderFactory"/>
+        <entry key="Tags2" value-ref="queryBuilderFactory"/>
+    </util:map>
+
+    <util:map id="exampleMap">
+        <entry key="Seriess" value-ref="getSeriessExample"/>
+        <entry key="Categories" value-ref="getCategoriesExample"/>
+        <entry key="Observations" value-ref="getObservationsExample"/>
+        <entry key="Releases" value-ref="getReleasesExample"/>
+        <entry key="VintageDates" value-ref="getVintageDatesExample"/>
+        <entry key="ReleaseDates" value-ref="getReleaseDatesExample"/>
+        <entry key="Sources" value-ref="getSourcesExample"/>
+        <entry key="Tags" value-ref="getTagsExample"/>
+        <entry key="Tags2" value-ref="getTagsExample2"/>
+    </util:map>
+
+    <bean id="binding" class="groovy.lang.Binding"/>
+
+    <bean id="groovyEngine" class="com.coherentlogic.fred.client.webstart.application.GroovyEngine">
+        <constructor-arg name="binding" ref="binding"/>
+    </bean>
+
+    <bean id="fredClientGUI" class="com.coherentlogic.fred.client.webstart.application.FREDClientGUI">
+        <constructor-arg name="groovyEngine" ref="groovyEngine"/>
+        <constructor-arg name="requestBuilderFactoryMap" ref="requestBuilderFactoryMap"/>
+        <constructor-arg name="exampleMap" ref="exampleMap"/>
+    </bean>
+</beans>
+
