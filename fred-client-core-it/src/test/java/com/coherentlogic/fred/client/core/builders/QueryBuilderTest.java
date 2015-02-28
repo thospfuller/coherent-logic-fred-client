@@ -874,14 +874,14 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         List<Source> sourceList = sources.getSourceList();
 
         // Value is subject to change.
-        assertEquals(68, sourceList.size());
+        assertEquals(77, sourceList.size());
 
         Source source7 = sourceList.get(7);
 
 //        assertDateIsAccurateForToday(source7.getRealtimeStart());
 //        assertDateIsAccurateForToday(source7.getRealtimeEnd());
         assertEquals(
-            "The White House: Council of Economic Advisors", source7.getName());
+            "Council of Economic Advisers (US)", source7.getName());
         assertEquals("http://www.whitehouse.gov/cea/", source7.getLink());
     }
 
@@ -908,7 +908,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurateForToday(source0.getRealtimeStart());
         assertDateIsAccurateForToday(source0.getRealtimeEnd());
         assertEquals(
-            "Board of Governors of the Federal Reserve System", source0.getName());
+            "Board of Governors of the Federal Reserve System (US)", source0.getName());
         assertEquals("http://www.federalreserve.gov/", source0.getLink());
     }
 
@@ -929,7 +929,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertEquals(OrderBy.releaseId, releases.getOrderBy());
         assertEquals(SortOrder.asc, releases.getSortOrder());
         // Value is subject to change.
-        assertEquals(29, releases.getCount());
+        assertEquals(30, releases.getCount());
         assertEquals(0, releases.getOffset());
         assertEquals(1000, releases.getLimit());
 
@@ -1162,7 +1162,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             using (2012, Calendar.JUNE, 18),
             source1.getRealtimeEnd());
         assertEquals(
-            "U.S. Department of Commerce: Census Bureau", source1.getName());
+            "US. Bureau of the Census", source1.getName());
         assertEquals("http://www.census.gov/", source1.getLink());
     }
 
@@ -1204,7 +1204,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         assertEquals(OrderBy.seriesCount, tags.getOrderBy());
         assertEquals(SortOrder.desc, tags.getSortOrder());
-        assertEquals(10, tags.getCount());
+        assertEquals(12, tags.getCount());
         assertEquals(0, tags.getOffset());
         assertEquals(1000, tags.getLimit());
 
@@ -1214,7 +1214,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int size = tagList.size();
 
-        assertEquals(10, size);
+        assertEquals(12, size);
 
         Tag expectedTag = new Tag ();
 
@@ -1222,7 +1222,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         expectedTag.setGroupId("src");
         expectedTag.setNotes("Richard Anderson and Barry Jones");
         expectedTag.setCreated("2013-06-21 10:22:49-05");
-        expectedTag.setPopularity(42L);
+        expectedTag.setPopularity(38L);
         expectedTag.setSeriesCount(1L);
 
         Tag actualTag = tagList.get(1);

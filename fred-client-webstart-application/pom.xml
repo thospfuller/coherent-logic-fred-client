@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
-        <version>1.0.4-RELEASE</version>
+        <version>1.0.5-RELEASE</version>
     </parent>
 
     <name>fred-client-webstart-application</name>
@@ -48,24 +48,9 @@
             <artifactId>fred-client-db-int</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>keytool-api</artifactId>
-            <version>1.5</version>
-	</dependency>
-	<!-- dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>webstart-pack200-api</artifactId>
-            <version>1.0-beta-6</version>
-	</dependency -->
-        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.mojo.webstart</groupId>
-            <artifactId>webstart-maven-plugin</artifactId>
-            <version>1.0-beta-2</version>
         </dependency>
         <dependency>
             <groupId>com.miglayout</groupId>
@@ -84,9 +69,15 @@
         </dependency>
     </dependencies>
 
+    <!-- WARNING: This is not currently ready for Java 8 so it's been disabled
+                  for now. Google for
+
+                  "No implementation for org.codehaus.mojo.keytool.
+                  KeyToolCommandLineBuilder was bound."
+      -->
     <build>
         <plugins>
-            <plugin>
+            <!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
                 <version>1.0-beta-6</version>
@@ -94,30 +85,24 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>jnlp-inline</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+                            <goal>jnlp-inline</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <excludeTransitive>false</excludeTransitive>
 
-                    <!-- The path where the libraries are stored within the jnlp structure. 
-                        not required. by default the libraries are within the working directory -->
                     <libPath>lib</libPath>
 
-                    <!-- JNLP generation -->
                     <jnlp>
                         <outputFile>application.jnlp</outputFile>
-
-                        <!-- used to automatically identify the jar containing the main class. -->
-                        <!-- this is perhaps going to change -->
                         <mainClass>com.coherentlogic.fred.client.webstart.application.FREDClientGUI</mainClass>
                     </jnlp>
 
                     <sign>
                         <keystore>/development/temp/keystore/server.keystore</keystore>
-                        <keypass>${CA_CERT_PASSWORD}</keypass><!-- ${keypass} -->
-                        <storepass>${CA_CERT_PASSWORD}</storepass> <!-- ${storepass} -->
+                        <keypass>${CA_CERT_PASSWORD}</keypass>
+                        <storepass>${CA_CERT_PASSWORD}</storepass>
                         <alias>coherent logic limited's comodo ca limited id</alias>
 
                         <storetype>jks</storetype>
@@ -137,9 +122,9 @@
                         </keystoreConfig>
                     </sign>
 
-                    <!-- pack200>false</pack200>
+                    pack200>false</pack200>
                     <gzip>true</gzip>
-                    <unsign>true</unsign -->
+                    <unsign>true</unsign
 
                     <outputJarVersions>false</outputJarVersions>
                     <verbose>true</verbose>
@@ -147,7 +132,14 @@
                         <Permissions>all-permissions</Permissions>
                     </updateManifestEntries>
                 </configuration>
-            </plugin>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>keytool-api</artifactId>
+                        <version>1.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>

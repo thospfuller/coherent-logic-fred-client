@@ -45,6 +45,7 @@ public class CategoriesDAOTest {
 
     @Before
     public void setUp() throws Exception {
+        // NPE? Have you set the FRED_API_KEY in the system properties?
         QueryBuilder builder = queryBuilderFactory.getInstance();
 
         Date realtimeStart = using (2001, Calendar.JANUARY, 20);

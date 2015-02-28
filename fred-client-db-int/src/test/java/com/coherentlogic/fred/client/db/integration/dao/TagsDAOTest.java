@@ -75,7 +75,7 @@ public class TagsDAOTest {
 
         assertNull (tags.getPrimaryKey());
         assertNotNull (tagsList);
-        assertEquals (10, tagsList.size());
+        assertEquals (12, tagsList.size());
 
         tagsDAO.persist(tags);
 
@@ -89,7 +89,7 @@ public class TagsDAOTest {
             getTagList();
 
         assertNotNull(persistedTagList);
-        assertEquals(10, persistedTagList.size());
+        assertEquals(12, persistedTagList.size());
 
         persistedTagList.remove(0);
 
@@ -102,7 +102,7 @@ public class TagsDAOTest {
             mergedPersistedTags.getTagList();
 
         assertNotNull(mergedPersistedTagList);
-        assertEquals(9, mergedPersistedTagList.size());
+        assertEquals(11, mergedPersistedTagList.size());
 
         tagsDAO.remove(mergedPersistedTags);
 

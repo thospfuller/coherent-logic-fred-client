@@ -15,7 +15,7 @@
 
     <groupId>com.coherentlogic.fred</groupId>
     <artifactId>client</artifactId>
-    <version>1.0.4-RELEASE</version>
+    <version>1.0.5-RELEASE</version>
 
     <packaging>pom</packaging>
     <name>Coherent Logic FRED Client</name>
@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <spring.version>4.0.1.RELEASE</spring.version>
-        <data.model.version>1.0.13-RELEASE</data.model.version>
+        <data.model.version>1.0.17-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
@@ -90,13 +90,13 @@
         as this causes problems and the process will fail. There may be a better 
         way to do this however at the moment commenting the module seems to work. -->
     <modules>
-        <!-- module>fred-client-assembly</module -->
+        <module>fred-client-assembly</module>
         <module>fred-client-config</module>
         <module>fred-client-misc</module>
         <module>fred-client-core</module>
         <module>fred-client-core-it</module>
         <module>fred-client-db-int</module>
-        <!-- module>fred-client-webstart-application</module -->
+        <module>fred-client-webstart-application</module>
     </modules>
 
     <dependencyManagement>
@@ -108,12 +108,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- dependency>
-                <groupId>com.coherentlogic.coherent.data-model</groupId>
-                <artifactId>data-model-core</artifactId>
-                <scope>provided</scope>
-                <version>${data.model.version}</version>
-            </dependency -->
             <dependency>
                 <groupId>com.coherentlogic.fred.client</groupId>
                 <artifactId>fred-client-config</artifactId>
@@ -152,6 +146,11 @@
                 <groupId>commons-cli</groupId>
                 <artifactId>commons-cli</artifactId>
                 <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
