@@ -10,6 +10,6 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="fredApiKey" class="java.lang.String" >
-        <constructor-arg value="33496ed01584cbffcf6834a9009f0aca"/>
+        <constructor-arg value="[TBD]"/>
     </bean>
 </beans>

@@ -85,7 +85,7 @@ public class AboutDialog extends JDialog {
         JLabel blank = newLabel("");
 
         JLabel name = newLabel(
-            "Coherent Logic FRED Client GUI version 1.0.3-RELEASE");
+            "Coherent Logic FRED Client GUI version 1.0.5-RELEASE");
         JLabel copyright = newLabel(
             "Copyright (C) 2012 - Present Coherent Logic Limited; All Rights " +
             "Reserved.");

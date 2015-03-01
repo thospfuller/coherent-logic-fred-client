@@ -274,7 +274,7 @@ public class FREDClientGUI extends JFrame {
 
     private void addAPIMenuItem (JMenu helpMenu) {
 
-        final String destination = "http://bit.ly/15cPyLD";
+        final String destination = "http://bit.ly/1G3dwJG";
 
         JMenuItem apiJavadocs = new JMenuItem("API Javadocs");
 
