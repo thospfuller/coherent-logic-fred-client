@@ -1,7 +1,7 @@
 /* This example, which is written in Groovy script, sends a request to the
  * following URI:
  *
- * http://api.stlouisfed.org/fred/series/vintagedates
+ * https://api.stlouisfed.org/fred/series/vintagedates
  *
  * Note that the api key has been set for you.
  */

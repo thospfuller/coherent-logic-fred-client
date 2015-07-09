@@ -21,16 +21,16 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * because we will need a primary key when saving instances of this class to the
  * database.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/category.html">category</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/category_children.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/category.html">category</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/category_children.html">
  * category_children</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/category_related.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/category_related.html">
  * category_related</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_categories.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_categories.html">
  * series_categories</a>
- * @see <a href="http://research.stlouisfed.org/fred2/categories/">
+ * @see <a href="https://research.stlouisfed.org/fred2/categories/">
  * categories</a>
- * @see <a href="http://research.stlouisfed.org/">research.stlouisfed.org</a>
+ * @see <a href="https://research.stlouisfed.org/">research.stlouisfed.org</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */

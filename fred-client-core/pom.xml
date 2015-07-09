@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
-        <version>1.0.5-RELEASE</version>
+        <version>1.0.6-RELEASE</version>
     </parent>
 
     <!-- ${project.parent.groupId}.${project.parent.artifactId} -->
@@ -71,12 +71,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>

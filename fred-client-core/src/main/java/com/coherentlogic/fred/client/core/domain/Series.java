@@ -44,7 +44,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 /**
  * A class which represents an economic data series.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series.html">series</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series.html">series</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */

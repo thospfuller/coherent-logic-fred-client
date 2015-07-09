@@ -3,7 +3,7 @@ package com.coherentlogic.fred.client.core.domain;
 /**
  * A key that indicates a data value transformation.
  *
- * @see <a href="http://alfred.stlouisfed.org/help#growth_formulas">
+ * @see <a href="https://alfred.stlouisfed.org/help#growth_formulas">
  * growth_formulas</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

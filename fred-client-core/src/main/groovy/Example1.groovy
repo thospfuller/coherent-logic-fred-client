@@ -151,7 +151,7 @@ def applicationContextXML = '''
 
     <bean id="queryBuilderFactory" class="com.coherentlogic.fred.client.core.factories.QueryBuilderFactory">
         <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
-        <constructor-arg name="uri" value="http://api.stlouisfed.org/fred/"/>
+        <constructor-arg name="uri" value="https://api.stlouisfed.org/fred/"/>
         <constructor-arg name="cacheServiceProvider" ref="cacheServiceProvider"/>
         <!-- NOTE: You must supply your own API key to run this example.
           -->
@@ -200,7 +200,7 @@ try {
 *** This is required in order to run this script and you need to provide this ***
 *** yourself.                                                                 ***
 ***                                                                           ***
-*** See here: http://api.stlouisfed.org/api_key.html                          ***
+*** See here: https://api.stlouisfed.org/api_key.html                         ***
 *********************************************************************************''', exception)
 }
 

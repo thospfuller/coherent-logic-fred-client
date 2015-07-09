@@ -3,7 +3,7 @@ package com.coherentlogic.fred.client.core.domain;
 /**
  * An enumeration that indicates an output type.
  *
- * @see <a href="http://alfred.stlouisfed.org/help/downloaddata#outputformats">
+ * @see <a href="https://alfred.stlouisfed.org/help/downloaddata#outputformats">
  * outputformats</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

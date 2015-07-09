@@ -164,7 +164,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series");
+            "https://api.stlouisfed.org/fred/series");
 
         Seriess result = builder
             .setApiKey(API_KEY)
@@ -219,7 +219,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/categories"
+            "https://api.stlouisfed.org/fred/series/categories"
         );
 
         Categories categories = builder
@@ -232,7 +232,7 @@ public class QueryBuilderTest {
         List<Category> categoryList = categories.getCategoryList();
 
         // Value is subject to change.
-        assertEquals (3, categoryList.size());
+        assertEquals (2, categoryList.size());
 
         Category cat275 = categoryList.get(1);
 
@@ -255,7 +255,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/observations"
+            "https://api.stlouisfed.org/fred/series/observations"
         );
 
         Observations observations =
@@ -315,7 +315,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/observations"
+            "https://api.stlouisfed.org/fred/series/observations"
         );
 
         Observations observations =
@@ -362,7 +362,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/observations"
+            "https://api.stlouisfed.org/fred/series/observations"
         );
 
         Observations observations =
@@ -446,7 +446,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/observations"
+            "https://api.stlouisfed.org/fred/series/observations"
         );
 
         Observations observations =
@@ -481,7 +481,7 @@ public class QueryBuilderTest {
     }
 
     /**
-     * http://api.stlouisfed.org/fred/series/release?series_id=IRA
+     * https://api.stlouisfed.org/fred/series/release?series_id=IRA
      * &realtime_start=2001-01-20
      * &realtime_end=2004-05-17
      * &api_key=
@@ -491,7 +491,7 @@ public class QueryBuilderTest {
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/release"
+            "https://api.stlouisfed.org/fred/series/release"
         );
 
         Releases releases =
@@ -538,7 +538,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/updates"
+            "https://api.stlouisfed.org/fred/series/updates"
         );
 
         Seriess seriess =
@@ -599,7 +599,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/series/vintagedates"
+            "https://api.stlouisfed.org/fred/series/vintagedates"
         );
 
         VintageDates vintageDates =
@@ -640,7 +640,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred"
+            "https://api.stlouisfed.org/fred"
         );
 
         Seriess seriess = builder
@@ -685,7 +685,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/category"
+            "https://api.stlouisfed.org/fred/category"
         );
 
         Categories categories = builder
@@ -718,7 +718,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/category/children"
+            "https://api.stlouisfed.org/fred/category/children"
         );
 
         Categories categories = builder
@@ -752,7 +752,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/category/related"
+            "https://api.stlouisfed.org/fred/category/related"
         );
 
         Categories categories = builder
@@ -786,7 +786,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/category/series"
+            "https://api.stlouisfed.org/fred/category/series"
         );
 
         Seriess seriess = builder
@@ -855,7 +855,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSources () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/sources"
+            "https://api.stlouisfed.org/fred/sources"
         );
 
         Sources sources = builder
@@ -874,7 +874,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         List<Source> sourceList = sources.getSourceList();
 
         // Value is subject to change.
-        assertEquals(77, sourceList.size());
+        assertEquals(80, sourceList.size());
 
         Source source7 = sourceList.get(7);
 
@@ -889,7 +889,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSource () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/source"
+            "https://api.stlouisfed.org/fred/source"
         );
 
         Sources sources = builder
@@ -916,7 +916,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSourceRelease () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/source/releases"
+            "https://api.stlouisfed.org/fred/source/releases"
         );
 
         Releases releases = builder
@@ -950,7 +950,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleases () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/releases"
+            "https://api.stlouisfed.org/fred/releases"
         );
 
         Releases releases = builder
@@ -982,7 +982,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleasesDates () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/releases/dates"
+            "https://api.stlouisfed.org/fred/releases/dates"
         );
 
         ReleaseDates releaseDates = builder.setApiKey(API_KEY)
@@ -1007,7 +1007,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getRelease () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/release"
+            "https://api.stlouisfed.org/fred/release"
         );
 
         Releases releases = builder
@@ -1045,7 +1045,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseDates () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/release/dates"
+            "https://api.stlouisfed.org/fred/release/dates"
         );
 
         ReleaseDates releaseDates = builder.setApiKey(API_KEY)
@@ -1084,7 +1084,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder (
             restTemplate,
-            "http://api.stlouisfed.org/fred/release/series");
+            "https://api.stlouisfed.org/fred/release/series");
 
         Seriess result = builder
             .setApiKey(API_KEY)
@@ -1133,7 +1133,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseSources () {
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred/release/sources"
+            "https://api.stlouisfed.org/fred/release/sources"
         );
 
         Sources sources = builder
@@ -1182,7 +1182,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         QueryBuilder builder = new QueryBuilder(
             restTemplate,
-            "http://api.stlouisfed.org/fred"
+            "https://api.stlouisfed.org/fred"
         );
 
         Tags tags = builder

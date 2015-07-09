@@ -22,7 +22,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.WEEKLY_ENDING_WE
  * Read the 'Frequency Aggregation' section of the FRED FAQs for implementation
  * details.
  * <p>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_observations.html#frequency">frequency</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html#frequency">frequency</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */

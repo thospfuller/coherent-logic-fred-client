@@ -19,11 +19,11 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 /**
  * A class which represents a source of economic data.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_sources.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_sources.html">
  * release_sources</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/sources.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/sources.html">
  * sources</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/source.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/source.html">
  * source</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

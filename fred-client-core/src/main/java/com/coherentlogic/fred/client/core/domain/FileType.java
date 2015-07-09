@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * An enumeration that describes the file types available.
  *
  * @see com.coherentlogic.fred.client.core.domain.Message
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_observations.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html">
  * series_observations</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
  * FRED tags are attributes assigned to series. See the related request
- * <a href="http://api.stlouisfed.org/docs/fred/related_tags.html">
+ * <a href="https://api.stlouisfed.org/docs/fred/related_tags.html">
  * fred/related_tags</a>. 
  *
  * Todo: Consider creating a CountableSpecification as the count property is

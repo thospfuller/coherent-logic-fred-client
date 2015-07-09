@@ -24,7 +24,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * A class which represents an observation or data value for an economic data
  * series.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_observations.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html">
  * series_observations</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

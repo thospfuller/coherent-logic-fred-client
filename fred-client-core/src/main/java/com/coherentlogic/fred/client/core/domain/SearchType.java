@@ -6,7 +6,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.SERIES_ID;
 /**
  * An enumeration that is used to determine the type of search to perform.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_search.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  * series_search</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

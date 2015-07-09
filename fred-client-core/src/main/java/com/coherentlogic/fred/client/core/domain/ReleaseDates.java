@@ -27,9 +27,9 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 /**
  * A class which represents the release dates for all releases of economic data.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases_dates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases_dates.html">
  * releases_dates</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_dates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_dates.html">
  * release_dates</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

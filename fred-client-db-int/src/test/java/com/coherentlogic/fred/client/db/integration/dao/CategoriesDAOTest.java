@@ -75,7 +75,7 @@ public class CategoriesDAOTest {
 
         assertNull (firstCategory.getPrimaryKey());
         assertNotNull (categoryList);
-        assertEquals (3, categoryList.size());
+        assertEquals (2, categoryList.size());
 
         categoriesDAO.persist(categories);
 
@@ -89,7 +89,7 @@ public class CategoriesDAOTest {
             persistedCategories.getCategoryList();
 
         assertNotNull (persistedCategories);
-        assertEquals (3, persistedCategoryList.size());
+        assertEquals (2, persistedCategoryList.size());
 
         persistedCategoryList.remove(0);
 
@@ -99,7 +99,7 @@ public class CategoriesDAOTest {
 
         persistedCategoryList = mergedPersistedCategories.getCategoryList();
 
-        assertEquals (2, persistedCategoryList.size());
+        assertEquals (1, persistedCategoryList.size());
 
         categoriesDAO.remove(mergedPersistedCategories);
 

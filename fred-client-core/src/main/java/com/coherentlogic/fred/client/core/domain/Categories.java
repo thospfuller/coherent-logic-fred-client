@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 /**
  * A domain class which represents
- * <a href="http://research.stlouisfed.org/fred2/categories">categories</a> of
+ * <a href="https://research.stlouisfed.org/fred2/categories">categories</a> of
  * economic data.
  *
  * @author <a href="support@coherentlogic.com">Support</a>

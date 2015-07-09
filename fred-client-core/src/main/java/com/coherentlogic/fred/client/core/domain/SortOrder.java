@@ -8,19 +8,19 @@ import static com.coherentlogic.fred.client.core.util.Constants.DESC;
  * observation_date order. Note that the sort order is optional and is set to
  * either 'asc' or 'desc' and defaults to 'asc'.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_vintagedates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_vintagedates.html">
  * series_vintagedates</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_observations.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html">
  * series_observations</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_dates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_dates.html">
  * release_dates</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases_dates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases_dates.html">
  * releases_dates</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases.html">releases</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/sources.html">sources</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_series.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases.html">releases</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/sources.html">sources</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_series.html">
  * release_series</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_search.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  * series_search</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

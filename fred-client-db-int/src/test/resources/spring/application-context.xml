@@ -108,7 +108,7 @@
 
     <bean id="queryBuilderFactory" class="com.coherentlogic.fred.client.core.factories.QueryBuilderFactory">
         <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
-        <constructor-arg name="uri" value="http://api.stlouisfed.org/fred"/>
+        <constructor-arg name="uri" value="https://api.stlouisfed.org/fred"/>
         <!-- NOTE: You must supply your own API key to run this example.
           -->
         <constructor-arg name="apiKey" value="#{T(java.lang.System).getenv('FRED_API_KEY')}"/>

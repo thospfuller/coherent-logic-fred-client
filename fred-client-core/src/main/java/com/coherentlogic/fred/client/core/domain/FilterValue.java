@@ -17,13 +17,13 @@ import static com.coherentlogic.fred.client.core.util.Constants.REGIONAL;
  * <p>
  * Note that 'all' does not filter results.
  * <p>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_updates.html#filter_value">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_updates.html#filter_value">
  *  filter_value</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_search.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  *       series_search</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_series.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_series.html">
  *       release_series</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/category_series.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/category_series.html">
  *       category_series</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

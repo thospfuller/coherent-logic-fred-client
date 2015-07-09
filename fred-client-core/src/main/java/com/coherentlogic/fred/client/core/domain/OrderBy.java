@@ -21,17 +21,17 @@ import static com.coherentlogic.fred.client.core.util.Constants.SERIES_COUNT;
 /**
  * An enumeration that describes the how a result can be ordered.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases.html">releases</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases_dates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases.html">releases</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases_dates.html">
  * releases_dates</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/sources.html">sources</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/source_releases.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/sources.html">sources</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/source_releases.html">
  * source_releases</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/category_series.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/category_series.html">
  * category_series</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release_series.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release_series.html">
  * release_series</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_search.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  * series_search</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

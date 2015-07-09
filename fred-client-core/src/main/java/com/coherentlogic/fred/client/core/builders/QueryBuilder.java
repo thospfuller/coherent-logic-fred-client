@@ -29,7 +29,7 @@ import java.util.regex.Matcher;
 
 import javax.ws.rs.core.UriBuilder;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -80,7 +80,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     static {
         log.warn("***********************************************************");
         log.warn("*** Welcome to the Coherent Logic FRED Client version   ***");
-        log.warn("***                 1.0.4-RELEASE.                      ***");
+        log.warn("***                 1.0.6-RELEASE.                      ***");
         log.warn("***                                                     ***");
         log.warn("***    Please take a moment to follow us on Twitter:    ***");
         log.warn("***                                                     ***");
@@ -224,7 +224,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include series -- for example:
      *
-     * http://api.stlouisfed.org/fred/series
+     * https://api.stlouisfed.org/fred/series
      */
     public QueryBuilder series () {
         extendPathWith(SERIES);
@@ -235,7 +235,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include categories -- for example:
      *
-     * http://api.stlouisfed.org/fred/categories
+     * https://api.stlouisfed.org/fred/categories
      */
     public QueryBuilder categories () {
         extendPathWith(CATEGORIES);
@@ -246,7 +246,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include category -- for example:
      *
-     * http://api.stlouisfed.org/fred/category
+     * https://api.stlouisfed.org/fred/category
      */
     public QueryBuilder category () {
         extendPathWith(CATEGORY);
@@ -257,7 +257,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include observations -- for example:
      *
-     * http://api.stlouisfed.org/fred/observations
+     * https://api.stlouisfed.org/fred/observations
      */
     public QueryBuilder observations () {
         extendPathWith(OBSERVATIONS);
@@ -268,7 +268,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include releases -- for example:
      *
-     * http://api.stlouisfed.org/fred/releases
+     * https://api.stlouisfed.org/fred/releases
      */
     public QueryBuilder releases () {
         extendPathWith(RELEASES);
@@ -279,7 +279,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include release -- for example:
      *
-     * http://api.stlouisfed.org/fred/release
+     * https://api.stlouisfed.org/fred/release
      */
     public QueryBuilder release () {
         extendPathWith(RELEASE);
@@ -290,7 +290,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include updates -- for example:
      *
-     * http://api.stlouisfed.org/fred/updates
+     * https://api.stlouisfed.org/fred/updates
      */
     public QueryBuilder updates () {
         extendPathWith(UPDATES);
@@ -301,7 +301,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include vintagedates -- for example:
      *
-     * http://api.stlouisfed.org/fred/vintagedates
+     * https://api.stlouisfed.org/fred/vintagedates
      */
     public QueryBuilder vintageDates () {
         extendPathWith(VINTAGE_DATES);
@@ -312,7 +312,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include search -- for example:
      *
-     * http://api.stlouisfed.org/fred/search
+     * https://api.stlouisfed.org/fred/search
      */
     public QueryBuilder search () {
         extendPathWith(SEARCH);
@@ -323,7 +323,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include children -- for example:
      *
-     * http://api.stlouisfed.org/fred/children
+     * https://api.stlouisfed.org/fred/children
      */
     public QueryBuilder children () {
         extendPathWith(CHILDREN);
@@ -334,7 +334,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include related -- for example:
      *
-     * http://api.stlouisfed.org/fred/related
+     * https://api.stlouisfed.org/fred/related
      */
     public QueryBuilder related () {
         extendPathWith(RELATED);
@@ -345,7 +345,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include sources -- for example:
      *
-     * http://api.stlouisfed.org/fred/sources
+     * https://api.stlouisfed.org/fred/sources
      */
     public QueryBuilder sources () {
         extendPathWith(SOURCES);
@@ -356,7 +356,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include source -- for example:
      *
-     * http://api.stlouisfed.org/fred/source
+     * https://api.stlouisfed.org/fred/source
      */
     public QueryBuilder source () {
         extendPathWith(SOURCE);
@@ -367,7 +367,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include dates -- for example:
      *
-     * http://api.stlouisfed.org/fred/dates
+     * https://api.stlouisfed.org/fred/dates
      */
     public QueryBuilder dates () {
         extendPathWith(DATES);
@@ -378,7 +378,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     /**
      * Extends the path to include tags -- for example:
      *
-     * http://api.stlouisfed.org/fred/tags
+     * https://api.stlouisfed.org/fred/tags
      */
     public QueryBuilder tags () {
         extendPathWith(TAGS);
@@ -390,7 +390,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
      * Setter method for the API key parameter. Note the API key is requires by
      * every FRED web service.
      *
-     * Register for an API key <a href="http://api.stlouisfed.org/api_key.html">
+     * Register for an API key <a href="https://api.stlouisfed.org/api_key.html">
      * here</a>.
      *
      * @param apiKey For example, "abcdefghijklmnopqrstuvwxyz123456".
@@ -805,7 +805,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
      * as the tagName; this value filters results to match either tag
      * "slovenia", "food", or "oecd".
      *
-     * @see <a href="http://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
+     * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
     public QueryBuilder setTagNames (String tagNames) {
 
@@ -825,7 +825,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
      * and creates a single aggregated string with each value separated by a
      * semicolon (ie. "slovenia;food;oecd").
      *
-     * @see <a href="http://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
+     * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
     public QueryBuilder setTagNames (String... tagNames) {
 

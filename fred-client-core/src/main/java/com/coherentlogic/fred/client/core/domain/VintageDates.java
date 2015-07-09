@@ -27,7 +27,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  * A class which represents the dates in history when a series' data values were
  * revised or new data values were released.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_vintagedates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_vintagedates.html">
  * series_vintagedates</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

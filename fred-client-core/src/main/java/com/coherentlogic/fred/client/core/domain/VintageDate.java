@@ -17,7 +17,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  * A class which represents a date in history when a series' data values were
  * revised or new data values were released.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_vintagedates.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_vintagedates.html">
  * series_vintagedates</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>

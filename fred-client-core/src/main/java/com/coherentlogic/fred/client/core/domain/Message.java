@@ -8,7 +8,7 @@ import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
  * A domain class which represents the content of a response from a call to a
  * web service.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_observations.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html">
  * series_observations</a>
  *
  * Todo: Should this be an entity?

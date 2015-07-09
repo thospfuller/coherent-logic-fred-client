@@ -26,13 +26,13 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 /**
  * A class which represents the releases of an economic data series.
  *
- * @see <a href="http://api.stlouisfed.org/docs/fred/releases.html">releases</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/release.html">release</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/series_release.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/releases.html">releases</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/release.html">release</a>
+ * @see <a href="https://api.stlouisfed.org/docs/fred/series_release.html">
  * series_release</a>
- * @see <a href="http://api.stlouisfed.org/docs/fred/source_releases.html">
+ * @see <a href="https://api.stlouisfed.org/docs/fred/source_releases.html">
  * source_releases</a>
- * @see <a href="http://research.stlouisfed.org/fred2/releases/">releases</a>
+ * @see <a href="https://research.stlouisfed.org/fred2/releases/">releases</a>
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */
