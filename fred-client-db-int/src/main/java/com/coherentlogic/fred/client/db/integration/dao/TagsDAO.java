@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.Tags;
-import com.coherentlogic.fred.client.core.domain.VintageDates;
 
 /**
  * Data access pattern implementation for {@link VintageDates} objects.
