@@ -8,6 +8,7 @@
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
         <version>1.0.6-RELEASE</version>
+        <relativePath>..</relativePath>
     </parent>
 
     <!-- ${project.parent.groupId}.${project.parent.artifactId} -->
