@@ -5,3 +5,4 @@
 /fred-client-webstart-application/target/
 /fred-client-core-it/target/
 /fred-client-assembly/target/
+/fred-client-assembly/dependency-reduced-pom.xml
