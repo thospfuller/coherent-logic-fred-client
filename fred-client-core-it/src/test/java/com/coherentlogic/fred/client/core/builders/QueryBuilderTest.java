@@ -1231,4 +1231,22 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         reviewTag (expectedTag, actualTag);
     }
+    
+    // some observation values may equal "."
+    @Ignore // FIXME
+    @Test
+    public void getRussell2000TotalMarketIndexObservations() {
+        QueryBuilder builder = new QueryBuilder (
+            restTemplate,
+            "https://api.stlouisfed.org/fred"
+        );
+
+        Observations observations =
+            builder
+            	.series()
+            	.observations()
+                .setApiKey(API_KEY)
+                .setSeriesId("RU2000TR")
+                .doGet(Observations.class);
+    }
 }
