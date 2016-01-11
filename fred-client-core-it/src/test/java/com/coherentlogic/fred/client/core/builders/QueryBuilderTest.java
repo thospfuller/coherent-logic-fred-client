@@ -1233,7 +1233,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     }
     
     // some observation values may equal "."
-    @Ignore // FIXME
+//    @Ignore // FIXME
     @Test
     public void getRussell2000TotalMarketIndexObservations() {
         QueryBuilder builder = new QueryBuilder (
@@ -1248,5 +1248,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .setApiKey(API_KEY)
                 .setSeriesId("RU2000TR")
                 .doGet(Observations.class);
+        
+        // first value is 100.0
+        assertEquals(100.0,
+                observations.getObservationList().get(0).getValue().doubleValue(),
+                1e-7);
+        
+        // second is "."
+        assertNull(observations.getObservationList().get(1).getValue());
     }
 }
