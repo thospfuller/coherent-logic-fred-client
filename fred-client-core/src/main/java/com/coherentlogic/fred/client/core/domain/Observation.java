@@ -16,9 +16,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
+import com.coherentlogic.fred.client.core.converters.ObservationValueConverter;
 import com.coherentlogic.fred.client.core.util.Constants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 /**
  * A class which represents an observation or data value for an economic data
@@ -51,6 +53,7 @@ public class Observation extends SerializableBean
 
     @XStreamAlias(VALUE)
     @XStreamAsAttribute
+    @XStreamConverter(ObservationValueConverter.class)
     private BigDecimal value = null;
 
     /**
