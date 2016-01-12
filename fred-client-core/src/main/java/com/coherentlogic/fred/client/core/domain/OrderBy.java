@@ -2,6 +2,7 @@ package com.coherentlogic.fred.client.core.domain;
 
 import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY;
 import static com.coherentlogic.fred.client.core.util.Constants.LAST_UPDATED;
+import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATION_DATE;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATION_END;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATION_START;
 import static com.coherentlogic.fred.client.core.util.Constants.POPULARITY;
@@ -63,7 +64,8 @@ public enum OrderBy {
     observationEnd(OBSERVATION_END),
     popularity(POPULARITY),
     vintageDate(VINTAGE_DATE),
-    seriesCount(SERIES_COUNT);
+    seriesCount(SERIES_COUNT),
+    observationDate(OBSERVATION_DATE);
 
     private final String value;
 

@@ -126,7 +126,8 @@ public class QueryBuilder extends AbstractQueryBuilder {
         SOURCE_ID = "source_id",
         SEARCH_TEXT = "search_text",
         SEARCH_TYPE = "search_type",
-        SEMICOLON = ";";
+        SEMICOLON = ";",
+        FRED_API_ENTRY_POINT = "https://api.stlouisfed.org/fred";
 
     private static final Calendar MIN_DATE_CALENDAR, MAX_DATE_CALENDAR;
 
@@ -140,6 +141,22 @@ public class QueryBuilder extends AbstractQueryBuilder {
         MAX_DATE_CALENDAR.set(Calendar.YEAR, 9999);
         MAX_DATE_CALENDAR.set(Calendar.MONTH, Calendar.DECEMBER);
         MAX_DATE_CALENDAR.set(Calendar.DAY_OF_MONTH, 31);
+    }
+    
+    /**
+     * 
+     * @return 9999-12-31
+     */
+    public static Calendar getMaxDateCalendar() {
+        return (Calendar) MAX_DATE_CALENDAR.clone();
+    }
+
+    /**
+     * 
+     * @return 1776-07-04
+     */
+    public static Calendar getMinDateCalendar() {
+        return (Calendar) MIN_DATE_CALENDAR.clone();
     }
 
     /**
@@ -158,6 +175,12 @@ public class QueryBuilder extends AbstractQueryBuilder {
         String uri
     ) {
         super (restTemplate, uri);
+    }
+
+    public QueryBuilder (
+        RestTemplate restTemplate
+    ) {
+        super (restTemplate, FRED_API_ENTRY_POINT);
     }
 
     /**
@@ -180,6 +203,13 @@ public class QueryBuilder extends AbstractQueryBuilder {
         CacheServiceProviderSpecification<String, Object> cache
     ) {
         super(restTemplate, uri, cache);
+    }
+
+    public QueryBuilder(
+        RestTemplate restTemplate,
+        CacheServiceProviderSpecification<String, Object> cache
+    ) {
+        super(restTemplate, FRED_API_ENTRY_POINT, cache);
     }
 
     /**

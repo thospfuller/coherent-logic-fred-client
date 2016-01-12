@@ -1,0 +1,8 @@
+/fred-client-config/target/
+/fred-client-misc/target/
+/fred-client-core/target/
+/fred-client-db-int/target/
+/fred-client-webstart-application/target/
+/fred-client-core-it/target/
+/fred-client-assembly/target/
+/fred-client-assembly/dependency-reduced-pom.xml
