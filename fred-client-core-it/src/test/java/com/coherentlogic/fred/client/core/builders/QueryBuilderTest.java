@@ -1246,12 +1246,15 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             	.observations()
                 .setApiKey(API_KEY)
                 .setSeriesId("RU2000TR")
+                .setOrderBy(OrderBy.observationDate)
+                .setSortOrder(SortOrder.asc)
                 .doGet(Observations.class);
         
         // first value is 100.0
-        assertEquals(100.0,
-                observations.getObservationList().get(0).getValue().doubleValue(),
-                1e-7);
+        assertEquals(
+                new BigDecimal("100.00"),
+                observations.getObservationList().get(0).getValue()
+        );
         
         // second is "."
         assertNull(observations.getObservationList().get(1).getValue());
