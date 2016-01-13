@@ -14,6 +14,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.WEEKLY_ENDING_MO
 import static com.coherentlogic.fred.client.core.util.Constants.WEEKLY_ENDING_THURSDAY;
 import static com.coherentlogic.fred.client.core.util.Constants.WEEKLY_ENDING_TUESDAY;
 import static com.coherentlogic.fred.client.core.util.Constants.WEEKLY_ENDING_WEDNESDAY;
+import java.util.HashMap;
 
 /**
  * An optional parameter that indicates a lower frequency to aggregate values
@@ -45,10 +46,24 @@ public enum Frequency {
 
     private final String value;
 
+    // inverse lookup table
+    private final static HashMap<String, Frequency> byString
+            = new HashMap<>();
+    
+    static {
+        for (Frequency frequency : Frequency.values()) {
+            byString.put(frequency.toString().toLowerCase(), frequency);
+        }
+    }
+    
     Frequency (String value) {
         this.value = value;
     }
 
+    public static Frequency fromString(String frequency) {
+        return byString.get(frequency.toLowerCase());
+    }
+    
     @Override
     public String toString () {
         return value;

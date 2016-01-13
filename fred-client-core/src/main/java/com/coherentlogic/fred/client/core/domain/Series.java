@@ -282,6 +282,20 @@ public class Series extends IdentityBean
     public String getFrequencyShort () {
         return frequencyShort;
     }
+    
+    /**
+     * Get frequency as Frequency enum.
+     * 
+     * @return the frequency as Frequency enum.
+     */
+    public Frequency frequency() {
+        Frequency frequencyFromString = Frequency.fromString(getFrequencyShort());
+        if (frequencyFromString == null) {
+            throw new IllegalStateException("unknown frequency "
+                    + getFrequencyShort());
+        }
+        return frequencyFromString;
+    }
 
     /**
      * Setter method for the short frequency property.
