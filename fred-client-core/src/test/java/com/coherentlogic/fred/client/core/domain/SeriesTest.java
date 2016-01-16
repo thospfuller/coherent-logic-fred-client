@@ -98,23 +98,6 @@ public class SeriesTest {
         );
     }
 
-//    @Test
-//    public void testSetFrequencyShort() {
-//        testSetterMethod(
-//            series,
-//            flag,
-//            FREQUENCY_SHORT_PROPERTY,
-//            null,
-//            TEST_STRING,
-//            new Action<Series> () {
-//                @Override
-//                public void execute(Series data) {
-//                    data.setFrequencyShort(TEST_STRING);
-//                }
-//            }
-//        );
-//    }
-//
     @Test
     public void testSetUnits() {
         testSetterMethod(

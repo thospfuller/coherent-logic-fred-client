@@ -274,34 +274,6 @@ public class Series extends IdentityBean
     }
 
     /**
-     * Getter method for the short frequency property.
-     *
-     * @return The short frequency as a string.
-     *
-     * Todo: Should this be returning an enum?
-     */
-//    @Column(name=FREQUENCY_SHORT_VALUE)
-//    public String getFrequencyShort () {
-//        return frequencyShort;
-//    }
-    
-    /**
-     * Setter method for the short frequency property.
-     */
-//    public void setFrequencyShort (String frequencyShort) {
-//
-//        String oldValue = this.frequencyShort;
-//
-//        this.frequencyShort = frequencyShort;
-//
-//        firePropertyChange(
-//            FREQUENCY_SHORT_PROPERTY,
-//            oldValue,
-//            frequencyShort
-//        );
-//    }
-
-    /**
      * Getter method for the units property.
      *
      * @return The units as a string.
