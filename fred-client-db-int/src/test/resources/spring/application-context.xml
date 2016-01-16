@@ -57,6 +57,10 @@
         <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.FilterValue"/>
     </bean>
 
+    <bean id="fredFrequencyEnumConverter" class="com.coherentlogic.fred.client.core.converters.FrequencyEnumConverter">
+        <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.Frequency"/>
+    </bean>
+
     <bean id="xstreamMarshaller" class="com.coherentlogic.coherent.data.model.core.xstream.CustomXStreamMarshaller">
         <!-- Underscores in attributes cause problems with XStream and the stream driver below
              addresses this issue - in particular see the XmlFriendlyReplacer.
@@ -102,6 +106,7 @@
                 <ref bean="fredSortOrderConverter"/>
                 <ref bean="fredOrderByEnumConverter"/>
                 <ref bean="fredFilterValueEnumConverter"/>
+                <ref bean="fredFrequencyEnumConverter"/>
             </array>
         </property>
     </bean>

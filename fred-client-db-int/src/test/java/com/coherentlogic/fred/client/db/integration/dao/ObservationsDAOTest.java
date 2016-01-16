@@ -137,7 +137,7 @@ public class ObservationsDAOTest {
                 .setObservationStart(observationStart)
                 .setObservationEnd(observationEnd)
                 .setUnits(Unit.lin)
-                .setFrequency(Frequency.annually)
+                .setFrequency(Frequency.a)
                 .setAggregationMethod(AggregationMethod.sum)
                 .setOutputType(OutputType.observationsByRealTimePeriod)
                 .setFileType(FileType.xls)

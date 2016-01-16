@@ -1,7 +1,6 @@
 package com.coherentlogic.fred.client.core.domain;
 
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.FREQUENCY_PROPERTY;
-import static com.coherentlogic.fred.client.core.domain.PropertyNames.FREQUENCY_SHORT_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.LAST_UPDATED_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.NOTES_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.POPULARITY_PROPERTY;
@@ -10,6 +9,7 @@ import static com.coherentlogic.fred.client.core.domain.PropertyNames.SEASONAL_A
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.TITLE_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.UNITS_PROPERTY;
 import static com.coherentlogic.fred.client.core.util.TestUtils.TEST_DATE;
+import static com.coherentlogic.fred.client.core.util.TestUtils.TEST_FREQUENCY;
 import static com.coherentlogic.fred.client.core.util.TestUtils.TEST_INT;
 import static com.coherentlogic.fred.client.core.util.TestUtils.TEST_STRING;
 import static com.coherentlogic.fred.client.core.util.TestUtils.testSetterMethod;
@@ -88,33 +88,33 @@ public class SeriesTest {
             flag,
             FREQUENCY_PROPERTY,
             null,
-            TEST_STRING,
+            TEST_FREQUENCY,
             new Action<Series> () {
                 @Override
                 public void execute(Series data) {
-                    data.setFrequency(TEST_STRING);
+                    data.setFrequency(TEST_FREQUENCY);
                 }
             }
         );
     }
 
-    @Test
-    public void testSetFrequencyShort() {
-        testSetterMethod(
-            series,
-            flag,
-            FREQUENCY_SHORT_PROPERTY,
-            null,
-            TEST_STRING,
-            new Action<Series> () {
-                @Override
-                public void execute(Series data) {
-                    data.setFrequencyShort(TEST_STRING);
-                }
-            }
-        );
-    }
-
+//    @Test
+//    public void testSetFrequencyShort() {
+//        testSetterMethod(
+//            series,
+//            flag,
+//            FREQUENCY_SHORT_PROPERTY,
+//            null,
+//            TEST_STRING,
+//            new Action<Series> () {
+//                @Override
+//                public void execute(Series data) {
+//                    data.setFrequencyShort(TEST_STRING);
+//                }
+//            }
+//        );
+//    }
+//
     @Test
     public void testSetUnits() {
         testSetterMethod(

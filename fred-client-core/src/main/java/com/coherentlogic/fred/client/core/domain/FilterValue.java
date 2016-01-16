@@ -1,9 +1,5 @@
 package com.coherentlogic.fred.client.core.domain;
 
-import static com.coherentlogic.fred.client.core.util.Constants.ALL;
-import static com.coherentlogic.fred.client.core.util.Constants.MACRO;
-import static com.coherentlogic.fred.client.core.util.Constants.REGIONAL;
-
 /**
  * An enumeration of filter values.
  * <p>
@@ -30,16 +26,6 @@ import static com.coherentlogic.fred.client.core.util.Constants.REGIONAL;
  */
 public enum FilterValue {
 
-    all(ALL), macro(MACRO), regional(REGIONAL);
+    all, macro, regional;
 
-    private final String filterValue;
-
-    FilterValue (String filterValue) {
-        this.filterValue = filterValue;
-    }
-
-    @Override
-    public String toString () {
-        return filterValue;
-    }
 }

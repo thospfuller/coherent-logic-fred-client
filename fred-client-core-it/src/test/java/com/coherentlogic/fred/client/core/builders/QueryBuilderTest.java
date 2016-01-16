@@ -16,6 +16,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.junit.Ignore;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +55,6 @@ import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
-import org.junit.Ignore;
 
 /**
  * Integration test for the QueryBuilder class.
@@ -99,6 +101,9 @@ public class QueryBuilderTest {
             "src/test/resources/spring/application-context.xml");
 
     private RestTemplate restTemplate = null;
+    
+    static final DateTimeFormatter dateFormatter
+            = DateTimeFormat.forPattern("YYYY-MM-DD").withZoneUTC();
 
     @Before
     public void setUp () throws Exception {
@@ -131,6 +136,7 @@ public class QueryBuilderTest {
      *
      * Todo: WE NEED TO ENABLE THE TEST LOGIC IN THIS METHOD!
      */
+    @SuppressWarnings("unused")
     static void assertDateIsAccurate (
         Date expected,
         Date actual
@@ -200,8 +206,7 @@ public class QueryBuilderTest {
             using (2003, Calendar.JANUARY, 01),
             seriesOne.getObservationEnd()
         );
-        assertEquals ("Annual", seriesOne.getFrequency());
-        assertEquals ("A", seriesOne.getFrequencyShort());
+        assertEquals (Frequency.a, seriesOne.getFrequency());
         assertEquals ("Billions of Chained 2000 Dollars", seriesOne.getUnits());
         assertEquals ("Bil. of Chn. 2000 $", seriesOne.getUnitsShort());
         assertEquals (
@@ -331,7 +336,7 @@ public class QueryBuilderTest {
                 .setObservationStart(observationStart)
                 .setObservationEnd(observationEnd)
                 .setUnits(Unit.lin)
-                .setFrequency(Frequency.annually)
+                .setFrequency(Frequency.a)
                 .setAggregationMethod(AggregationMethod.sum)
                 .setOutputType(OutputType.observationsByRealTimePeriod)
                 .setFileType(FileType.xls)
@@ -378,7 +383,7 @@ public class QueryBuilderTest {
                 .setObservationStart(observationStart)
                 .setObservationEnd(observationEnd)
                 .setUnits(Unit.lin)
-                .setFrequency(Frequency.annually)
+                .setFrequency(Frequency.a)
                 .setAggregationMethod(AggregationMethod.sum)
                 .setOutputType(OutputType.observationsByRealTimePeriod)
                 .setFileType(FileType.xml)
@@ -462,7 +467,7 @@ public class QueryBuilderTest {
                 .setObservationStart(observationStart)
                 .setObservationEnd(observationEnd)
                 .setUnits(Unit.lin)
-                .setFrequency(Frequency.annually)
+                .setFrequency(Frequency.a)
                 .setAggregationMethod(AggregationMethod.sum)
                 .setOutputType(OutputType.observationsByRealTimePeriod)
                 .setFileType(FileType.txt)
@@ -573,7 +578,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurate (using (2002, Calendar.DECEMBER, 6),
             series3.getObservationEnd());
         assertEquals("Bi-Weekly, Beg. of Period", series3.getFrequency());
-        assertEquals("BW", series3.getFrequencyShort());
+        assertEquals(Frequency.bw, series3.getFrequency());
         assertEquals("Percent", series3.getUnits());
         assertEquals("%", series3.getUnitsShort());
         assertEquals("Not Seasonally Adjusted",
@@ -837,8 +842,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurate(
             using (2013, Calendar.JULY, 01),
             series.getObservationEnd());
-        assertEquals("Quarterly", series.getFrequency());
-        assertEquals("Q", series.getFrequencyShort());
+        //assertEquals("Quarterly", series.getFrequency());
+        assertEquals(Frequency.q, series.getFrequency());
         assertEquals("Billions of Dollars", series.getUnits());
         assertEquals("Bil. of $", series.getUnitsShort());
         assertEquals("Not Seasonally Adjusted", series.getSeasonalAdjustment());
@@ -1128,7 +1133,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurate (
             using (2004, Calendar.MARCH, 01),
             seriesOne.getObservationEnd());
-        assertEquals ("Monthly", seriesOne.getFrequency());
+        assertEquals (Frequency.m, seriesOne.getFrequency());
     }
 
     @Test
@@ -1258,5 +1263,62 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         
         // second is "."
         assertNull(observations.getObservationList().get(1).getValue());
+    }
+    
+    @Test
+    public void testObservationRequestFrequencyParam() {
+        QueryBuilder builder = new QueryBuilder (
+            restTemplate,
+            "https://api.stlouisfed.org/fred"
+        );
+
+        Observations observations =
+            builder
+                .series()
+                .observations()
+                .setApiKey(API_KEY)
+                .setSeriesId("RU2000TR")
+                .setSortOrder(SortOrder.asc)
+                .setUnits(Unit.lin)
+                .setFrequency(Frequency.a)
+                .setAggregationMethod(AggregationMethod.sum)
+                .setOutputType(OutputType.observationsByRealTimePeriod)
+                .doGet(Observations.class);
+        
+        assertEquals(
+                dateFormatter.parseDateTime("1978-01-01").getMillis(),
+                observations.getObservationList().get(0).getDate().getTime()
+        );
+        assertEquals(
+                dateFormatter.parseDateTime("1979-01-01").getMillis(),
+                observations.getObservationList().get(1).getDate().getTime()
+        );
+    }
+    
+    @Test
+    public void testOldDatesBeforeEpoch() {
+        QueryBuilder builder = new QueryBuilder (
+            restTemplate,
+            "https://api.stlouisfed.org/fred"
+        );
+
+        Observations observations =
+            builder
+                .series()
+                .observations()
+                .setApiKey(API_KEY)
+                .setSeriesId("GNPCA")
+                .setSortOrder(SortOrder.asc)
+                .setOrderBy(OrderBy.observationDate)
+                .doGet(Observations.class);
+        
+        assertEquals(
+                dateFormatter.parseDateTime("1929-01-01").getMillis(),
+                observations.getObservationList().get(0).getDate().getTime()
+        );
+        assertEquals(
+                dateFormatter.parseDateTime("1930-01-01").getMillis(),
+                observations.getObservationList().get(1).getDate().getTime()
+        );
     }
 }

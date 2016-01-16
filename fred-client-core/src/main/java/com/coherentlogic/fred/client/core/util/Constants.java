@@ -65,7 +65,9 @@ public class Constants {
         WEEKLY_ENDING_TUESDAY = "wetu",
         WEEKLY_ENDING_MONDAY = "wem",
         BI_WEEKLY_ENDING_WEDNESDAY = "bwew",
-        BI_WEEKLY_ENDING_MONDAY = "bwem"; 
+        BI_WEEKLY_ENDING_MONDAY = "bwem",
+        FIVE_YEARS = "5Y",
+        NA = "NA"; 
 
     public static final String FULL_TEXT = "full_text", SERIES_ID = "series_id",
         SOURCE_ID = "source_id", RELEASE_ID = "release_id";
@@ -115,11 +117,6 @@ public class Constants {
         UNITS_VALUE = "units_value",
         FREQUENCY_SHORT_VALUE = "frequency_short_value",
         FREQUENCY_VALUE = "frequency_value";
-
-    public static final String
-        ALL = "all",
-        MACRO = "macro",
-        REGIONAL = "regional";
 
     public static final String
         TAGS = "tags",

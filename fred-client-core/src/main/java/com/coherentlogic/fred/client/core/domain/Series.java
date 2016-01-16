@@ -1,7 +1,6 @@
 package com.coherentlogic.fred.client.core.domain;
 
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.FREQUENCY_PROPERTY;
-import static com.coherentlogic.fred.client.core.domain.PropertyNames.FREQUENCY_SHORT_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.LAST_UPDATED_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.NOTES_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.POPULARITY_PROPERTY;
@@ -10,9 +9,7 @@ import static com.coherentlogic.fred.client.core.domain.PropertyNames.SEASONAL_A
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.TITLE_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.UNITS_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.UNITS_SHORT_PROPERTY;
-import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY;
 import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY_SHORT;
-import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY_SHORT_VALUE;
 import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY_VALUE;
 import static com.coherentlogic.fred.client.core.util.Constants.LAST_UPDATED;
 import static com.coherentlogic.fred.client.core.util.Constants.NOTES;
@@ -35,11 +32,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.coherentlogic.coherent.data.model.core.domain.IdentityBean;
+import com.coherentlogic.fred.client.core.converters.FrequencyEnumConverter;
 import com.coherentlogic.fred.client.core.converters.PopularityConverter;
 import com.coherentlogic.fred.client.core.util.Constants;
+import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * A class which represents an economic data series.
@@ -77,13 +77,15 @@ public class Series extends IdentityBean
     @XStreamAsAttribute
     private Date observationEnd = null;
 
-    @XStreamAlias(FREQUENCY)
-    @XStreamAsAttribute
-    private String frequency = null;
-
     @XStreamAlias(FREQUENCY_SHORT)
     @XStreamAsAttribute
-    private String frequencyShort = null;
+    @XStreamConverter(FrequencyEnumConverter.class)
+    private Frequency frequency = null;
+
+    @XStreamAlias(FREQUENCY)
+    @XStreamAsAttribute
+    @XStreamOmitField
+    private String frequencyLong = null;
 
     @XStreamAlias(UNITS)
     @XStreamAsAttribute
@@ -241,7 +243,7 @@ public class Series extends IdentityBean
      * Todo: Should this be returning an enum?
      */
     @Column(name=FREQUENCY_VALUE)
-    public String getFrequency () {
+    public Frequency getFrequency () {
         return frequency;
     }
 
@@ -258,9 +260,9 @@ public class Series extends IdentityBean
      *  long/short frequencies and instead just create one Frequency data point,
      *  using the Frequency enum, and use that exclusively.
      */
-    public void setFrequency (String frequency) {
+    public void setFrequency (Frequency frequency) {
 
-        String oldValue = this.frequency;
+        Frequency oldValue = this.frequency;
 
         this.frequency = frequency;
 
@@ -278,40 +280,26 @@ public class Series extends IdentityBean
      *
      * Todo: Should this be returning an enum?
      */
-    @Column(name=FREQUENCY_SHORT_VALUE)
-    public String getFrequencyShort () {
-        return frequencyShort;
-    }
+//    @Column(name=FREQUENCY_SHORT_VALUE)
+//    public String getFrequencyShort () {
+//        return frequencyShort;
+//    }
     
-    /**
-     * Get frequency as Frequency enum.
-     * 
-     * @return the frequency as Frequency enum.
-     */
-    public Frequency frequency() {
-        Frequency frequencyFromString = Frequency.fromString(getFrequencyShort());
-        if (frequencyFromString == null) {
-            throw new IllegalStateException("unknown frequency "
-                    + getFrequencyShort());
-        }
-        return frequencyFromString;
-    }
-
     /**
      * Setter method for the short frequency property.
      */
-    public void setFrequencyShort (String frequencyShort) {
-
-        String oldValue = this.frequencyShort;
-
-        this.frequencyShort = frequencyShort;
-
-        firePropertyChange(
-            FREQUENCY_SHORT_PROPERTY,
-            oldValue,
-            frequencyShort
-        );
-    }
+//    public void setFrequencyShort (String frequencyShort) {
+//
+//        String oldValue = this.frequencyShort;
+//
+//        this.frequencyShort = frequencyShort;
+//
+//        firePropertyChange(
+//            FREQUENCY_SHORT_PROPERTY,
+//            oldValue,
+//            frequencyShort
+//        );
+//    }
 
     /**
      * Getter method for the units property.

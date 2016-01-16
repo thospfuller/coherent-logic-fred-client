@@ -18,19 +18,6 @@ public class FilterValueEnumConverter extends EnumSingleValueConverter {
     @Override
     public Object fromString(String value) {
 
-        FilterValue result = null;
-
-        if (FilterValue.all.toString().equals(value))
-            result = FilterValue.all;
-        else if (FilterValue.macro.toString().equals(value))
-            result = FilterValue.macro;
-        else if (FilterValue.regional.toString().equals(value))
-            result = FilterValue.regional;
-        else
-            throw new IllegalArgumentException(
-                "The value " + value + " cannot be converted into an " +
-                "instance of this enumeration.");
-
-        return result;
+        return FilterValue.valueOf(value);
     }
 }
