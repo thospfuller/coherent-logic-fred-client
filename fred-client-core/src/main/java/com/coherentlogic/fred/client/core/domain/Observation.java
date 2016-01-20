@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
+import com.coherentlogic.fred.client.core.converters.ObservationDateConverter;
 import com.coherentlogic.fred.client.core.converters.ObservationValueConverter;
 import com.coherentlogic.fred.client.core.util.Constants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -49,6 +50,7 @@ public class Observation extends SerializableBean
 
     @XStreamAlias(DATE)
     @XStreamAsAttribute
+    @XStreamConverter(ObservationDateConverter.class)
     private Date date = null;
 
     @XStreamAlias(VALUE)
