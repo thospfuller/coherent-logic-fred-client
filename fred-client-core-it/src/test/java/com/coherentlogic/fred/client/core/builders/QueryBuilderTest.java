@@ -56,6 +56,7 @@ import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
 import java.util.Locale;
+import org.joda.time.format.ISODateTimeFormat;
 
 /**
  * Integration test for the QueryBuilder class.
@@ -105,6 +106,10 @@ public class QueryBuilderTest {
     
     static final DateTimeFormatter dateFormatter
             = DateTimeFormat.forPattern("yyyy-MM-dd")
+                    .withLocale(Locale.ROOT)
+                    .withZoneUTC();
+    static final DateTimeFormatter isoDateFormatter
+            = ISODateTimeFormat.dateTime()
                     .withLocale(Locale.ROOT)
                     .withZoneUTC();
 
@@ -1312,6 +1317,29 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertObsEquals("1929-01-01", "1066.8", observations, 0);
         assertObsEquals("1930-01-01", "976.3", observations, 1);
         assertObsEquals("1931-01-01", "912.9", observations, 2);
+    }
+
+    @Test
+    public void testPrecisionAndTZ() {
+        QueryBuilder builder = new QueryBuilder (
+            restTemplate,
+            "https://api.stlouisfed.org/fred"
+        );
+
+        Observations observations =
+            builder
+                .series()
+                .observations()
+                .setApiKey(API_KEY)
+                .setSeriesId("GNPCA")
+                .setSortOrder(SortOrder.asc)
+                .setOrderBy(OrderBy.observationDate)
+                .doGet(Observations.class);
+        
+        assertEquals(
+                "1929-01-01T00:00:00.000Z",
+                isoDateFormatter.print(observations.getObservationList().get(0).getDate().getTime())
+        );
     }
 
     private static void assertObsEquals(
