@@ -1,6 +1,7 @@
 package com.coherentlogic.fred.client.core.converters;
 
 import com.thoughtworks.xstream.converters.basic.DateConverter;
+import java.util.Locale;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -14,7 +15,9 @@ import org.joda.time.format.DateTimeFormatter;
 public class ObservationDateConverter extends DateConverter {
 
     private static final DateTimeFormatter FORMATTER
-            = DateTimeFormat.forPattern("YYYY-MM-DD").withZoneUTC();
+            = DateTimeFormat.forPattern("yyyy-MM-dd")
+                    .withLocale(Locale.ROOT)
+                    .withZoneUTC();
     
     @Override
     public Object fromString(String value) {

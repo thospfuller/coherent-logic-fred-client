@@ -55,6 +55,7 @@ import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
+import java.util.Locale;
 
 /**
  * Integration test for the QueryBuilder class.
@@ -103,7 +104,9 @@ public class QueryBuilderTest {
     private RestTemplate restTemplate = null;
     
     static final DateTimeFormatter dateFormatter
-            = DateTimeFormat.forPattern("YYYY-MM-DD").withZoneUTC();
+            = DateTimeFormat.forPattern("yyyy-MM-dd")
+                    .withLocale(Locale.ROOT)
+                    .withZoneUTC();
 
     @Before
     public void setUp () throws Exception {
@@ -1256,13 +1259,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .doGet(Observations.class);
         
         // first value is 100.0
-        assertEquals(
-                new BigDecimal("100.00"),
-                observations.getObservationList().get(0).getValue()
-        );
+        assertObsEquals("1978-12-29", "100.00", observations, 0);
         
         // second is "."
-        assertNull(observations.getObservationList().get(1).getValue());
+        assertObsEquals("1979-01-01", null, observations, 1);
+        
+        assertObsEquals("1979-01-02", "100.71", observations, 2);
     }
     
     @Test
@@ -1285,14 +1287,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .setOutputType(OutputType.observationsByRealTimePeriod)
                 .doGet(Observations.class);
         
-        assertEquals(
-                dateFormatter.parseDateTime("1978-01-01").getMillis(),
-                observations.getObservationList().get(0).getDate().getTime()
-        );
-        assertEquals(
-                dateFormatter.parseDateTime("1979-01-01").getMillis(),
-                observations.getObservationList().get(1).getDate().getTime()
-        );
+        assertObsEquals("1978-01-01", null, observations, 0);
+        assertObsEquals("1979-01-01", "31162.40", observations, 1);
+        assertObsEquals("1980-01-01", "41342.34", observations, 2);
     }
     
     @Test
@@ -1312,13 +1309,25 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .setOrderBy(OrderBy.observationDate)
                 .doGet(Observations.class);
         
+        assertObsEquals("1929-01-01", "1066.8", observations, 0);
+        assertObsEquals("1930-01-01", "976.3", observations, 1);
+        assertObsEquals("1931-01-01", "912.9", observations, 2);
+    }
+
+    private static void assertObsEquals(
+            String expectedDate,
+            String expectedValue,
+            Observations observations,
+            int index
+    ) {
         assertEquals(
-                dateFormatter.parseDateTime("1929-01-01").getMillis(),
-                observations.getObservationList().get(0).getDate().getTime()
+                expectedDate,
+                dateFormatter.print(observations.getObservationList().get(index).getDate().getTime())
         );
         assertEquals(
-                dateFormatter.parseDateTime("1930-01-01").getMillis(),
-                observations.getObservationList().get(1).getDate().getTime()
+                expectedValue != null ? new BigDecimal(expectedValue) : null,
+                observations.getObservationList().get(index).getValue()
         );
     }
+        
 }
