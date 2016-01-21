@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.builders.QueryBuilder;
@@ -27,7 +27,7 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration
+@Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
 public class ReleaseDatesDAOTest {
