@@ -15,7 +15,7 @@
 
     <groupId>com.coherentlogic.fred</groupId>
     <artifactId>client</artifactId>
-    <version>1.0.6-RELEASE</version>
+    <version>1.0.7-RELEASE</version>
 
     <packaging>pom</packaging>
     <name>Coherent Logic FRED Client</name>
@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
-        <data.model.version>1.0.16-RELEASE</data.model.version>
+        <data.model.version>1.0.18-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
@@ -35,9 +35,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</connection>
-        <developerConnection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</developerConnection>
-        <url>https://coherentlogic.atlassian.net/source/browse/FI/trunk</url>
+        <!-- connection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</connection>
+        <developerConnection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</developerConnection -->
+        <url>https://bitbucket.org/CoherentLogic/coherent-logic-fred-client</url>
         <tag>HEAD</tag>
     </scm>
     <developers>
@@ -151,7 +151,7 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.4</version>
-</dependency>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
