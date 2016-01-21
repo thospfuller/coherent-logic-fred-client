@@ -252,6 +252,11 @@ public class Seriess extends SerializableBean
         return limit;
     }
 
+    /**
+     * In the H2 database the limit is a reserved keyword so we are renaming
+     * this, otherwise we'll see an exception along the lines of "Table
+     * 'DEFAULTOBJECT' not found; SQL statement".
+     */
     @Column(name=OFFSET_VALUE)
     @Override
     public int getOffset() {
