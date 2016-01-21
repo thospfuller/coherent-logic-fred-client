@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.coherent.data.model.core.builders.AbstractQueryBuilder;
+import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractQueryBuilder;
 import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.FileType;
