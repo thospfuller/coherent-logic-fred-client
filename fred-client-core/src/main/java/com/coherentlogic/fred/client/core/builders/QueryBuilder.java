@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractQueryBuilder;
+import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractRESTQueryBuilder;
 import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.FileType;
@@ -69,7 +69,7 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */
-public class QueryBuilder extends AbstractQueryBuilder {
+public class QueryBuilder extends AbstractRESTQueryBuilder {
 
     private static final Logger log =
         LoggerFactory.getLogger(QueryBuilder.class);
@@ -80,7 +80,7 @@ public class QueryBuilder extends AbstractQueryBuilder {
     static {
         log.warn("***********************************************************");
         log.warn("*** Welcome to the Coherent Logic FRED Client version   ***");
-        log.warn("***                 1.0.6-RELEASE.                      ***");
+        log.warn("***                 1.0.7-RELEASE.                      ***");
         log.warn("***                                                     ***");
         log.warn("***    Please take a moment to follow us on Twitter:    ***");
         log.warn("***                                                     ***");
