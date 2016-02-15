@@ -15,7 +15,7 @@
 
     <groupId>com.coherentlogic.fred</groupId>
     <artifactId>client</artifactId>
-    <version>1.0.6-RELEASE</version>
+    <version>1.0.7-RELEASE</version>
 
     <packaging>pom</packaging>
     <name>Coherent Logic FRED Client</name>
@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
-        <data.model.version>1.0.16-RELEASE</data.model.version>
+        <data.model.version>1.0.18-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
@@ -35,9 +35,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</connection>
-        <developerConnection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</developerConnection>
-        <url>https://coherentlogic.atlassian.net/source/browse/FI/trunk</url>
+        <!-- connection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</connection>
+        <developerConnection>scm:svn:https://coherentlogic.atlassian.net/source/browse/FI/trunk</developerConnection -->
+        <url>https://bitbucket.org/CoherentLogic/coherent-logic-fred-client</url>
         <tag>HEAD</tag>
     </scm>
     <developers>
@@ -90,7 +90,7 @@
         as this causes problems and the process will fail. There may be a better 
         way to do this however at the moment commenting the module seems to work. -->
     <modules>
-        <module>fred-client-assembly</module>
+        <!-- module>fred-client-assembly</module -->
         <module>fred-client-config</module>
         <module>fred-client-misc</module>
         <module>fred-client-core</module>
@@ -218,7 +218,7 @@
                 <version>2.9</version>
                 <configuration>
                     <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                    <docletPath>C:/development/software/UMLGraph-5.6.6/lib/UmlGraph.jar</docletPath>
+                    <docletPath>C:/development/software/UMLGraph-5.6/lib/UmlGraph.jar</docletPath>
                     <!--
                         If you see this error "Cannot run program 'dot'" then Graphviz has probably
                         not been installed; see here:
@@ -231,9 +231,9 @@
                     <docletArtifact>
                         <groupId>org.umlgraph</groupId>
                         <artifactId>doclet</artifactId>
-                        <version>5.6.6</version>
+                        <version>5.6</version>
                     </docletArtifact>
-                    <additionalparam>-views</additionalparam>
+                    <additionalparam>"-views" "-Xdoclint:none"</additionalparam>
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                 </configuration>
                 <!-- Below is the yDoc configuration. <doclet>ydoc.doclets.YStandard</doclet> 
