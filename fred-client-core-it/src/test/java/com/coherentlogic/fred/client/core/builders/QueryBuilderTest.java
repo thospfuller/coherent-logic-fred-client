@@ -229,6 +229,25 @@ public class QueryBuilderTest {
     }
 
     @Test
+    public void getAllSeries () {
+
+        QueryBuilder builder = new QueryBuilder (
+            restTemplate,
+            "https://api.stlouisfed.org/fred/series");
+
+        Seriess result = builder
+            .search()
+            .setApiKey(API_KEY)
+            .setSearchText("*")
+            .setSearchType(SearchType.seriesId)
+            .setOffset(0)
+            .setLimit(1000)
+            .doGet (Seriess.class);
+
+        assertEquals(1000, result.getSeriesList().size());
+    }
+
+    @Test
     public void getSeriesCategories () {
 
         QueryBuilder builder = new QueryBuilder (
