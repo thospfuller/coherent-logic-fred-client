@@ -12,6 +12,7 @@ import java.util.Date;
 import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
 import com.coherentlogic.coherent.data.model.core.util.Action;
 import com.coherentlogic.coherent.data.model.core.util.Flag;
+import com.coherentlogic.fred.client.core.domain.Frequency;
 
 /**
  * This class contains helper methods that apply strictly to the domain package.
@@ -27,6 +28,8 @@ public class TestUtils {
     public static final long TEST_LONG = (long) TEST_INT;
 
     public static final String TEST_STRING = "fooBarBazBoo";
+    
+    public static final Frequency TEST_FREQUENCY = Frequency.a;
 
     public static PropertyChangeListener createPropertyChangeListener (
         final Flag flag,

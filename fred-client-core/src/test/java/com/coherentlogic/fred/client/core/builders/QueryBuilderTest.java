@@ -480,7 +480,7 @@ public class QueryBuilderTest {
 
     @Test
     public void testFrequency() {
-        Frequency frequency = Frequency.quarterly;
+        Frequency frequency = Frequency.q;
 
         builder.setFrequency(frequency);
 

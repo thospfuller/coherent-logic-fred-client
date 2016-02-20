@@ -45,7 +45,7 @@ public class SwingPropertyChangeSupportConverter extends ReflectionConverter {
     }
 
     @Override
-    public boolean canConvert(Class type) {
+    public boolean canConvert(@SuppressWarnings("rawtypes") Class type) {
 
         boolean result = false;
 
@@ -69,6 +69,7 @@ public class SwingPropertyChangeSupportConverter extends ReflectionConverter {
         SerializableBean result = null;
 
         try {
+            @SuppressWarnings("rawtypes")
             Class clazz = Class.forName(nodeName);
 
             Object object = clazz.newInstance();
