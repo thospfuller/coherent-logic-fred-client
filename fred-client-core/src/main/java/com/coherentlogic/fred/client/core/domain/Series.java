@@ -239,8 +239,6 @@ public class Series extends IdentityBean
      * Getter method for the frequency property.
      *
      * @return The frequency as a string.
-     *
-     * Todo: Should this be returning an enum?
      */
     @Column(name=FREQUENCY_VALUE)
     public Frequency getFrequency () {

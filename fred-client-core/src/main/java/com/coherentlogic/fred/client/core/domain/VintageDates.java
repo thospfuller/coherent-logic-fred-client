@@ -60,9 +60,6 @@ public class VintageDates extends SerializableBean
     @XStreamAsAttribute
     private SortOrder sortOrder = SortOrder.asc;
 
-    /**
-     * Todo: Should this be the enum OrderBy?
-     */
     @XStreamAlias(Constants.ORDER_BY)
     @XStreamAsAttribute
     private OrderBy orderBy = null;
