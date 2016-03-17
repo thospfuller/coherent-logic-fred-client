@@ -57,7 +57,10 @@
         <constructor-arg name="type" value="com.coherentlogic.fred.client.core.domain.FilterValue"/>
     </bean>
 
-    <bean id="xstreamMarshaller" class="com.coherentlogic.coherent.data.model.core.xstream.CustomXStreamMarshaller">
+    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <property name="marshallingStrategy">
+            <bean class="com.coherentlogic.coherent.data.model.core.xstream.CustomMarshallingStrategy"/>
+        </property>
         <!-- Underscores in attributes cause problems with XStream and the stream driver below
              addresses this issue - in particular see the XmlFriendlyReplacer.
           -->
