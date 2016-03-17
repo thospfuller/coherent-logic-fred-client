@@ -15,12 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.junit.Ignore;
+import org.joda.time.format.ISODateTimeFormat;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,8 +57,6 @@ import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
-import java.util.Locale;
-import org.joda.time.format.ISODateTimeFormat;
 
 /**
  * Integration test for the QueryBuilder class.
