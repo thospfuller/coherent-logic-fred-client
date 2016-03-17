@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
-        <version>1.0.7-RELEASE</version>
+        <version>1.0.8-RELEASE</version>
     </parent>
 
     <name>fred-client-config</name>

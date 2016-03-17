@@ -80,7 +80,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder {
     static {
         log.warn("***********************************************************");
         log.warn("*** Welcome to the Coherent Logic FRED Client version   ***");
-        log.warn("***                 1.0.7-RELEASE.                      ***");
+        log.warn("***                 1.0.8-RELEASE.                      ***");
         log.warn("***                                                     ***");
         log.warn("***    Please take a moment to follow us on Twitter:    ***");
         log.warn("***                                                     ***");
