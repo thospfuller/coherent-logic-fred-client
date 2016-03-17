@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
-        <data.model.version>1.0.18-RELEASE</data.model.version>
+        <data.model.version>1.0.19-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
