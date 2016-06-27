@@ -15,7 +15,7 @@
 
     <groupId>com.coherentlogic.fred</groupId>
     <artifactId>client</artifactId>
-    <version>1.0.8-RELEASE</version>
+    <version>1.0.9-RELEASE</version>
 
     <packaging>pom</packaging>
     <name>Coherent Logic FRED Client</name>
@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
-        <data.model.version>1.0.19-RELEASE</data.model.version>
+        <data.model.version>1.0.21-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
