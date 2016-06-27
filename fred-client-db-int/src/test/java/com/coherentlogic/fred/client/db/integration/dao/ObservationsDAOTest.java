@@ -77,7 +77,7 @@ public class ObservationsDAOTest {
 
         assertNotNull (observations);
         assertNotNull (observationList);
-        assertEquals (86, observationList.size());
+        assertEquals (87, observationList.size());
         assertNull (observations.getPrimaryKey());
 
         observationsDAO.persist(observations);
@@ -91,7 +91,7 @@ public class ObservationsDAOTest {
         List<Observation> persistedObservationList =
             persistedObservations.getObservationList();
 
-        assertEquals (86, persistedObservationList.size());
+        assertEquals (87, persistedObservationList.size());
 
         persistedObservationList.remove(0);
 
@@ -103,7 +103,7 @@ public class ObservationsDAOTest {
         persistedObservationList = mergedPersistedObservations.
             getObservationList();
 
-        assertEquals (85, persistedObservationList.size());
+        assertEquals (86, persistedObservationList.size());
 
         observationsDAO.remove(mergedPersistedObservations);
 

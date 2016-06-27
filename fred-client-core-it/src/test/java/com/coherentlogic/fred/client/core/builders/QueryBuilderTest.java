@@ -908,15 +908,15 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         List<Source> sourceList = sources.getSourceList();
 
         // Value is subject to change.
-        assertTrue(sourceList.size() >= 81);
+        assertTrue(75 <= sourceList.size());
 
         Source source7 = sourceList.get(7);
 
 //        assertDateIsAccurateForToday(source7.getRealtimeStart());
 //        assertDateIsAccurateForToday(source7.getRealtimeEnd());
         assertEquals(
-            "Council of Economic Advisers (US)", source7.getName());
-        assertEquals("http://www.whitehouse.gov/cea/", source7.getLink());
+            "US. Office of Management and Budget", source7.getName());
+        assertEquals("http://www.whitehouse.gov/omb/", source7.getLink());
     }
 
     @Test
@@ -963,7 +963,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertEquals(OrderBy.releaseId, releases.getOrderBy());
         assertEquals(SortOrder.asc, releases.getSortOrder());
         // Value is subject to change.
-        assertEquals(30, releases.getCount());
+        assertTrue(30 <= releases.getCount());
         assertEquals(0, releases.getOffset());
         assertEquals(1000, releases.getLimit());
 
