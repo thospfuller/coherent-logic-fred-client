@@ -78,7 +78,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
             .addText(
                 "***********************************************************",
                 "*** Welcome to the Coherent Logic FRED Client version   ***",
-                "***                 1.0.9-RELEASE.                      ***",
+                "***                   1.0.9-RELEASE.                    ***",
                 "***                                                     ***",
                 "***    Please take a moment to follow us on Twitter:    ***",
                 "***                                                     ***",
