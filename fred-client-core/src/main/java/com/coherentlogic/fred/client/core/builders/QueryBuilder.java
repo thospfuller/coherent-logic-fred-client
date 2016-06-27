@@ -30,12 +30,11 @@ import java.util.regex.Matcher;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractRESTQueryBuilder;
 import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
+import com.coherentlogic.coherent.data.model.core.util.WelcomeMessage;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
@@ -69,34 +68,30 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
  *
  * @author <a href="support@coherentlogic.com">Support</a>
  */
-public class QueryBuilder extends AbstractRESTQueryBuilder {
-
-    private static final Logger log =
-        LoggerFactory.getLogger(QueryBuilder.class);
+public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
     /**
      * Todo: Move this message so that it appears in the AbstractQueryBuilder.
      */
     static {
-        log.warn("***********************************************************");
-        log.warn("*** Welcome to the Coherent Logic FRED Client version   ***");
-        log.warn("***                 1.0.8-RELEASE.                      ***");
-        log.warn("***                                                     ***");
-        log.warn("***    Please take a moment to follow us on Twitter:    ***");
-        log.warn("***                                                     ***");
-        log.warn("***           www.twitter.com/CoherentMktData           ***");
-        log.warn("***                                                     ***");
-        log.warn("***                 or on LinkedIn:                     ***");
-        log.warn("***                                                     ***");
-        log.warn("***   www.linkedin.com/company/coherent-logic-limited   ***");
-        log.warn("***                                                     ***");
-        log.warn("***    Feedback is appreciated so feel free to take     ***");
-        log.warn("***    a short survey that will help us improve this    ***");
-        log.warn("***                    framework.                       ***");
-        log.warn("***                                                     ***");
-        log.warn("***       http://www.surveymonkey.com/s/83HWTZF         ***");
-        log.warn("***                                                     ***");
-        log.warn("***********************************************************");
+        new WelcomeMessage ()
+            .addText(
+                "***********************************************************",
+                "*** Welcome to the Coherent Logic FRED Client version   ***",
+                "***                 1.0.9-RELEASE.                      ***",
+                "***                                                     ***",
+                "***    Please take a moment to follow us on Twitter:    ***",
+                "***                                                     ***",
+                "***           www.twitter.com/CoherentMktData           ***",
+                "***                                                     ***",
+                "***                 or on LinkedIn:                     ***",
+                "***                                                     ***",
+                "***   www.linkedin.com/company/coherent-logic-limited   ***",
+                "***                                                     ***",
+                "***                                                     ***",
+                "***********************************************************"
+            )
+        .display();
     }
 
     public static final String
@@ -1015,5 +1010,15 @@ public class QueryBuilder extends AbstractRESTQueryBuilder {
             throw new InvalidDateFormatException (
                 "The date parameter " + date +" passed to the method " +
                 method + " is invalid.");
+    }
+
+    @Override
+    protected String getKey() {
+        return getEscapedURI();
+    }
+
+    @Override
+    protected <T> T doExecute(Class<T> type) {
+        return (T) getRestTemplate ().getForObject(getEscapedURI (), type);
     }
 }
