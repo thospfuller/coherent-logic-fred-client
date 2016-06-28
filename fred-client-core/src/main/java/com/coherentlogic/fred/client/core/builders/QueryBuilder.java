@@ -75,22 +75,26 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     static {
         new WelcomeMessage ()
-            .addText(
-                "***********************************************************",
-                "*** Welcome to the Coherent Logic FRED Client version   ***",
-                "***                   1.0.9-RELEASE.                    ***",
-                "***                                                     ***",
-                "***    Please take a moment to follow us on Twitter:    ***",
-                "***                                                     ***",
-                "***           www.twitter.com/CoherentMktData           ***",
-                "***                                                     ***",
-                "***                 or on LinkedIn:                     ***",
-                "***                                                     ***",
-                "***   www.linkedin.com/company/coherent-logic-limited   ***",
-                "***                                                     ***",
-                "***                                                     ***",
-                "***********************************************************"
-            )
+            .addText("***********************************************************")
+            .addText("*** Welcome to the Coherent Logic FRED Client version   ***")
+            .addText("***                   1.0.9-RELEASE.                    ***")
+            .addText("***                                                     ***")
+            .addText("***    Please take a moment to follow us on Twitter:    ***")
+            .addText("***                                                     ***")
+            .addText("***           www.twitter.com/CoherentMktData           ***")
+            .addText("***                                                     ***")
+            .addText("***                 or on LinkedIn:                     ***")
+            .addText("***                                                     ***")
+            .addText("***   www.linkedin.com/company/coherent-logic-limited   ***")
+            .addText("***                                                     ***")
+            .addText("*** We   offer   support  and  consulting  services  to ***")
+            .addText("*** businesses that utilize this framework or that need ***")
+            .addText("*** help  with  bespoke  data  acquisition  projects -- ***")
+            .addText("*** inquiries can be directed to:                       ***")
+            .addText("***                                                     ***")
+            .addText("*** [E] sales@coherentlogic.com                         ***")
+            .addText("***                                                     ***")
+            .addText("***********************************************************")
         .display();
     }
 
