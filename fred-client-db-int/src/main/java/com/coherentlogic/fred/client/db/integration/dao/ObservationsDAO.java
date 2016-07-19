@@ -10,7 +10,7 @@ import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.OBSE
 /**
  * Data access pattern implementation for {@link Observations} objects.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Component(value=OBSERVATIONS_DAO)
 @Transactional

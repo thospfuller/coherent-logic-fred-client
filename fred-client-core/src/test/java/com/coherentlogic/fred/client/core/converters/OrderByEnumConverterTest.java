@@ -13,7 +13,7 @@ import com.coherentlogic.fred.client.core.domain.OrderBy;
 /**
  * Unit test for the OrderByEnumConverter class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class OrderByEnumConverterTest {
 

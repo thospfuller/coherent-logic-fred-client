@@ -22,7 +22,7 @@ package com.coherentlogic.fred.client.core.domain;
  * @see <a href="https://api.stlouisfed.org/docs/fred/category_series.html">
  *       category_series</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum FilterValue {
 

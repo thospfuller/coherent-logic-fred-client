@@ -8,7 +8,7 @@ import java.util.List;
  * converting the results of calls to the various getter methods into instances
  * of String.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class ObjectStringifier {
 

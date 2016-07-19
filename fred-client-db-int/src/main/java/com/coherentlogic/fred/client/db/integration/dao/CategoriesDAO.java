@@ -10,7 +10,7 @@ import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.CATE
 /**
  * Data access pattern implementation for {@link Categories} objects.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Component(value=CATEGORIES_DAO)
 @Transactional

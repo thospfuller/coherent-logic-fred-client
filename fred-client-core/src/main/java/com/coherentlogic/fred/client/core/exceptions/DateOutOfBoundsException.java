@@ -8,7 +8,7 @@ import org.springframework.core.NestedRuntimeException;
  * An exception that is thrown when the date is prior to 1776-07-04 or after
  * 9999-12-31.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class DateOutOfBoundsException extends NestedRuntimeException {
 

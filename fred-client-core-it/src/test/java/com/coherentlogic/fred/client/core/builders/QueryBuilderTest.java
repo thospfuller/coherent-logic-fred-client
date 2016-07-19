@@ -78,7 +78,7 @@ import com.coherentlogic.fred.client.core.domain.VintageDates;
  * @see http://www.timeanddate.com/library/abbreviations/timezones/na/cst.html
  * @see http://en.wikipedia.org/wiki/Daylight_saving_time
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilderTest {
 

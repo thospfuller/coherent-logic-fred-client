@@ -6,7 +6,7 @@ import org.springframework.core.NestedRuntimeException;
  * An exception which is thrown when the date is not of the format yyyy-MM-dd --
  * for example 2012-06-18.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class InvalidDateFormatException extends NestedRuntimeException {
 

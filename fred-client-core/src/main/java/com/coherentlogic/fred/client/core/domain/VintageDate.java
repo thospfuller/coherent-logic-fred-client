@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  * @see <a href="https://api.stlouisfed.org/docs/fred/series_vintagedates.html">
  * series_vintagedates</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=VINTAGE_DATE)

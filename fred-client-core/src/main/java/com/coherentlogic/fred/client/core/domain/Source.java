@@ -26,7 +26,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * @see <a href="https://api.stlouisfed.org/docs/fred/source.html">
  * source</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=SOURCE)

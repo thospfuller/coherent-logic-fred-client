@@ -9,7 +9,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.SERIES_ID;
  * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  * series_search</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum SearchType {
 

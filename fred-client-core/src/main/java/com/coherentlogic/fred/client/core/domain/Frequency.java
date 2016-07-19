@@ -9,7 +9,7 @@ package com.coherentlogic.fred.client.core.domain;
  * <p>
  * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html#frequency">frequency</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum Frequency {
 

@@ -6,7 +6,7 @@ package com.coherentlogic.fred.client.core.domain;
  * @see <a href="https://alfred.stlouisfed.org/help#growth_formulas">
  * growth_formulas</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum Unit {
 

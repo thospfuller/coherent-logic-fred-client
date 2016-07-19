@@ -5,7 +5,7 @@ import org.springframework.core.NestedRuntimeException;
 /**
  * An exception that is thrown when the offset value is less than zero.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class OffsetOutOfBoundsException extends NestedRuntimeException {
 

@@ -3,7 +3,7 @@ package com.coherentlogic.fred.client.webstart.application;
 /**
  * An exception that is thrown when an object cannot be converted into a String.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class StringificationFailedException extends RuntimeException {
 

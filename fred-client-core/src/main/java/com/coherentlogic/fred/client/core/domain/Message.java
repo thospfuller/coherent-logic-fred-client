@@ -13,7 +13,7 @@ import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
  *
  * Todo: Should this be an entity?
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class Message extends SerializableBean {
 

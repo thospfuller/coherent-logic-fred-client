@@ -35,7 +35,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.SERIES_COUNT;
  * @see <a href="https://api.stlouisfed.org/docs/fred/series_search.html">
  * series_search</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum OrderBy {
 

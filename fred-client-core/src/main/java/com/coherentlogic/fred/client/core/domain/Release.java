@@ -33,7 +33,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * @see <a href="https://api.stlouisfed.org/docs/fred/source_releases.html">
  * source_releases</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity//@Entity(name=RELEASE_TABLE) NOT SURE WE NEED THE TABLE NAME AT THIS
 // TIME, HOWEVER IT WILL STAY HERE AS A HINT IF THE TEST FAILS WHEN WORKING

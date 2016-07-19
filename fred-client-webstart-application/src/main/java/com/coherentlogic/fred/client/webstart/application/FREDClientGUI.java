@@ -48,7 +48,7 @@ import com.jamonapi.MonitorFactory;
  * The front-end for the FRED Client that allows users to directly work with the
  * {@link com.coherentlogic.fred.client.core.builders.QueryBuilder}. 
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class FREDClientGUI extends JFrame {
 
@@ -475,7 +475,7 @@ public class FREDClientGUI extends JFrame {
  * example to the inputTextArea when the user selects a given
  * {@link javax.swing.JMenuItem}.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 class MenuItemSelectedActionListener implements ActionListener {
 

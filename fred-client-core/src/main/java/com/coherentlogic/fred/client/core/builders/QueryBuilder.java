@@ -66,7 +66,7 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
  * <p>
  * For examples, refer to the QueryBuilderTest class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
@@ -416,8 +416,8 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Setter method for the API key parameter. Note the API key is requires by
-     * every FRED web service.
+     * Setter method for the API key parameter. Note the API key is required by
+     * every FRED web service call.
      *
      * Register for an API key <a href="https://api.stlouisfed.org/api_key.html">
      * here</a>.

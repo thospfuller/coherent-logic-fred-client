@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.converters.enums.EnumSingleValueConverter;
  *
  * Todo: Unit test this class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class OrderByEnumConverter extends EnumSingleValueConverter {
 

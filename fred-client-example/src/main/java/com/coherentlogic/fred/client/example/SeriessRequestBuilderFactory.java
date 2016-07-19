@@ -15,7 +15,7 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
  * of RequestBuilder will be returned with the API key preset to the value which
  * has been passed to the constructor when this class was instantiated.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class SeriessRequestBuilderFactory extends QueryBuilderFactory {
 

@@ -7,7 +7,7 @@ import com.thoughtworks.xstream.converters.basic.BigDecimalConverter;
  * as a special case, since the BigDecimalConverter will throw an exception if
  * that string is passed to it.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class ObservationValueConverter extends BigDecimalConverter {
 

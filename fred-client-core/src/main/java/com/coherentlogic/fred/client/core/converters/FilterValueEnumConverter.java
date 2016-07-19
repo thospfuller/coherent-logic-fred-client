@@ -6,7 +6,7 @@ import com.thoughtworks.xstream.converters.enums.EnumSingleValueConverter;
 /**
  * It turns out only SingleValueConverter(s) work for attributes.
  * 
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  *
  */
 public class FilterValueEnumConverter extends EnumSingleValueConverter {

@@ -4,7 +4,7 @@ package com.coherentlogic.fred.client.core.exceptions;
  * An exception that is used to convert (checked) instances of IOException into
  * a corresponding runtime exception.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class IORuntimeException extends RuntimeException {
 

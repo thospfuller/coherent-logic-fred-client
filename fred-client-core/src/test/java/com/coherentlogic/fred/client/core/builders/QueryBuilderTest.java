@@ -29,7 +29,7 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
 /**
  * Unit test for the QueryBuilder class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilderTest {
 

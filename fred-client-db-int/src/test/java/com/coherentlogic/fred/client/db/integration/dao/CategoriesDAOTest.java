@@ -27,7 +27,7 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 /**
  * Unit test for the {@link CategoriesDAO} class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Rollback

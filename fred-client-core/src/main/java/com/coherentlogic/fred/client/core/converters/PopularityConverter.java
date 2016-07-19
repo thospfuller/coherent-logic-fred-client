@@ -7,7 +7,7 @@ import com.thoughtworks.xstream.converters.basic.IntConverter;
  * as a special case, since the IntConverter will throw an exception if an empty
  * string is passed to it.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class PopularityConverter extends IntConverter {
 

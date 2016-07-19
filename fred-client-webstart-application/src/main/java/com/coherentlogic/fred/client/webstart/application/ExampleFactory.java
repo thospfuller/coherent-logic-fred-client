@@ -12,7 +12,7 @@ import com.coherentlogic.fred.client.core.factories.Factory;
 /**
  * A class that is used to load examples from a file which is embedded in a jar.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class ExampleFactory implements Factory<String> {
 

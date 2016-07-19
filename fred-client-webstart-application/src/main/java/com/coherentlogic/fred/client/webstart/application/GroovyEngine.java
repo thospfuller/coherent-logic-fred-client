@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * This class takes care of executing the Groovy script that is entered in the
  * input text area in the {@link FREDClientGUI}.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class GroovyEngine {
 

@@ -18,7 +18,7 @@ import com.coherentlogic.fred.client.core.domain.Observations;
  * used when calls are made to the fred/series/observations web service and the
  * file_type is set to xsl or txt -- this will return a compressed txt/xsl file.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class ApplicationZipMessageConverter
     extends AbstractHttpMessageConverter<Observations> {

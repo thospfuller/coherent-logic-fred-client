@@ -6,7 +6,7 @@ import org.springframework.core.NestedRuntimeException;
  * An exception that is thrown when the limit is less than 1 or greater than
  * 10000.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class LimitOutOfBoundsException extends NestedRuntimeException {
 

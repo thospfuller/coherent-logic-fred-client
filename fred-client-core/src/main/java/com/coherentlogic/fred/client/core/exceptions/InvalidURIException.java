@@ -7,7 +7,7 @@ import org.springframework.core.NestedRuntimeException;
  *
  * @deprecated Moved to the cl data model project.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class InvalidURIException extends NestedRuntimeException {
 

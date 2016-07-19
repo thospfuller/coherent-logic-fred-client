@@ -12,7 +12,7 @@ import com.coherentlogic.fred.client.core.domain.SortOrder;
 
 /**
  * 
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class SortOrderEnumConverterTest {
 

@@ -26,7 +26,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  * @see <a href="https://api.stlouisfed.org/docs/fred/release_dates.html">
  * release_dates</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=RELEASE_DATE)

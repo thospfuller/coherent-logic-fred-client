@@ -12,7 +12,7 @@ import com.coherentlogic.fred.client.core.domain.Seriess;
  * NOTE: You will need to add your own apiKey in the application-context.xml
  * file, otherwise this won't work.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class Main {
 

@@ -16,7 +16,7 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
  * same value for some query parameter -- for example, in this class we always
  * return the same API key.
  * <p>
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilderFactory
     implements Factory<QueryBuilder> {

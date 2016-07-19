@@ -32,7 +32,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  * categories</a>
  * @see <a href="https://research.stlouisfed.org/">research.stlouisfed.org</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=CATEGORY)

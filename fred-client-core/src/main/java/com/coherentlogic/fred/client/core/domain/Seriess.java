@@ -42,7 +42,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  * release_series</a>
  * @see <a href="https://api.stlouisfed.org/docs/fred/series.html">series</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=SERIESS)

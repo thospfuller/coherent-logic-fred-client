@@ -6,7 +6,7 @@ package com.coherentlogic.fred.client.core.factories;
  * @param <T> The type of object returned from the call to the
  * {@link #getInstance()} method.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public interface Factory<T> {
 

@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  * <a href="https://research.stlouisfed.org/fred2/categories">categories</a> of
  * economic data.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=CATEGORIES)

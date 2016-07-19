@@ -34,7 +34,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  * source_releases</a>
  * @see <a href="https://research.stlouisfed.org/fred2/releases/">releases</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=RELEASES)

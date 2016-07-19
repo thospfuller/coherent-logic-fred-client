@@ -12,7 +12,7 @@ import com.coherentlogic.fred.client.core.converters.PopularityConverter;
 /**
  * Unit test for the PopularityConverter class.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class PopularityConverterTest {
 

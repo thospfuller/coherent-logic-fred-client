@@ -36,7 +36,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  * @see <a href="https://api.stlouisfed.org/docs/fred/series_observations.html">
  * series_observations</a>
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 @Entity
 @Table(name=OBSERVATIONS)

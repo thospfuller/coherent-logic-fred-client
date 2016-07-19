@@ -9,7 +9,7 @@ import com.coherentlogic.fred.client.core.factories.Factory;
  * the FRED web service. The API key is set in the Spring application context
  * file, and the queryBuilderFactory will set this value in advance.
  *
- * @author <a href="support@coherentlogic.com">Support</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class SeriesService {
 
