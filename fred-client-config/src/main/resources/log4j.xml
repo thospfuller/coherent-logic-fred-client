@@ -3,7 +3,7 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
     <appender name="fileAppender" class="org.apache.log4j.FileAppender">
-        <param name="file" value="log4j.log"/>
+        <param name="file" value="${user.home}/coherent-datafeed-trep/coherent-datafeed-trep-edition-log4j.log"/>
         <param name="append" value="false" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d %-5p %c{1} - %m%n"/>
@@ -18,23 +18,28 @@
     </appender>
 
     <logger name="com.coherentlogic">
-        <level value="debug"/>
+        <level value="info"/>
         <appender-ref ref="fileAppender"/>
     </logger>
 
     <logger name="org.springframework.web.client">
-        <level value="debug"/>
-        <appender-ref ref="consoleAppender"/>
+        <level value="file"/>
+        <appender-ref ref="fileAppender"/>
     </logger>
 
     <logger name="httpclient.wire">
         <level value="debug"/>
-        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="fileAppender"/>
+    </logger>
+
+    <logger name="com.coherentlogic.fred.client.core.services">
+        <level value="warn"/>
+        <appender-ref ref="fileAppender"/>
     </logger>
 
     <root>
         <priority value ="info" />
-        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppender" />
     </root>
 
 </log4j:configuration>
