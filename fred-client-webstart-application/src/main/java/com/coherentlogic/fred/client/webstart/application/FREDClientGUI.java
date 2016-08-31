@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.coherentlogic.coherent.data.model.core.exceptions.InvalidURIException;
 import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.exceptions.IORuntimeException;
+import com.coherentlogic.fred.client.core.exceptions.InvalidURIException;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 import com.jamonapi.MonKey;
 import com.jamonapi.MonKeyImp;
