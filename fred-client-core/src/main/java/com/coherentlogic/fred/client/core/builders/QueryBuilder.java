@@ -30,6 +30,8 @@ import java.util.regex.Matcher;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractRESTQueryBuilder;
@@ -51,6 +53,7 @@ import com.coherentlogic.fred.client.core.exceptions.InvalidDateFormatException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidParameterValue;
 import com.coherentlogic.fred.client.core.exceptions.LimitOutOfBoundsException;
 import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
+import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService;
 
 /**
  * Class that allows the developer to construct and execute a query to the
@@ -70,32 +73,75 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
  */
 public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
+    private static final Logger log = LoggerFactory.getLogger(QueryBuilder.class);
+
+    static final String[] WELCOME_MESSAGE = {
+        "*************************************************************************************************************",
+        "***                                                                                                       ***",
+        "***                                      Welcome to the FRED Client                                       ***",
+        "***                                                                                                       ***",
+        "***                                        Version 1.0.10-RELEASE                                         ***",
+        "***                                                                                                       ***",
+        "***                              Please take a moment to follow us on Twitter:                            ***",
+        "***                                                                                                       ***",
+        "***                                    www.twitter.com/CoherentMktData                                    ***",
+        "***                                                                                                       ***",
+        "***                                          or on LinkedIn:                                              ***",
+        "***                                                                                                       ***",
+        "***                            www.linkedin.com/company/coherent-logic-limited                            ***",
+        "***                                                                                                       ***",
+        "***                            The project and issue tracker can be found here:                           ***",
+        "***                                                                                                       ***",
+        "***                     https://bitbucket.org/CoherentLogic/coherent-logic-fred-client                    ***",
+        "***                                                                                                       ***",
+        "*** ----------------------------------------------------------------------------------------------------- ***",
+        "***                                                                                                       ***",
+        "*** BE ADVISED:                                                                                           ***",
+        "***                                                                                                       ***",
+        "*** This framework uses the Google Analytics Measurement API (GAM) to track framework usage  information. ***",
+        "*** As this software is open-source, you are welcomed to review our use of GAM -- please  see  the  class ***",
+        "*** named  com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService  and  feel  free ***",
+        "*** to send us an email if you have further questions.                                                    ***",
+        "***                                                                                                       ***",
+        "*** We do NOT recommend disabling this feature however we offer the option below, just add the following  ***",
+        "*** VM parameter and tracking will be disabled:                                                           ***",
+        "***                                                                                                       ***",
+        "*** -DGOOGLE_ANALYTICS_TRACKING=false                                                                     ***",
+        "***                                                                                                       ***",
+        "*** ----------------------------------------------------------------------------------------------------- ***",
+        "***                                                                                                       ***",
+        "*** We offer support and consulting services to businesses that  utilize  this  framework  or  that  have ***",
+        "*** custom financial data acquisition projects -- inquiries can be directed to:                           ***",
+        "***                                                                                                       ***",
+        "*** [M] sales@coherentlogic.com                                                                           ***",
+        "*** [T] +1.571.306.3403 (GMT-5)                                                                           ***",
+        "***                                                                                                       ***",
+        "*************************************************************************************************************"
+    };
+
     /**
      * Todo: Move this message so that it appears in the AbstractQueryBuilder.
      */
     static {
-        new WelcomeMessage ()
-            .addText("***********************************************************")
-            .addText("*** Welcome to the Coherent Logic FRED Client version   ***")
-            .addText("***                   1.0.9-RELEASE.                    ***")
-            .addText("***                                                     ***")
-            .addText("***    Please take a moment to follow us on Twitter:    ***")
-            .addText("***                                                     ***")
-            .addText("***           www.twitter.com/CoherentMktData           ***")
-            .addText("***                                                     ***")
-            .addText("***                 or on LinkedIn:                     ***")
-            .addText("***                                                     ***")
-            .addText("***   www.linkedin.com/company/coherent-logic-limited   ***")
-            .addText("***                                                     ***")
-            .addText("*** We   offer   support  and  consulting  services  to ***")
-            .addText("*** businesses that utilize this framework or that need ***")
-            .addText("*** help  with  bespoke  data  acquisition  projects -- ***")
-            .addText("*** inquiries can be directed to:                       ***")
-            .addText("***                                                     ***")
-            .addText("*** [E] sales@coherentlogic.com                         ***")
-            .addText("***                                                     ***")
-            .addText("***********************************************************")
-        .display();
+
+        GoogleAnalyticsMeasurementService googleAnalyticsMeasurementService = new GoogleAnalyticsMeasurementService ();
+
+        if (googleAnalyticsMeasurementService.shouldTrack()) {
+            try {
+                googleAnalyticsMeasurementService.fireGAFrameworkUsageEvent ();
+            } catch (Throwable thrown) {
+                log.warn("fireGAFrameworkUsageEvent: method call failed. This exception can be ignored, and the "
+                    + "framework will function without issue.", thrown);
+            }
+        }
+
+        WelcomeMessage welcomeMessage = new WelcomeMessage();
+
+        for (String next : WELCOME_MESSAGE) {
+            welcomeMessage.addText(next);
+        }
+
+        welcomeMessage.display();
     }
 
     public static final String
