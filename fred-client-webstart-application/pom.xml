@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
-        <version>1.0.9-RELEASE</version>
+        <version>1.0.10-RELEASE</version>
     </parent>
 
     <name>fred-client-webstart-application</name>
@@ -30,6 +30,10 @@
         <dependency>
             <groupId>com.coherentlogic.coherent.data-model</groupId>
             <artifactId>data-model-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.coherent.data-model</groupId>
+            <artifactId>data-adapter-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.coherentlogic.fred.client</groupId>
