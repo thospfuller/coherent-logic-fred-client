@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.coherentlogic.fred.client.core.domain.Tags;
 
 /**
- * Data access pattern implementation for {@link VintageDates} objects.
+ * Data access pattern implementation for {@link Tags} objects.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
