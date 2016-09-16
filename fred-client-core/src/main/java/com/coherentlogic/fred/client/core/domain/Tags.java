@@ -34,7 +34,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 @Entity
 @Table(name=TAGS)
 @XStreamAlias(TAGS)
-public class Tags extends SerializableBean
+public class Tags extends SerializableBean<Tags>
     implements
         RealtimeBoundSpecification,
         PaginationSpecification,
@@ -73,7 +73,7 @@ public class Tags extends SerializableBean
      */
     @XStreamAlias(Constants.LIMIT)
     @XStreamAsAttribute
-    private long limit = DEFAULT_LIMIT;
+    private long limit = 1000L;
 
     @XStreamAlias(Constants.OFFSET)
     @XStreamAsAttribute
@@ -222,6 +222,7 @@ public class Tags extends SerializableBean
         );
     }
 
+    @Column(name=Constants.LIMIT_TABLE)
     public long getLimit() {
         return limit;
     }
@@ -246,6 +247,7 @@ public class Tags extends SerializableBean
         firePropertyChange(OFFSET_PROPERTY, oldValue, offset);
     }
 
+    @Column(name=Constants.OFFSET_TABLE)
     public int getOffset() {
         return offset;
     }
