@@ -14,6 +14,13 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver" />
         <!--
+             To be used together:
+
+             C:\development\software\h2-2016-05-26\bin>java -jar h2-1.4.192.jar -web -webAllowOthers -tcp -tcpAllowOthers -browser
+             jdbc:h2:tcp://localhost/~/fred-db
+
+             -----
+
              jdbc:h2:~/fred-data/fred-db;AUTO_SERVER=TRUE;AUTO_SERVER_PORT=9090;DB_CLOSE_DELAY=-1
              jdbc:h2:mem:fred-db;DB_CLOSE_DELAY=-1
              jdbc:h2:tcp://localhost/~/fred-db
