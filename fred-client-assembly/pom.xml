@@ -42,6 +42,12 @@
             <groupId>com.coherentlogic.fred.client</groupId>
             <artifactId>fred-client-webstart-application</artifactId>
         </dependency>
+        <!--
+          -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
