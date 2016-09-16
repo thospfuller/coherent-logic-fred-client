@@ -1,18 +1,18 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import org.springframework.stereotype.Component;
+import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.VINTAGE_DATES_DAO;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.VintageDates;
-
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.VINTAGE_DATES_DAO;
 
 /**
  * Data access pattern implementation for {@link VintageDates} objects.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Component(value=VINTAGE_DATES_DAO)
+@Repository(VINTAGE_DATES_DAO)
 @Transactional
 public class VintageDatesDAO extends SerializableDAO<VintageDates> {
 

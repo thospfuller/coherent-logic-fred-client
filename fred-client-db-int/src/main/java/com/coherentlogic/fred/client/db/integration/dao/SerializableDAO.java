@@ -14,6 +14,8 @@ import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
  * {@link EntityManager} along with some basic CRUD methods.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
+ *
+ * @deprecated Moved to the FDA.
  */
 @Transactional
 public abstract class SerializableDAO<T extends SerializableBean> {
@@ -97,7 +99,7 @@ public abstract class SerializableDAO<T extends SerializableBean> {
         entityManager.remove(target);
     }
 
-    /**
+	/**
      * Method signature for finding the domain object of type T with the
      * specified primaryKey.
      *

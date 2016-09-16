@@ -1,18 +1,18 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import org.springframework.stereotype.Component;
+import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.CATEGORIES_DAO;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.Categories;
-
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.CATEGORIES_DAO;
 
 /**
  * Data access pattern implementation for {@link Categories} objects.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Component(value=CATEGORIES_DAO)
+@Repository(CATEGORIES_DAO)
 @Transactional
 public class CategoriesDAO extends SerializableDAO<Categories> {
 
