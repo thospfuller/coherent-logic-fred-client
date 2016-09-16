@@ -40,7 +40,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 // WITH MYSQL.
 @Table(name=RELEASE_TABLE)
 @XStreamAlias(RELEASE)
-public class Release extends SerializableBean
+public class Release extends SerializableBean<Release>
     implements IdentitySpecification<Long>, RealtimeBoundSpecification {
 
     private static final long serialVersionUID = -7960368525706991411L;

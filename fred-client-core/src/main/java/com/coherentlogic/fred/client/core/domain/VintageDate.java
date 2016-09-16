@@ -27,7 +27,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamAlias(VINTAGE_DATE)
 @XStreamConverter(
     value=ToAttributedValueConverter.class, strings={VINTAGE_DATE_ALT})
-public class VintageDate extends SerializableBean {
+public class VintageDate extends SerializableBean<VintageDate> {
 
     private static final long serialVersionUID = 1276255845590512472L;
 

@@ -41,7 +41,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 @Entity
 @Table(name=OBSERVATIONS)
 @XStreamAlias(OBSERVATIONS)
-public class Observations extends SerializableBean
+public class Observations extends SerializableBean<Observations>
     implements RealtimeBoundSpecification,
         ObservationBoundSpecification,
         PaginationSpecification,

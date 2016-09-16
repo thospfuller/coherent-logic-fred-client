@@ -39,7 +39,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 @Entity
 @Table(name=RELEASES)
 @XStreamAlias(RELEASES)
-public class Releases extends SerializableBean
+public class Releases extends SerializableBean<Releases>
     implements
         RealtimeBoundSpecification,
         OrderBySpecification,

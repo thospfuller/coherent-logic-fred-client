@@ -15,7 +15,7 @@ import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-public class Message extends SerializableBean {
+public class Message extends SerializableBean<Message> {
 
     private static final long serialVersionUID = -5474386915074647931L;
 

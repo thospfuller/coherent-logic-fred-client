@@ -29,7 +29,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @Entity
 @Table(name=TAG)
 @XStreamAlias(TAG)
-public class Tag extends SerializableBean {
+public class Tag extends SerializableBean<Tag> {
 
     private static final long serialVersionUID = -492197910607674506L;
 

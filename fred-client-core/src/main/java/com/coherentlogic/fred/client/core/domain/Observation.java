@@ -13,6 +13,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
@@ -35,7 +37,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 @Entity
 @Table(name=OBSERVATION)
 @XStreamAlias(OBSERVATION)
-public class Observation extends SerializableBean
+public class Observation extends SerializableBean<Observation>
     implements RealtimeBoundSpecification {
 
     private static final long serialVersionUID = -625129582205856675L;

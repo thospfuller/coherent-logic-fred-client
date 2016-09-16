@@ -38,7 +38,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 @Entity
 @Table(name=SOURCES)
 @XStreamAlias(SOURCES)
-public class Sources extends SerializableBean
+public class Sources extends SerializableBean<Sources>
     implements
         RealtimeBoundSpecification,
         PaginationSpecification,

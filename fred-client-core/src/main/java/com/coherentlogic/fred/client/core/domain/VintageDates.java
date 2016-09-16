@@ -35,7 +35,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 @Entity
 @Table(name=VINTAGE_DATES)
 @XStreamAlias(VINTAGE_DATES)
-public class VintageDates extends SerializableBean
+public class VintageDates extends SerializableBean<VintageDates>
     implements
         RealtimeBoundSpecification,
         PaginationSpecification,

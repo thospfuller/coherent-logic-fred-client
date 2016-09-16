@@ -34,7 +34,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamConverter(
     value=ToAttributedValueConverter.class,
     strings={DATE})
-public class ReleaseDate extends SerializableBean {
+public class ReleaseDate extends SerializableBean<ReleaseDate> {
 
     private static final long serialVersionUID = -6232704249359164028L;
 
