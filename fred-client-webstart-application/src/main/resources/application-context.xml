@@ -9,11 +9,6 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <import resource="api-key-beans.xml"/>
-
-    <context:annotation-config />
-    <context:component-scan base-package="com.coherentlogic.fred.client.webstart.application" />
-
     <bean id="fredRestTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>
@@ -122,11 +117,6 @@
         <constructor-arg name="apiKey" ref="fredApiKey"/>
     </bean>
 
-    <!-- org.springframework.core.io.UrlResource classpath:src/main/resources/ -->
-    <!-- When reading from eclipse, don't include the classpath, however (check this) you'll
-         probably need the classpath when running from a jar.
-      -->
-
     <bean id="getSeriessExampleResource" class="org.springframework.core.io.ClassPathResource">
         <constructor-arg name="path" value="GetSeriessExample.groovy"/>
     </bean>
@@ -226,7 +216,7 @@
     <bean id="getTagsExample2" class="java.lang.String"
      factory-bean="getTagsExample2Factory" factory-method="getInstance"/>
 
-    <util:map id="requestBuilderFactoryMap">
+    <util:map id="queryBuilderFactoryMap">
         <entry key="Seriess" value-ref="queryBuilderFactory"/>
         <entry key="Categories" value-ref="queryBuilderFactory"/>
         <entry key="Observations" value-ref="queryBuilderFactory"/>
@@ -254,12 +244,6 @@
 
     <bean id="groovyEngine" class="com.coherentlogic.fred.client.webstart.application.GroovyEngine">
         <constructor-arg name="binding" ref="binding"/>
-    </bean>
-
-    <bean id="fredClientGUI" class="com.coherentlogic.fred.client.webstart.application.FREDClientGUI">
-        <constructor-arg name="groovyEngine" ref="groovyEngine"/>
-        <constructor-arg name="requestBuilderFactoryMap" ref="requestBuilderFactoryMap"/>
-        <constructor-arg name="exampleMap" ref="exampleMap"/>
     </bean>
 </beans>
 
