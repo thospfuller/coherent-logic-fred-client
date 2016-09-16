@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -32,13 +33,26 @@ import javax.swing.ScrollPaneConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.exceptions.IORuntimeException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidURIException;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.dao.CategoriesDAO;
+import com.coherentlogic.fred.client.db.integration.dao.ObservationsDAO;
+import com.coherentlogic.fred.client.db.integration.dao.ReleaseDatesDAO;
+import com.coherentlogic.fred.client.db.integration.dao.ReleasesDAO;
+import com.coherentlogic.fred.client.db.integration.dao.SeriessDAO;
+import com.coherentlogic.fred.client.db.integration.dao.SourcesDAO;
+import com.coherentlogic.fred.client.db.integration.dao.TagsDAO;
+import com.coherentlogic.fred.client.db.integration.dao.VintageDatesDAO;
 import com.jamonapi.MonKey;
 import com.jamonapi.MonKeyImp;
 import com.jamonapi.Monitor;
@@ -50,14 +64,16 @@ import com.jamonapi.MonitorFactory;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-public class FREDClientGUI extends JFrame {
+@SpringBootApplication
+@EnableAutoConfiguration
+@ComponentScan(basePackages="com.coherentlogic.fred.client")
+public class FREDClientGUI extends JFrame implements CommandLineRunner {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log =
-        LoggerFactory.getLogger(FREDClientGUI.class);
+    private static final Logger log = LoggerFactory.getLogger(FREDClientGUI.class);
 
-    private final URI uri;
+    private URI uri = null;
 
     private static final String
         SERIESS = "Seriess",
@@ -70,6 +86,16 @@ public class FREDClientGUI extends JFrame {
         TAGS = "Tags",
         TAGS2 = "Tags2",
         FRED_CLIENT_GUI = "fredClientGUI";
+
+    private static final String
+        CATEGORIES_DAO = "categoriesDAO",
+        SERIESS_DAO = "seriessDAO",
+        OBSERVATIONS_DAO = "observationsDAO",
+        RELEASEDATES_DAO = "releaseDatesDAO",
+        RELEASES_DAO = "releasesDAO",
+        SOURCES_DAO = "sourcesDAO",
+        TAGS_DAO = "tagsDAO",
+        VINTAGEDATES_DAO = "vintageDatesDAO";
 
     private static final String
         SERIESS_QUERY_BUILDER_FACTORY = "seriessQueryBuilderFactory",
@@ -112,11 +138,19 @@ public class FREDClientGUI extends JFrame {
     private final Map<ButtonModel, JRadioButtonMenuItem> radioButtonMap =
         new HashMap<ButtonModel, JRadioButtonMenuItem> ();
 
-    private final GroovyEngine groovyEngine;
+//    @Autowired
+    private GroovyEngine groovyEngine;
 
-    private final Map<String, QueryBuilderFactory> queryBuilderFactoryMap;
+//    @Autowired
+//    @Qualifier("queryBuilderFactoryMap")
+    private Map<String, QueryBuilderFactory> queryBuilderFactoryMap;
 
-    private final Map<String, String> exampleMap;
+//    @Autowired
+//    @Qualifier("exampleMap")
+    private Map<String, String> exampleMap;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private final ObjectStringifier objectStringifier =
         new ObjectStringifier ();
@@ -124,26 +158,6 @@ public class FREDClientGUI extends JFrame {
     private final MonKey monKey = new MonKeyImp(
         "Call FRED web services and return an instance of a domain class.",
         TimeUnit.MILLISECONDS.toString());
-
-    /**
-     * @throws URISyntaxException 
-     * Todo: Remove the init method from the constructor.
-     */
-    public FREDClientGUI(
-        GroovyEngine groovyEngine,
-        Map<String, QueryBuilderFactory> requestBuilderFactoryMap,
-        Map<String, String> exampleMap
-    ) throws URISyntaxException {
-        this.groovyEngine = groovyEngine;
-        this.queryBuilderFactoryMap = requestBuilderFactoryMap;
-        this.exampleMap = exampleMap;
-
-        uri = new URI("https://twitter.com/CoherentMktData");
-
-        setTitle("FRED Client GUI");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initialize ();
-    }
 
     /**
      * @see #initialize()
@@ -306,7 +320,24 @@ public class FREDClientGUI extends JFrame {
      * Method configures the Swing components that are added to this object's
      * JFrame.
      */
+    @PostConstruct
     public void initialize () {
+
+        groovyEngine = applicationContext.getBean(GroovyEngine.class);
+
+        queryBuilderFactoryMap = (Map<String, QueryBuilderFactory>)
+            applicationContext.getBean("queryBuilderFactoryMap");
+
+        exampleMap = (Map<String, String>) applicationContext.getBean("exampleMap");
+
+        try {
+            uri = new URI("https://twitter.com/CoherentMktData");
+        } catch (URISyntaxException uriSyntaxException) {
+            throw new RuntimeException (uriSyntaxException);
+        }
+
+        setTitle("FRED Client GUI");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         final JPanel parent = new JPanel();
         parent.setLayout(new BorderLayout()); 
@@ -397,7 +428,24 @@ public class FREDClientGUI extends JFrame {
                     QueryBuilder requestBuilder =
                         queryBuilderFactory.getInstance();
 
+                    CategoriesDAO categoriesDAO = applicationContext.getBean(CategoriesDAO.class);
+                    SeriessDAO seriessDAO = applicationContext.getBean(SeriessDAO.class);
+                    ObservationsDAO observationsDAO = applicationContext.getBean(ObservationsDAO.class);
+                    ReleaseDatesDAO releaseDatesDAO = applicationContext.getBean(ReleaseDatesDAO.class);
+                    ReleasesDAO releasesDAO = applicationContext.getBean(ReleasesDAO.class);
+                    SourcesDAO sourcesDAO = applicationContext.getBean(SourcesDAO.class);
+                    TagsDAO tagsDAO = applicationContext.getBean(TagsDAO.class);
+                    VintageDatesDAO vintageDatesDAO = applicationContext.getBean(VintageDatesDAO.class);
+
                     groovyEngine.setVariable(QUERY_BUILDER, requestBuilder);
+                    groovyEngine.setVariable(CATEGORIES_DAO, categoriesDAO);
+                    groovyEngine.setVariable(SERIESS_DAO, seriessDAO);
+                    groovyEngine.setVariable(OBSERVATIONS_DAO, observationsDAO);
+                    groovyEngine.setVariable(RELEASEDATES_DAO, releaseDatesDAO);
+                    groovyEngine.setVariable(RELEASES_DAO, releasesDAO);
+                    groovyEngine.setVariable(SOURCES_DAO, sourcesDAO);
+                    groovyEngine.setVariable(TAGS_DAO, tagsDAO);
+                    groovyEngine.setVariable(VINTAGEDATES_DAO, vintageDatesDAO);
 
                     Object result = null;
 
@@ -448,11 +496,14 @@ public class FREDClientGUI extends JFrame {
      * The main method uses the Spring application context to get an instance of
      * {@link FREDClientGUI} and then displays this object.
      */
-    public static void main (String[] unused) throws IOException {
+    @Override
+    public void run(String... args) throws Exception {
 
-        ApplicationContext applicationContext
-            = new ClassPathXmlApplicationContext (
-                "application-context.xml");
+        // Server server = Server.createTcpServer("-tcpAllowOthers","-webAllowOthers").start();
+//
+//        String url = server.getURL();
+//
+//        log.info("The h2 URL is: " + url);
 
 //        SplashComponent splash;
 //
@@ -463,10 +514,32 @@ public class FREDClientGUI extends JFrame {
 //            log.error("No splash will be displayed.", npe);
 //        }
 
-        FREDClientGUI applet = (FREDClientGUI)
-            applicationContext.getBean(FRED_CLIENT_GUI);
+//        FREDClientGUI applet = (FREDClientGUI)
+//            applicationContext.getBean(FRED_CLIENT_GUI);
 
-        applet.setVisible(true);
+        setVisible(true);
+    }
+
+    public static void main (String[] unused) throws InterruptedException {
+
+        try {
+
+            SpringApplicationBuilder builder =
+                new SpringApplicationBuilder (FREDClientGUI.class);
+
+            builder
+                .web(false)
+                .headless(false)
+                .registerShutdownHook(true)
+                .run(unused);
+
+        } catch (Throwable thrown) {
+            log.error("ExampleApplication.main caught an exception.", thrown);
+        }
+
+        Thread.sleep(Long.MAX_VALUE);
+
+        System.exit(-9999);
     }
 }
 
