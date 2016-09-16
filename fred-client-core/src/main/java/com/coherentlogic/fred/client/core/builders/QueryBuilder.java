@@ -80,7 +80,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         "***                                                                                                       ***",
         "***                                      Welcome to the FRED Client                                       ***",
         "***                                                                                                       ***",
-        "***                                        Version 1.0.10-RELEASE                                         ***",
+        "***                                        Version 1.0.11-RELEASE                                         ***",
         "***                                                                                                       ***",
         "***                              Please take a moment to follow us on Twitter:                            ***",
         "***                                                                                                       ***",
