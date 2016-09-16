@@ -4,12 +4,16 @@
  * https://api.stlouisfed.org/fred/series/release
  *
  * Note that the api key has been set for you.
+ *
+ * SELECT COUNT(*) FROM RELEASE_TABLE
+ *
+ * SELECT * FROM RELEASES, RELEASES_RELEASE_TABLE, RELEASE_TABLE WHERE RELEASES.PRIMARYKEY = RELEASES_RELEASE_TABLE.RELEASES_PRIMARYKEY AND RELEASE_TABLE.PRIMARYKEY = RELEASES_RELEASE_TABLE.RELEASELIST_PRIMARYKEY;
  */
 
 import com.coherentlogic.fred.client.core.domain.Releases
 import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 
-return queryBuilder
+Releases releases = queryBuilder
     .series ()
     .release ()
     .setSeriesId("IRA")
@@ -18,3 +22,7 @@ return queryBuilder
     ).setRealtimeEnd(
         using (2004, Calendar.MAY, 17)
     ).doGet(Releases.class)
+
+releasesDAO.persist (releases)
+
+return releases
