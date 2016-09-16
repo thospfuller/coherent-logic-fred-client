@@ -6,6 +6,8 @@ import static com.coherentlogic.fred.client.core.util.Constants.NAME;
 import static com.coherentlogic.fred.client.core.util.Constants.PARENT_ID;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.coherentlogic.coherent.data.model.core.domain.IdentityBean;
