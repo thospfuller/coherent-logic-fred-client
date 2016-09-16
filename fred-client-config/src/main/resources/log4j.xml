@@ -37,6 +37,24 @@
         <appender-ref ref="fileAppender"/>
     </logger>
 
+    <logger name="org.hibernate">
+        <level value="info"/>
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="org.hibernate.SQL">
+        <level value="info"/>
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql">
+        <level value="info"/>
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
     <root>
         <priority value ="info" />
         <appender-ref ref="fileAppender" />
