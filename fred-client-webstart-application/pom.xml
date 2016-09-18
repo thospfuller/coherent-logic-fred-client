@@ -124,6 +124,12 @@
             <artifactId>jboss-logging</artifactId>
             <version>3.3.0.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.3</version>
+        </dependency>
     </dependencies>
 
     <!-- WARNING: This is not currently ready for Java 8 so it's been disabled
@@ -205,21 +211,21 @@
             <id>release</id>
             <build>
             <plugins>
-	            <!-- https://issues.sonatype.org/browse/OSSRH-3376 -->
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-gpg-plugin</artifactId>
-	                <version>1.4</version>
-	                <executions>
-	                    <execution>
-	                        <id>sign-artifacts</id>
-	                        <phase>verify</phase>
-	                        <goals>
-	                            <goal>sign</goal>
-	                        </goals>
-	                    </execution>
-	                </executions>
-	            </plugin>
+                <!-- https://issues.sonatype.org/browse/OSSRH-3376 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
             </build>
         </profile>
