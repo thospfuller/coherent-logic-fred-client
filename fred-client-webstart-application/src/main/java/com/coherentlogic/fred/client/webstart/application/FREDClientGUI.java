@@ -126,8 +126,8 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
     }
 
     private static final String
-        WRAP = "wrap",
-        QUERY_BUILDER = "queryBuilder";
+        QUERY_BUILDER = "queryBuilder",
+        LOG = "log";
 
     private final JTextArea outputTextArea = new JTextArea();
 
@@ -438,6 +438,7 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
                     VintageDatesDAO vintageDatesDAO = applicationContext.getBean(VintageDatesDAO.class);
 
                     groovyEngine.setVariable(QUERY_BUILDER, requestBuilder);
+                    groovyEngine.setVariable(LOG, log);
                     groovyEngine.setVariable(CATEGORIES_DAO, categoriesDAO);
                     groovyEngine.setVariable(SERIESS_DAO, seriessDAO);
                     groovyEngine.setVariable(OBSERVATIONS_DAO, observationsDAO);
