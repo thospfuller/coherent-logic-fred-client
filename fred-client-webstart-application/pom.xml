@@ -124,6 +124,21 @@
             <artifactId>jboss-logging</artifactId>
             <version>3.3.0.Final</version>
         </dependency>
+        <dependency>
+            <groupId>joinery</groupId>
+            <artifactId>joinery-dataframe</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xeiam.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>de.erichseifert.vectorgraphics2d</groupId>
+            <artifactId>VectorGraphics2D</artifactId>
+            <version>0.11</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
