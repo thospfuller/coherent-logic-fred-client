@@ -10,6 +10,8 @@
  * SELECT * FROM OBSERVATIONS, OBSERVATIONS_OBSERVATION, OBSERVATION WHERE OBSERVATIONS.PRIMARYKEY = OBSERVATIONS_OBSERVATION.OBSERVATIONS_PRIMARYKEY AND OBSERVATION.PRIMARYKEY = OBSERVATIONS_OBSERVATION.OBSERVATIONLIST_PRIMARYKEY;
  */
 import com.coherentlogic.fred.client.core.domain.Observations
+import joinery.DataFrame
+import joinery.DataFrame.PlotType
 
 Observations observations = queryBuilder
     .series ()
@@ -17,6 +19,24 @@ Observations observations = queryBuilder
     .setSeriesId("EXJPUS")
     .doGet(Observations.class)
 
+log.info "queryBuilder.escapedURI: ${queryBuilder.escapedURI}"
+
 observationsDAO.persist (observations)
+
+def dataFrame = new DataFrame<Object> ()
+
+def observationDates = [] as List
+def observationValues = [] as List<BigDecimal>
+
+observations.observationList.forEach {
+    observationDates << it.date
+    observationValues << it.value
+}
+
+dataFrame.add((Object) "Observation Date", (List<Object>) observationDates)
+dataFrame.add((Object) "Observation Values", (List<Object>) observationValues)
+
+dataFrame.plot(PlotType.LINE)
+dataFrame.show()
 
 return observations
