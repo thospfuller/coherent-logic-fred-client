@@ -38,16 +38,24 @@ import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractRESTQuer
 import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.coherent.data.model.core.util.WelcomeMessage;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
+import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
 import com.coherentlogic.fred.client.core.domain.FilterVariable;
 import com.coherentlogic.fred.client.core.domain.Frequency;
+import com.coherentlogic.fred.client.core.domain.Observations;
 import com.coherentlogic.fred.client.core.domain.OrderBy;
 import com.coherentlogic.fred.client.core.domain.OutputType;
+import com.coherentlogic.fred.client.core.domain.ReleaseDates;
+import com.coherentlogic.fred.client.core.domain.Releases;
 import com.coherentlogic.fred.client.core.domain.SearchType;
+import com.coherentlogic.fred.client.core.domain.Seriess;
 import com.coherentlogic.fred.client.core.domain.SortOrder;
+import com.coherentlogic.fred.client.core.domain.Sources;
 import com.coherentlogic.fred.client.core.domain.TagGroupId;
+import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
+import com.coherentlogic.fred.client.core.domain.VintageDates;
 import com.coherentlogic.fred.client.core.exceptions.DateOutOfBoundsException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidDateFormatException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidParameterValue;
@@ -1070,5 +1078,37 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     @Override
     protected <T> T doExecute(Class<T> type) {
         return (T) getRestTemplate ().getForObject(getEscapedURI (), type);
+    }
+
+    public Seriess doGetAsSeriess () {
+        return doGet(Seriess.class);
+    }
+
+    public Categories doGetAsCategories () {
+        return doGet(Categories.class);
+    }
+
+    public Observations doGetAsObservations () {
+        return doGet(Observations.class);
+    }
+
+    public Releases doGetAsReleases () {
+        return doGet(Releases.class);
+    }
+
+    public VintageDates doGetAsVintageDates () {
+        return doGet(VintageDates.class);
+    }
+
+    public Sources doGetAsSources () {
+        return doGet(Sources.class);
+    }
+
+    public ReleaseDates doGetAsReleaseDates () {
+        return doGet(ReleaseDates.class);
+    }
+
+    public Tags doGetAsTags () {
+        return doGet(Tags.class);
     }
 }
