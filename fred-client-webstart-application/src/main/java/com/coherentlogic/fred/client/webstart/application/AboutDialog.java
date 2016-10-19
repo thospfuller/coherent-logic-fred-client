@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.coherentlogic.coherent.data.model.core.exceptions.InvalidURIException;
+import com.coherentlogic.coherent.data.adapter.core.exceptions.InvalidURIException;
 import com.coherentlogic.fred.client.core.exceptions.IORuntimeException;
 
 /**
@@ -85,7 +85,7 @@ public class AboutDialog extends JDialog {
         JLabel blank = newLabel("");
 
         JLabel name = newLabel(
-            "Coherent Logic FRED Client GUI version 1.0.11-RELEASE");
+            "Coherent Logic FRED Client GUI version 1.0.12-RELEASE");
         JLabel copyright = newLabel(
             "Copyright (C) 2012 - Present Coherent Logic Limited; All Rights " +
             "Reserved.");

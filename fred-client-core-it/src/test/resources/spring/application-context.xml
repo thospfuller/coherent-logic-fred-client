@@ -53,7 +53,7 @@
 
     <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
         <property name="marshallingStrategy">
-            <bean class="com.coherentlogic.coherent.data.model.core.xstream.CustomMarshallingStrategy"/>
+            <bean class="com.coherentlogic.coherent.data.adapter.core.xstream.CustomMarshallingStrategy"/>
         </property>
         <!-- Underscores in attributes cause problems with XStream and the stream driver below
              addresses this issue - in particular see the XmlFriendlyReplacer.

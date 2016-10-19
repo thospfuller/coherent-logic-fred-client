@@ -2,7 +2,7 @@ package com.coherentlogic.fred.client.core.factories;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
+import com.coherentlogic.coherent.data.adapter.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 
 /**

@@ -34,9 +34,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.coherent.data.model.core.builders.rest.AbstractRESTQueryBuilder;
-import com.coherentlogic.coherent.data.model.core.cache.CacheServiceProviderSpecification;
-import com.coherentlogic.coherent.data.model.core.util.WelcomeMessage;
+import com.coherentlogic.coherent.data.adapter.core.builders.rest.AbstractRESTQueryBuilder;
+import com.coherentlogic.coherent.data.adapter.core.cache.CacheServiceProviderSpecification;
+import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.FileType;
@@ -88,7 +88,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         "***                                                                                                       ***",
         "***                                      Welcome to the FRED Client                                       ***",
         "***                                                                                                       ***",
-        "***                                        Version 1.0.11-RELEASE                                         ***",
+        "***                                        Version 1.0.12-RELEASE                                         ***",
         "***                                                                                                       ***",
         "***                              Please take a moment to follow us on Twitter:                            ***",
         "***                                                                                                       ***",
