@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.coherentlogic.fred</groupId>
         <artifactId>client</artifactId>
-        <version>1.0.11-RELEASE</version>
+        <version>1.0.12-RELEASE</version>
     </parent>
 
     <!-- ${project.parent.groupId}.${project.parent.artifactId} -->
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.coherentlogic.gama.client</groupId>
             <artifactId>gama-client-core</artifactId>
-            <version>0.8.5-RELEASE</version>
+            <version>0.8.6-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.coherentlogic.fred.client</groupId>
