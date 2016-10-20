@@ -21,9 +21,7 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
 
     private static final Logger log = LoggerFactory.getLogger(GoogleAnalyticsMeasurementService.class);
 
-    /**
-     *
-     */
+    @Override
     public void fireGAFrameworkUsageEvent () {
 
         log.info("fireGAFrameworkUsageEvent: method begins.");
