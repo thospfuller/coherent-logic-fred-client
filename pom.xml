@@ -108,13 +108,13 @@
         as this causes problems and the process will fail. There may be a better 
         way to do this however at the moment commenting the module seems to work. -->
     <modules>
-        <module>fred-client-assembly</module>
+        <!-- module>fred-client-assembly</module -->
         <module>fred-client-config</module>
         <module>fred-client-misc</module>
         <module>fred-client-core</module>
-        <module>fred-client-core-it</module>
+        <!-- module>fred-client-core-it</module -->
         <module>fred-client-db-int</module>
-        <module>fred-client-webstart-application</module>
+        <!-- module>fred-client-webstart-application</module -->
     </modules>
 
     <dependencyManagement>
@@ -195,43 +195,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
-                <configuration>
-                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                    <docletPath>C:/development/software/UMLGraph-5.6/lib/UmlGraph.jar</docletPath>
-                    <!--
-                        If you see this error "Cannot run program 'dot'" then Graphviz has probably
-                        not been installed; see here:
-
-                        http://www.graphviz.org/Download.php
-
-                        The UML Graph doclet needs to be installed manually as follows: 
-                        mvn install:install-file -Dfile=C:/development/software/UMLGraph-5.6.6/lib/UmlGraph.jar 
-                        -DgroupId=org.umlgraph -DartifactId=doclet -Dversion=5.6.6 -Dpackaging=jar -->
-                    <docletArtifact>
-                        <groupId>org.umlgraph</groupId>
-                        <artifactId>doclet</artifactId>
-                        <version>5.6</version>
-                    </docletArtifact>
-                    <additionalparam>"-views" "-Xdoclint:none"</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
-                </configuration>
-                <!-- Below is the yDoc configuration. <doclet>ydoc.doclets.YStandard</doclet> 
-                    <docletPath>C:/development/software/yworks-uml-doclet/lib/ydoc.jar: C:/development/software/yworks-uml-doclet/lib/styleed.jar: 
-                    C:/development/software/yworks-uml-doclet/resources </docletPath> <additionalparam>-umlautogen</additionalparam> -->
-                <reportSets>
-                    <reportSet>
-                        <id>aggregate</id>
-                        <configuration></configuration>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.16</version>
             </plugin>
@@ -282,6 +245,43 @@
                     <!--also set this to link to generated source reports-->
                     <linkXRef>true</linkXRef>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+                    <docletPath>C:/development/software/UMLGraph-5.6/lib/UmlGraph.jar</docletPath>
+                    <!--
+                        If you see this error "Cannot run program 'dot'" then Graphviz has probably
+                        not been installed; see here:
+
+                        http://www.graphviz.org/Download.php
+
+                        The UML Graph doclet needs to be installed manually as follows: 
+                        mvn install:install-file -Dfile=C:/development/software/UMLGraph-5.6.6/lib/UmlGraph.jar 
+                        -DgroupId=org.umlgraph -DartifactId=doclet -Dversion=5.6.6 -Dpackaging=jar -->
+                    <docletArtifact>
+                        <groupId>org.umlgraph</groupId>
+                        <artifactId>doclet</artifactId>
+                        <version>5.6</version>
+                    </docletArtifact>
+                    <additionalparam>"-views" "-Xdoclint:none"</additionalparam>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+                <!-- Below is the yDoc configuration. <doclet>ydoc.doclets.YStandard</doclet> 
+                    <docletPath>C:/development/software/yworks-uml-doclet/lib/ydoc.jar: C:/development/software/yworks-uml-doclet/lib/styleed.jar: 
+                    C:/development/software/yworks-uml-doclet/resources </docletPath> <additionalparam>-umlautogen</additionalparam> -->
+                <!-- reportSets>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <configuration></configuration>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
