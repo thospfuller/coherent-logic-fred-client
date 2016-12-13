@@ -69,6 +69,7 @@
             <artifactId>javax.persistence</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Required, don't delete. -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
