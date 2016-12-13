@@ -56,7 +56,7 @@ public class SeriessDAOTest {
         seriess = builder
             .category()
             .series()
-            .setCategoryId(categoryId)
+            .withCategoryId(categoryId)
             .doGet(Seriess.class);
     }
 

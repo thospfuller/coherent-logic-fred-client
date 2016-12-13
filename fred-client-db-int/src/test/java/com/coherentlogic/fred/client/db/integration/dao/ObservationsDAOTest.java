@@ -59,7 +59,7 @@ public class ObservationsDAOTest {
             builder
                 .series()
                 .observations()
-                .setSeriesId("GNPCA")
+                .withSeriesId("GNPCA")
                 .doGet(Observations.class);
     }
 
@@ -128,19 +128,19 @@ public class ObservationsDAOTest {
             builder
                 .series()
                 .observations()
-                .setSeriesId("GNPCA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(10)
-                .setOffset(5)
-                .setSortOrder(SortOrder.desc)
-                .setObservationStart(observationStart)
-                .setObservationEnd(observationEnd)
-                .setUnits(Unit.lin)
-                .setFrequency(Frequency.a)
-                .setAggregationMethod(AggregationMethod.sum)
-                .setOutputType(OutputType.observationsByRealTimePeriod)
-                .setFileType(FileType.xls)
+                .withSeriesId("GNPCA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(10)
+                .withOffset(5)
+                .withSortOrder(SortOrder.desc)
+                .withObservationStart(observationStart)
+                .withObservationEnd(observationEnd)
+                .withUnits(Unit.lin)
+                .withFrequency(Frequency.a)
+                .withAggregationMethod(AggregationMethod.sum)
+                .withOutputType(OutputType.observationsByRealTimePeriod)
+                .withFileType(FileType.xls)
                 .doGet(Observations.class);
 
             Message content = observations.getMessage();

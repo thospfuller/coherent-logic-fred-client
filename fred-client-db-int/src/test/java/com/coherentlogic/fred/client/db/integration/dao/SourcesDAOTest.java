@@ -48,9 +48,9 @@ public class SourcesDAOTest {
         sources = builder
             .release()
             .sources()
-            .setReleaseId(51L)
-            .setRealtimeStart("2010-06-01")
-            .setRealtimeEnd("2012-06-18")
+            .withReleaseId(51L)
+            .withRealtimeStart("2010-06-01")
+            .withRealtimeEnd("2012-06-18")
             .doGet(Sources.class);
     }
 

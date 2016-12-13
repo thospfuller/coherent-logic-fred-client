@@ -54,9 +54,9 @@ public class CategoriesDAOTest {
         categories = builder
             .series()
             .categories()
-            .setSeriesId("EXJPUS")
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
+            .withSeriesId("EXJPUS")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
             .doGet (Categories.class);
     }
 

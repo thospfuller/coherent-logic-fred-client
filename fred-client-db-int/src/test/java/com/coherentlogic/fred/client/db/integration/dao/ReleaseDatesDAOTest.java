@@ -50,8 +50,8 @@ public class ReleaseDatesDAOTest {
             builder
                 .releases()
                 .dates()
-                .setRealtimeStart("2012-06-18")
-                .setRealtimeEnd("2012-06-18")
+                .withRealtimeStart("2012-06-18")
+                .withRealtimeEnd("2012-06-18")
                 .doGet(ReleaseDates.class);
     }
 

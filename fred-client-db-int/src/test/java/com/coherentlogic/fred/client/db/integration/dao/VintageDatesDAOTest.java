@@ -56,12 +56,12 @@ public class VintageDatesDAOTest {
         vintageDates = builder
             .series()
             .vintageDates()
-            .setSeriesId("GNPCA")
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
-            .setLimit(100)
-            .setOffset(1)
-            .setSortOrder(SortOrder.desc)
+            .withSeriesId("GNPCA")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .withLimit(100)
+            .withOffset(1)
+            .withSortOrder(SortOrder.desc)
             .doGet(VintageDates.class);
     }
 

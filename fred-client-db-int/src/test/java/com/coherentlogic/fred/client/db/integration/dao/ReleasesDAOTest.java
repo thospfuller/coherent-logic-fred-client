@@ -55,9 +55,9 @@ public class ReleasesDAOTest {
             builder
                 .series()
                 .release()
-                .setSeriesId("IRA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
+                .withSeriesId("IRA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
                 .doGet(Releases.class);
     }
 

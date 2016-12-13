@@ -56,9 +56,9 @@ public class TagsDAOTest {
             .series()
             .search()
             .tags()
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
-            .setSeriesSearchText("monetary service index")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .withSeriesSearchText("monetary service index")
             .doGet(Tags.class);
     }
 
