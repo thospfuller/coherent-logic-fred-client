@@ -36,8 +36,8 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
             .withEc("Framework Usage") // event category
             .withAn("FRED Client") // application name
             .withEa("Framework Started (direct)") // event action
-            .withAv("Version 1.0.12-RELEASE") // Application version.
-            .withEl("Version 1.0.12-RELEASE")
+            .withAv("Version 2.0.0-RELEASE") // Application version.
+            .withEl("Version 2.0.0-RELEASE")
             .doPost();
 
         log.info("fireGAFrameworkUsageEvent: method ends; response: " + response);
