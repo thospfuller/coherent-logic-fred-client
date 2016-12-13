@@ -37,6 +37,7 @@ import org.springframework.web.client.RestTemplate;
 import com.coherentlogic.coherent.data.adapter.core.builders.rest.AbstractRESTQueryBuilder;
 import com.coherentlogic.coherent.data.adapter.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
+import com.coherentlogic.coherent.data.model.core.util.Action;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.FileType;
@@ -478,7 +479,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param apiKey For example, "abcdefghijklmnopqrstuvwxyz123456".
      */
-    public QueryBuilder setApiKey (String apiKey) {
+    public QueryBuilder withApiKey (String apiKey) {
 
         addParameter(API_KEY, apiKey);
 
@@ -490,7 +491,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param seriesId For example, "GNPCA".
      */
-    public QueryBuilder setSeriesId (String seriesId) {
+    public QueryBuilder withSeriesId (String seriesId) {
 
         put(SERIES_ID, seriesId);
 
@@ -502,7 +503,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param releaseId For example, 53L.
      */
-    public QueryBuilder setReleaseId (long releaseId) {
+    public QueryBuilder withReleaseId (long releaseId) {
 
         put(RELEASE_ID, Long.toString(releaseId));
 
@@ -512,7 +513,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the category id parameter.
      */
-    public QueryBuilder setCategoryId (long categoryId) {
+    public QueryBuilder withCategoryId (long categoryId) {
 
         put(CATEGORY_ID, Long.toString(categoryId));
 
@@ -522,7 +523,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the source id parameter.
      */
-    public QueryBuilder setSourceId (long sourceId) {
+    public QueryBuilder withSourceId (long sourceId) {
 
         put(SOURCE_ID, Long.toString(sourceId));
 
@@ -532,7 +533,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the real-time start date parameter.
      */
-    public QueryBuilder setRealtimeStart (Date realtimeStart) {
+    public QueryBuilder withRealtimeStart (Date realtimeStart) {
 
         boolean between = isBetween (realtimeStart);
 
@@ -554,7 +555,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws InvalidDateFormatException When the date does not conform to the
      *  expected format (ie. yyyy-MM-dd / 2012-06-21).
      */
-    public QueryBuilder setRealtimeStart (String realtimeStart) {
+    public QueryBuilder withRealtimeStart (String realtimeStart) {
 
         assertDateFormatIsValid ("realtimeStart", realtimeStart);
 
@@ -566,7 +567,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the real-time end date parameter.
      */
-    public QueryBuilder setRealtimeEnd (Date realtimeEnd) {
+    public QueryBuilder withRealtimeEnd (Date realtimeEnd) {
 
         boolean between = isBetween (realtimeEnd);
 
@@ -588,7 +589,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws InvalidDateFormatException When the date does not conform to the
      *  expected format (ie. yyyy-MM-dd / 2012-06-21).
      */
-    public QueryBuilder setRealtimeEnd (String realtimeEnd) {
+    public QueryBuilder withRealtimeEnd (String realtimeEnd) {
 
         assertDateFormatIsValid ("realtimeEnd", realtimeEnd);
 
@@ -602,7 +603,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param limit A value between 1 and 100000 (inclusive).
      */
-    public QueryBuilder setLimit (long limit) {
+    public QueryBuilder withLimit (long limit) {
 
         if (!(1 <= limit && limit <= 100000))
             throw new LimitOutOfBoundsException(limit);
@@ -620,7 +621,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws OffsetOutOfBoundsException if the value of the offset is less
      *  than zero.
      */
-    public QueryBuilder setOffset (int offset) {
+    public QueryBuilder withOffset (int offset) {
 
         if (offset < 0)
             throw new OffsetOutOfBoundsException (offset);
@@ -635,7 +636,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.OrderBy
      */
-    public QueryBuilder setOrderBy (OrderBy orderBy) {
+    public QueryBuilder withOrderBy (OrderBy orderBy) {
 
         put(ORDER_BY, orderBy.toString());
 
@@ -647,7 +648,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.SortOrder
      */
-    public QueryBuilder setSortOrder (SortOrder sortOrder) {
+    public QueryBuilder withSortOrder (SortOrder sortOrder) {
 
         put(SORT_ORDER, sortOrder.toString());
 
@@ -659,7 +660,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.FilterVariable
      */
-    public QueryBuilder setFilterVariable (FilterVariable filterVariable) {
+    public QueryBuilder withFilterVariable (FilterVariable filterVariable) {
 
         put(FILTER_VARIABLE, filterVariable.toString());
 
@@ -671,7 +672,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.FilterValue
      */
-    public QueryBuilder setFilterValue (FilterValue filterValue) {
+    public QueryBuilder withFilterValue (FilterValue filterValue) {
 
         put(FILTER_VALUE, filterValue.toString());
 
@@ -681,7 +682,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the include-release-dates-with-no-data flag parameter.
      */
-    public QueryBuilder setIncludeReleaseDatesWithNoData (boolean value) {
+    public QueryBuilder withIncludeReleaseDatesWithNoData (boolean value) {
 
         put(INCLUDE_RELEASE_DATES_WITH_NO_DATA, Boolean.toString(value));
 
@@ -691,7 +692,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the observation start date parameter.
      */
-    public QueryBuilder setObservationStart (Date observationStart) {
+    public QueryBuilder withObservationStart (Date observationStart) {
 
         boolean between = isBetween (observationStart);
 
@@ -713,7 +714,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws InvalidDateFormatException When the date does not conform to the
      *  expected format (ie. yyyy-MM-dd / 2012-06-21).
      */
-    public QueryBuilder setObservationStart (String observationStart) {
+    public QueryBuilder withObservationStart (String observationStart) {
 
         assertDateFormatIsValid ("observationStart", observationStart);
 
@@ -727,7 +728,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param observationEnd
      */
-    public QueryBuilder setObservationEnd (Date observationEnd) {
+    public QueryBuilder withObservationEnd (Date observationEnd) {
 
         boolean between = isBetween (observationEnd);
 
@@ -749,7 +750,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws InvalidDateFormatException When the date does not conform to the
      *  expected format (ie. yyyy-MM-dd / 2012-06-21).
      */
-    public QueryBuilder setObservationEnd (String observationEnd) {
+    public QueryBuilder withObservationEnd (String observationEnd) {
 
         assertDateFormatIsValid ("observationEnd", observationEnd);
 
@@ -763,7 +764,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.Unit
      */
-    public QueryBuilder setUnits (Unit unit) {
+    public QueryBuilder withUnits (Unit unit) {
 
         put(UNITS, unit.toString());
 
@@ -775,7 +776,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.Frequency
      */
-    public QueryBuilder setFrequency (Frequency frequency) {
+    public QueryBuilder withFrequency (Frequency frequency) {
 
         put(FREQUENCY, frequency.toString());
 
@@ -787,8 +788,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
      */
-    public QueryBuilder setAggregationMethod (
-        AggregationMethod aggregationMethod) {
+    public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
 
         put(AGGREGATION_METHOD, aggregationMethod.toString());
 
@@ -800,7 +800,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.OutputType
      */
-    public QueryBuilder setOutputType (OutputType outputType) {
+    public QueryBuilder withOutputType (OutputType outputType) {
 
         put(OUTPUT_TYPE, outputType.toString());
 
@@ -812,7 +812,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.FileType
      */
-    public QueryBuilder setFileType (FileType fileType) {
+    public QueryBuilder withFileType (FileType fileType) {
 
         put(FILE_TYPE, fileType.toString());
 
@@ -826,7 +826,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * Note that the format of the dates is not checked client-side -- if there
      * is an invalid date, the server will reject the call.
      */
-    public QueryBuilder setVintageDates (String vintageDates) {
+    public QueryBuilder withVintageDates (String vintageDates) {
 
         put(VINTAGE_DATES_PARAM, vintageDates);
 
@@ -839,7 +839,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @throws InvalidDateFormatException If any of the dates are not of the
      *  format yyyy-MM-dd.
      */
-    public QueryBuilder setVintageDates (String... vintageDates) {
+    public QueryBuilder withVintageDates (String... vintageDates) {
 
         String value = convertDates ("setVintageDates", ",", vintageDates);
 
@@ -852,7 +852,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * Setter method for the search text  parameter which consists of the words
      * to match against economic data series.
      */
-    public QueryBuilder setSearchText (String searchText) {
+    public QueryBuilder withSearchText (String searchText) {
 
         put(SEARCH_TEXT, searchText);
 
@@ -864,7 +864,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * words to match against economic data series -- for example
      * "monetary service index".
      */
-    public QueryBuilder setSeriesSearchText (String seriesSearchText) {
+    public QueryBuilder withSeriesSearchText (String seriesSearchText) {
 
         put(SERIES_SEARCH_TEXT, seriesSearchText);
 
@@ -876,7 +876,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see com.coherentlogic.fred.client.core.domain.SearchType
      */
-    public QueryBuilder setSearchType (SearchType searchType) {
+    public QueryBuilder withSearchType (SearchType searchType) {
 
         put(SEARCH_TYPE, searchType.toString());
 
@@ -890,7 +890,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
-    public QueryBuilder setTagNames (String tagNames) {
+    public QueryBuilder withTagNames (String tagNames) {
 
         put(TAG_NAMES, tagNames);
 
@@ -910,11 +910,11 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
-    public QueryBuilder setTagNames (String... tagNames) {
+    public QueryBuilder withTagNames (String... tagNames) {
 
         String result = combine (SEMICOLON, tagNames);
 
-        return setTagNames (result);
+        return withTagNames (result);
     }
 
     /**
@@ -931,7 +931,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * seas = Seasonal Adjustment
      * src = Source
      */
-    public QueryBuilder setTagGroupId (TagGroupId tagGroupId) {
+    public QueryBuilder withTagGroupId (TagGroupId tagGroupId) {
 
         put (TAG_GROUP_ID, tagGroupId.toString());
 
@@ -942,7 +942,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * The words to find matching tags with -- optional, no filtering by search
      * words by default.
      */
-    public QueryBuilder setTagSearchText (String tagSearchText) {
+    public QueryBuilder withTagSearchText (String tagSearchText) {
 
         put (TAG_SEARCH_TEXT, tagSearchText);
 
@@ -963,7 +963,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         assertNotNullOrEmpty ("values", values);
 
-        StringBuffer result = new StringBuffer ();
+        StringBuilder result = new StringBuilder ();
 
         int ctr = values.length;
 
@@ -1084,31 +1084,103 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         return doGet(Seriess.class);
     }
 
+    public Seriess doGetAsSeriess (Action<Seriess> action) {
+
+        Seriess result = doGet(Seriess.class);
+
+        action.execute(result);
+
+        return result;
+    }
+
     public Categories doGetAsCategories () {
         return doGet(Categories.class);
+    }
+
+    public Categories doGetAsCategories (Action<Categories> action) {
+
+        Categories result = doGet(Categories.class);
+
+        action.execute(result);
+
+        return result;
     }
 
     public Observations doGetAsObservations () {
         return doGet(Observations.class);
     }
 
+    public Observations doGetAsObservations (Action<Observations> action) {
+
+        Observations result = doGet(Observations.class);
+
+        action.execute(result);
+
+        return result;
+    }
+
     public Releases doGetAsReleases () {
         return doGet(Releases.class);
+    }
+
+    public Releases doGetAsReleases (Action<Releases> action) {
+
+        Releases result = doGet(Releases.class);
+
+        action.execute(result);
+
+        return result;
     }
 
     public VintageDates doGetAsVintageDates () {
         return doGet(VintageDates.class);
     }
 
+    public VintageDates doGetAsVintageDates (Action<VintageDates> action) {
+
+        VintageDates result = doGet(VintageDates.class);
+
+        action.execute(result);
+
+        return result;
+    }
+
     public Sources doGetAsSources () {
         return doGet(Sources.class);
+    }
+
+    public Sources doGetAsSources (Action<Sources> action) {
+
+        Sources result = doGet(Sources.class);
+
+        action.execute(result);
+
+        return result;
     }
 
     public ReleaseDates doGetAsReleaseDates () {
         return doGet(ReleaseDates.class);
     }
 
+    public ReleaseDates doGetAsReleaseDates (Action<ReleaseDates> action) {
+
+        ReleaseDates result = doGet(ReleaseDates.class);
+
+        action.execute(result);
+
+        return result;
+    }
+
     public Tags doGetAsTags () {
         return doGet(Tags.class);
+    }
+
+    public Tags doGetAsTags (Action<Tags> action) {
+
+        Tags result = doGet(Tags.class);
+
+        action.execute(result);
+
+        return result;
     }
 }
