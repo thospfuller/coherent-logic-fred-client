@@ -187,7 +187,7 @@ public class QueryBuilderTest {
             .withRealtimeEnd(realtimeEnd)
             .doGetAsSeriess (
                 data -> {
-                    System.out.println("/////////////////////// data: " + data);
+                    System.out.println("data: " + data);
                 }
             );
 
