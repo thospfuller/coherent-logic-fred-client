@@ -112,7 +112,7 @@
         <module>fred-client-config</module>
         <module>fred-client-misc</module>
         <module>fred-client-core</module>
-        <!-- module>fred-client-core-it</module -->
+        <module>fred-client-core-it</module>
         <module>fred-client-db-int</module>
         <!-- module>fred-client-webstart-application</module -->
     </modules>
@@ -201,11 +201,17 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.4.0</version>
+                <version>3.0.4</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                    <maxHeap>2048</maxHeap>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
