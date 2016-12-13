@@ -60,7 +60,7 @@ public class QueryBuilderFactory
         else
             result = new QueryBuilder (restTemplate, uri, cacheServiceProvider);
 
-        result.setApiKey(apiKey);
+        result.withApiKey(apiKey);
 
         return result;
     }
