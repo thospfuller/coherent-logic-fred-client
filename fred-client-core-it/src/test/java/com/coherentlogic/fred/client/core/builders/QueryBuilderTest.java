@@ -102,7 +102,7 @@ public class QueryBuilderTest {
             "src/test/resources/spring/application-context.xml");
 
     private RestTemplate restTemplate = null;
-    
+
     static final DateTimeFormatter dateFormatter
             = DateTimeFormat.forPattern("yyyy-MM-dd")
                     .withLocale(Locale.ROOT)
@@ -181,11 +181,15 @@ public class QueryBuilderTest {
             "https://api.stlouisfed.org/fred/series");
 
         Seriess result = builder
-            .setApiKey(API_KEY)
-            .setSeriesId("GNPCA")
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
-            .doGetAsSeriess ();
+            .withApiKey(API_KEY)
+            .withSeriesId("GNPCA")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .doGetAsSeriess (
+                data -> {
+                    System.out.println("/////////////////////// data: " + data);
+                }
+            );
 
         Date realtimeStartDate = result.getRealtimeStart();
         Date realtimeEndDate = result.getRealtimeEnd();
@@ -236,11 +240,11 @@ public class QueryBuilderTest {
 
         Seriess result = builder
             .search()
-            .setApiKey(API_KEY)
-            .setSearchText("*")
-            .setSearchType(SearchType.seriesId)
-            .setOffset(0)
-            .setLimit(1000)
+            .withApiKey(API_KEY)
+            .withSearchText("*")
+            .withSearchType(SearchType.seriesId)
+            .withOffset(0)
+            .withLimit(1000)
             .doGetAsSeriess();
 
         assertEquals(1000, result.getSeriesList().size());
@@ -255,10 +259,10 @@ public class QueryBuilderTest {
         );
 
         Categories categories = builder
-            .setApiKey(API_KEY)
-            .setSeriesId("EXJPUS")
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
+            .withApiKey(API_KEY)
+            .withSeriesId("EXJPUS")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
             .doGet (Categories.class);
 
         List<Category> categoryList = categories.getCategoryList();
@@ -292,8 +296,8 @@ public class QueryBuilderTest {
 
         Observations observations =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("GNPCA")
+                .withApiKey(API_KEY)
+                .withSeriesId("GNPCA")
                 .doGet(Observations.class);
 
         Message content = observations.getMessage();
@@ -352,20 +356,20 @@ public class QueryBuilderTest {
 
         Observations observations =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("GNPCA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(10)
-                .setOffset(5)
-                .setSortOrder(SortOrder.desc)
-                .setObservationStart(observationStart)
-                .setObservationEnd(observationEnd)
-                .setUnits(Unit.lin)
-                .setFrequency(Frequency.a)
-                .setAggregationMethod(AggregationMethod.sum)
-                .setOutputType(OutputType.observationsByRealTimePeriod)
-                .setFileType(FileType.xls)
+                .withApiKey(API_KEY)
+                .withSeriesId("GNPCA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(10)
+                .withOffset(5)
+                .withSortOrder(SortOrder.desc)
+                .withObservationStart(observationStart)
+                .withObservationEnd(observationEnd)
+                .withUnits(Unit.lin)
+                .withFrequency(Frequency.a)
+                .withAggregationMethod(AggregationMethod.sum)
+                .withOutputType(OutputType.observationsByRealTimePeriod)
+                .withFileType(FileType.xls)
                 .doGet(Observations.class);
 
         Message content = observations.getMessage();
@@ -399,20 +403,20 @@ public class QueryBuilderTest {
 
         Observations observations =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("FINSLCA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(10)
-                .setOffset(0)
-                .setSortOrder(SortOrder.desc)
-                .setObservationStart(observationStart)
-                .setObservationEnd(observationEnd)
-                .setUnits(Unit.lin)
-                .setFrequency(Frequency.a)
-                .setAggregationMethod(AggregationMethod.sum)
-                .setOutputType(OutputType.observationsByRealTimePeriod)
-                .setFileType(FileType.xml)
+                .withApiKey(API_KEY)
+                .withSeriesId("FINSLCA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(10)
+                .withOffset(0)
+                .withSortOrder(SortOrder.desc)
+                .withObservationStart(observationStart)
+                .withObservationEnd(observationEnd)
+                .withUnits(Unit.lin)
+                .withFrequency(Frequency.a)
+                .withAggregationMethod(AggregationMethod.sum)
+                .withOutputType(OutputType.observationsByRealTimePeriod)
+                .withFileType(FileType.xml)
                 .doGet(Observations.class);
 
         assertNotNull (observations);
@@ -483,20 +487,20 @@ public class QueryBuilderTest {
 
         Observations observations =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("GDPCA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(10)
-                .setOffset(0)
-                .setSortOrder(SortOrder.desc)
-                .setObservationStart(observationStart)
-                .setObservationEnd(observationEnd)
-                .setUnits(Unit.lin)
-                .setFrequency(Frequency.a)
-                .setAggregationMethod(AggregationMethod.sum)
-                .setOutputType(OutputType.observationsByRealTimePeriod)
-                .setFileType(FileType.txt)
+                .withApiKey(API_KEY)
+                .withSeriesId("GDPCA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(10)
+                .withOffset(0)
+                .withSortOrder(SortOrder.desc)
+                .withObservationStart(observationStart)
+                .withObservationEnd(observationEnd)
+                .withUnits(Unit.lin)
+                .withFrequency(Frequency.a)
+                .withAggregationMethod(AggregationMethod.sum)
+                .withOutputType(OutputType.observationsByRealTimePeriod)
+                .withFileType(FileType.txt)
                 .doGet(Observations.class);
 
         assertNotNull (observations);
@@ -528,10 +532,10 @@ public class QueryBuilderTest {
 
         Releases releases =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("IRA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
+                .withApiKey(API_KEY)
+                .withSeriesId("IRA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
                 .doGet(Releases.class);
 
         assertDateIsAccurate(
@@ -576,12 +580,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         Seriess seriess =
             builder
-                .setApiKey(API_KEY)
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(100)
-                .setOffset(1)
-                .setFilterValue(FilterValue.macro)
+                .withApiKey(API_KEY)
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(100)
+                .withOffset(1)
+                .withFilterValue(FilterValue.macro)
                 .doGet(Seriess.class);
 
         assertNotNull (seriess);
@@ -637,13 +641,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         VintageDates vintageDates =
             builder
-                .setApiKey(API_KEY)
-                .setSeriesId("GNPCA")
-                .setRealtimeStart(realtimeStart)
-                .setRealtimeEnd(realtimeEnd)
-                .setLimit(100)
-                .setOffset(1)
-                .setSortOrder(SortOrder.desc)
+                .withApiKey(API_KEY)
+                .withSeriesId("GNPCA")
+                .withRealtimeStart(realtimeStart)
+                .withRealtimeEnd(realtimeEnd)
+                .withLimit(100)
+                .withOffset(1)
+                .withSortOrder(SortOrder.desc)
                 .doGet(VintageDates.class);
 
         assertNotNull (vintageDates);
@@ -677,19 +681,19 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Seriess seriess = builder
-            .setApiKey(API_KEY)
+            .withApiKey(API_KEY)
             .series()
             .search()
-            .setSearchText("money stock")
-            .setSearchType(SearchType.fullText)
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
-            .setLimit(1000)
-            .setOffset(1)
-            .setOrderBy(OrderBy.searchRank)
-            .setSortOrder(SortOrder.desc)
-            .setFilterVariable(FilterVariable.frequency)
-            .setFilterValue(FilterValue.all)
+            .withSearchText("money stock")
+            .withSearchType(SearchType.fullText)
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .withLimit(1000)
+            .withOffset(1)
+            .withOrderBy(OrderBy.searchRank)
+            .withSortOrder(SortOrder.desc)
+            .withFilterVariable(FilterVariable.frequency)
+            .withFilterValue(FilterValue.all)
             .doGet(Seriess.class);
 
         assertNotNull (seriess);
@@ -722,8 +726,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Categories categories = builder
-            .setApiKey(API_KEY)
-            .setCategoryId(categoryId)
+            .withApiKey(API_KEY)
+            .withCategoryId(categoryId)
             .doGet(Categories.class);
 
         assertNotNull (categories);
@@ -755,8 +759,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Categories categories = builder
-            .setApiKey(API_KEY)
-            .setCategoryId(categoryId)
+            .withApiKey(API_KEY)
+            .withCategoryId(categoryId)
             .doGet(Categories.class);
 
         assertNotNull (categories);
@@ -789,8 +793,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Categories categories = builder
-            .setApiKey(API_KEY)
-            .setCategoryId(categoryId)
+            .withApiKey(API_KEY)
+            .withCategoryId(categoryId)
             .doGet(Categories.class);
 
         assertNotNull (categories);
@@ -823,8 +827,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Seriess seriess = builder
-            .setApiKey(API_KEY)
-            .setCategoryId(categoryId)
+            .withApiKey(API_KEY)
+            .withCategoryId(categoryId)
             .doGet(Seriess.class);
 
         assertNotNull (seriess);
@@ -891,7 +895,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Sources sources = builder
-            .setApiKey(API_KEY)
+            .withApiKey(API_KEY)
             .doGetAsSources ();
 
         assertNotNull (sources);
@@ -925,8 +929,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Sources sources = builder
-            .setApiKey(API_KEY)
-            .setSourceId(1)
+            .withApiKey(API_KEY)
+            .withSourceId(1)
             .doGetAsSources ();
 
         assertNotNull (sources);
@@ -952,8 +956,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Releases releases = builder
-            .setApiKey(API_KEY)
-            .setSourceId(1)
+            .withApiKey(API_KEY)
+            .withSourceId(1)
             .doGetAsReleases();
 
 //        assertDateIsAccurateForToday(releases.getRealtimeStart());
@@ -986,7 +990,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Releases releases = builder
-            .setApiKey(API_KEY)
+            .withApiKey(API_KEY)
             .doGetAsReleases();
 
         assertDateIsAccurateForToday(releases.getRealtimeStart());
@@ -1017,9 +1021,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             "https://api.stlouisfed.org/fred/releases/dates"
         );
 
-        ReleaseDates releaseDates = builder.setApiKey(API_KEY)
-            .setRealtimeStart("2012-06-18")
-            .setRealtimeEnd("2012-06-18")
+        ReleaseDates releaseDates = builder.withApiKey(API_KEY)
+            .withRealtimeStart("2012-06-18")
+            .withRealtimeEnd("2012-06-18")
             .doGet(ReleaseDates.class);
 
         List<ReleaseDate> releaseDateList = releaseDates.getReleaseDateList();
@@ -1043,10 +1047,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Releases releases = builder
-            .setApiKey(API_KEY)
-            .setReleaseId(53L)
-            .setRealtimeStart("2008-07-28")
-            .setRealtimeEnd("2008-07-28")
+            .withApiKey(API_KEY)
+            .withReleaseId(53L)
+            .withRealtimeStart("2008-07-28")
+            .withRealtimeEnd("2008-07-28")
             .doGetAsReleases ();
 
         assertDateIsAccurate(
@@ -1080,10 +1084,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             "https://api.stlouisfed.org/fred/release/dates"
         );
 
-        ReleaseDates releaseDates = builder.setApiKey(API_KEY)
-            .setReleaseId(82L)
-            .setRealtimeStart("2010-06-01")
-            .setRealtimeEnd("2012-06-18")
+        ReleaseDates releaseDates = builder.withApiKey(API_KEY)
+            .withReleaseId(82L)
+            .withRealtimeStart("2010-06-01")
+            .withRealtimeEnd("2012-06-18")
             .doGetAsReleaseDates();
 
         assertDateIsAccurate(
@@ -1119,10 +1123,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             "https://api.stlouisfed.org/fred/release/series");
 
         Seriess result = builder
-            .setApiKey(API_KEY)
-            .setReleaseId(51L)
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
+            .withApiKey(API_KEY)
+            .withReleaseId(51L)
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
             .doGetAsSeriess ();
 
         Date realtimeStartDate = result.getRealtimeStart();
@@ -1169,10 +1173,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Sources sources = builder
-            .setApiKey(API_KEY)
-            .setReleaseId(51L)
-            .setRealtimeStart("2010-06-01")
-            .setRealtimeEnd("2012-06-18")
+            .withApiKey(API_KEY)
+            .withReleaseId(51L)
+            .withRealtimeStart("2010-06-01")
+            .withRealtimeEnd("2012-06-18")
             .doGetAsSources();
 
         assertNotNull (sources);
@@ -1218,13 +1222,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         );
 
         Tags tags = builder
-            .setApiKey(API_KEY)
+            .withApiKey(API_KEY)
             .series()
             .search()
             .tags()
-            .setRealtimeStart(realtimeStart)
-            .setRealtimeEnd(realtimeEnd)
-            .setSeriesSearchText("monetary service index")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .withSeriesSearchText("monetary service index")
             .doGetAsTags ();
 
         assertNotNull (tags);
@@ -1274,10 +1278,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             builder
                 .series()
                 .observations()
-                .setApiKey(API_KEY)
-                .setSeriesId("RU2000TR")
-                .setOrderBy(OrderBy.observationDate)
-                .setSortOrder(SortOrder.asc)
+                .withApiKey(API_KEY)
+                .withSeriesId("RU2000TR")
+                .withOrderBy(OrderBy.observationDate)
+                .withSortOrder(SortOrder.asc)
                 .doGetAsObservations();
 
         // first value is 100.0
@@ -1300,13 +1304,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             builder
                 .series()
                 .observations()
-                .setApiKey(API_KEY)
-                .setSeriesId("RU2000TR")
-                .setSortOrder(SortOrder.asc)
-                .setUnits(Unit.lin)
-                .setFrequency(Frequency.a)
-                .setAggregationMethod(AggregationMethod.sum)
-                .setOutputType(OutputType.observationsByRealTimePeriod)
+                .withApiKey(API_KEY)
+                .withSeriesId("RU2000TR")
+                .withSortOrder(SortOrder.asc)
+                .withUnits(Unit.lin)
+                .withFrequency(Frequency.a)
+                .withAggregationMethod(AggregationMethod.sum)
+                .withOutputType(OutputType.observationsByRealTimePeriod)
                 .doGet(Observations.class);
 
         assertObsEquals("1978-01-01", null, observations, 0);
@@ -1325,10 +1329,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             builder
                 .series()
                 .observations()
-                .setApiKey(API_KEY)
-                .setSeriesId("GNPCA")
-                .setSortOrder(SortOrder.asc)
-                .setOrderBy(OrderBy.observationDate)
+                .withApiKey(API_KEY)
+                .withSeriesId("GNPCA")
+                .withSortOrder(SortOrder.asc)
+                .withOrderBy(OrderBy.observationDate)
                 .doGet(Observations.class);
 
         assertObsEquals("1929-01-01", "1066.8", observations, 0);
@@ -1347,10 +1351,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             builder
                 .series()
                 .observations()
-                .setApiKey(API_KEY)
-                .setSeriesId("GNPCA")
-                .setSortOrder(SortOrder.asc)
-                .setOrderBy(OrderBy.observationDate)
+                .withApiKey(API_KEY)
+                .withSeriesId("GNPCA")
+                .withSortOrder(SortOrder.asc)
+                .withOrderBy(OrderBy.observationDate)
                 .doGet(Observations.class);
 
         assertEquals(

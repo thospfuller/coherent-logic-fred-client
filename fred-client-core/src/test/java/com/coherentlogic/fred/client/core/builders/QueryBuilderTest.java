@@ -68,7 +68,7 @@ public class QueryBuilderTest {
     public void testApiKey() {
         String apiKey = RANDOM_TEXT;
 
-        builder.setApiKey(apiKey);
+        builder.withApiKey(apiKey);
 
         String actual = builder.getEscapedURI();
 
@@ -177,7 +177,7 @@ public class QueryBuilderTest {
     public void testSeriesId() {
         String seriesId = RANDOM_TEXT;
 
-        builder.setSeriesId(seriesId);
+        builder.withSeriesId(seriesId);
 
         String actual = builder.getEscapedURI();
 
@@ -188,7 +188,7 @@ public class QueryBuilderTest {
     public void testReleaseId() {
         int releaseId = RANDOM_INT;
 
-        builder.setReleaseId(releaseId);
+        builder.withReleaseId(releaseId);
 
         String actual = builder.getEscapedURI();
 
@@ -199,7 +199,7 @@ public class QueryBuilderTest {
     public void testCategoryId() {
         int categoryId = RANDOM_INT;
 
-        builder.setCategoryId(categoryId);
+        builder.withCategoryId(categoryId);
 
         String actual = builder.getEscapedURI();
 
@@ -210,7 +210,7 @@ public class QueryBuilderTest {
     public void testSourceId() {
         int sourceId = RANDOM_INT;
 
-        builder.setSourceId(sourceId);
+        builder.withSourceId(sourceId);
 
         String actual = builder.getEscapedURI();
 
@@ -225,7 +225,7 @@ public class QueryBuilderTest {
 
         Date realtimeStart = calendar.getTime();
 
-        builder.setRealtimeStart(realtimeStart);
+        builder.withRealtimeStart(realtimeStart);
 
         String actual = builder.getEscapedURI();
 
@@ -237,7 +237,7 @@ public class QueryBuilderTest {
     public void testRealtimeStartString() {
         String realtimeStart = VALID_DATE;
 
-        builder.setRealtimeStart(realtimeStart);
+        builder.withRealtimeStart(realtimeStart);
 
         String actual = builder.getEscapedURI();
 
@@ -247,7 +247,7 @@ public class QueryBuilderTest {
 
     @Test(expected=InvalidDateFormatException.class)
     public void testRealtimeStartInvalidString() {
-        builder.setRealtimeStart(INVALID_DATE);
+        builder.withRealtimeStart(INVALID_DATE);
     }
 
     @Test
@@ -258,7 +258,7 @@ public class QueryBuilderTest {
 
         Date realtimeEnd = calendar.getTime();
 
-        builder.setRealtimeEnd(realtimeEnd);
+        builder.withRealtimeEnd(realtimeEnd);
 
         String actual = builder.getEscapedURI();
 
@@ -270,7 +270,7 @@ public class QueryBuilderTest {
     public void testRealtimeEndString() {
         String realtimeEnd = VALID_DATE;
 
-        builder.setRealtimeEnd(realtimeEnd);
+        builder.withRealtimeEnd(realtimeEnd);
 
         String actual = builder.getEscapedURI();
 
@@ -280,14 +280,14 @@ public class QueryBuilderTest {
 
     @Test(expected=InvalidDateFormatException.class)
     public void testRealtimeEndInvalidString() {
-        builder.setRealtimeEnd(INVALID_DATE);
+        builder.withRealtimeEnd(INVALID_DATE);
     }
 
     @Test
     public void testLimit() {
         int limit = RANDOM_INT;
 
-        builder.setLimit(limit);
+        builder.withLimit(limit);
 
         String actual = builder.getEscapedURI();
 
@@ -298,14 +298,14 @@ public class QueryBuilderTest {
     public void testLimitLessThan1() {
         int limit = 0;
 
-        builder.setLimit(limit);
+        builder.withLimit(limit);
     }
 
     @Test(expected=LimitOutOfBoundsException.class)
     public void testLimitGreaterThan100000() {
         int limit = 100001;
 
-        builder.setLimit(limit);
+        builder.withLimit(limit);
     }
 
     @Test
@@ -313,7 +313,7 @@ public class QueryBuilderTest {
 
         int offset = 2;
 
-        builder.setOffset(offset);
+        builder.withOffset(offset);
 
         String actual = builder.getEscapedURI();
 
@@ -327,14 +327,14 @@ public class QueryBuilderTest {
 
         int offset = -1;
 
-        builder.setOffset(offset);
+        builder.withOffset(offset);
     }
 
     @Test
     public void testOrderBy() {
         OrderBy orderBy = OrderBy.searchRank;
 
-        builder.setOrderBy(orderBy);
+        builder.withOrderBy(orderBy);
 
         String actual = builder.getEscapedURI();
 
@@ -346,7 +346,7 @@ public class QueryBuilderTest {
     public void testSortOrder() {
         SortOrder sortOrder = SortOrder.desc;
 
-        builder.setSortOrder(sortOrder);
+        builder.withSortOrder(sortOrder);
 
         String actual = builder.getEscapedURI();
 
@@ -358,7 +358,7 @@ public class QueryBuilderTest {
     public void testFilterVariable() {
         FilterVariable filterVariable = FilterVariable.seasonalAdjustment;
 
-        builder.setFilterVariable(filterVariable);
+        builder.withFilterVariable(filterVariable);
 
         String actual = builder.getEscapedURI();
 
@@ -370,7 +370,7 @@ public class QueryBuilderTest {
     @Test
     public void testFilterValue() {
 
-        builder.setFilterValue(FilterValue.macro);
+        builder.withFilterValue(FilterValue.macro);
 
         String actual = builder.getEscapedURI();
 
@@ -382,7 +382,7 @@ public class QueryBuilderTest {
     @Test
     public void testIncludeReleaseDatesWithNoData() {
 
-        builder.setIncludeReleaseDatesWithNoData(false);
+        builder.withIncludeReleaseDatesWithNoData(false);
 
         String actual = builder.getEscapedURI();
 
@@ -402,7 +402,7 @@ public class QueryBuilderTest {
 
         Date observationStart = calendar.getTime();
 
-        builder.setObservationStart(observationStart);
+        builder.withObservationStart(observationStart);
 
         String actual = builder.getEscapedURI();
 
@@ -416,7 +416,7 @@ public class QueryBuilderTest {
 
         String observationStart = VALID_DATE;
 
-        builder.setObservationStart(observationStart);
+        builder.withObservationStart(observationStart);
 
         String actual = builder.getEscapedURI();
 
@@ -427,7 +427,7 @@ public class QueryBuilderTest {
 
     @Test(expected=InvalidDateFormatException.class)
     public void testObservationStartInvalidString() {
-        builder.setObservationStart(INVALID_DATE);
+        builder.withObservationStart(INVALID_DATE);
     }
 
     @Test
@@ -439,7 +439,7 @@ public class QueryBuilderTest {
 
         Date observationEnd = calendar.getTime();
 
-        builder.setObservationEnd(observationEnd);
+        builder.withObservationEnd(observationEnd);
 
         String actual = builder.getEscapedURI();
 
@@ -453,7 +453,7 @@ public class QueryBuilderTest {
 
         String observationEnd = VALID_DATE;
 
-        builder.setObservationEnd(observationEnd);
+        builder.withObservationEnd(observationEnd);
 
         String actual = builder.getEscapedURI();
 
@@ -464,14 +464,14 @@ public class QueryBuilderTest {
 
     @Test(expected=InvalidDateFormatException.class)
     public void testObservationEndInvalidString() {
-        builder.setObservationEnd(INVALID_DATE);
+        builder.withObservationEnd(INVALID_DATE);
     }
 
     @Test
     public void testUnits() {
         Unit unit = Unit.lin;
 
-        builder.setUnits(unit);
+        builder.withUnits(unit);
 
         String actual = builder.getEscapedURI();
 
@@ -482,7 +482,7 @@ public class QueryBuilderTest {
     public void testFrequency() {
         Frequency frequency = Frequency.q;
 
-        builder.setFrequency(frequency);
+        builder.withFrequency(frequency);
 
         String actual = builder.getEscapedURI();
 
@@ -495,7 +495,7 @@ public class QueryBuilderTest {
     public void testAggregationMethod() {
         AggregationMethod aggregationMethod = AggregationMethod.eop;
 
-        builder.setAggregationMethod(aggregationMethod);
+        builder.withAggregationMethod(aggregationMethod);
 
         String actual = builder.getEscapedURI();
 
@@ -510,7 +510,7 @@ public class QueryBuilderTest {
     public void testOutputType() {
         OutputType outputType = OutputType.observationsInitialReleaseOnly;
 
-        builder.setOutputType(outputType);
+        builder.withOutputType(outputType);
 
         String actual = builder.getEscapedURI();
 
@@ -523,7 +523,7 @@ public class QueryBuilderTest {
     public void testFileType() {
         FileType fileType = FileType.xls;
 
-        builder.setFileType(fileType);
+        builder.withFileType(fileType);
 
         String actual = builder.getEscapedURI();
 
@@ -536,7 +536,7 @@ public class QueryBuilderTest {
     public void testVintageDates() {
         String vintageDates = RANDOM_TEXT;
 
-        builder.setVintageDates(vintageDates);
+        builder.withVintageDates(vintageDates);
 
         String actual = builder.getEscapedURI();
 
@@ -548,7 +548,7 @@ public class QueryBuilderTest {
     public void testSearchText() {
         String searchText = RANDOM_TEXT;
 
-        builder.setSearchText(searchText);
+        builder.withSearchText(searchText);
 
         String actual = builder.getEscapedURI();
 
@@ -559,7 +559,7 @@ public class QueryBuilderTest {
     @Test
     public void testSearchType() {
 
-        builder.setSearchType(SearchType.fullText);
+        builder.withSearchType(SearchType.fullText);
 
         String actual = builder.getEscapedURI();
 
@@ -680,7 +680,7 @@ public class QueryBuilderTest {
 
     @Test
     public void setTagGroupId () {
-        builder.setTagGroupId(TagGroupId.gen);
+        builder.withTagGroupId(TagGroupId.gen);
 
         String uri = builder.getEscapedURI();
 
@@ -691,7 +691,7 @@ public class QueryBuilderTest {
     public void setSeriesSearchText () {
         String foo = "foo";
 
-        builder.setSeriesSearchText(foo);
+        builder.withSeriesSearchText(foo);
 
         String uri = builder.getEscapedURI();
 
