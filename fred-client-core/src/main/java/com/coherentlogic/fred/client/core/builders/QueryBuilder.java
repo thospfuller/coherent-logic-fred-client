@@ -6,6 +6,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.CHILDREN;
 import static com.coherentlogic.fred.client.core.util.Constants.DATES;
 import static com.coherentlogic.fred.client.core.util.Constants.DATE_FORMAT;
 import static com.coherentlogic.fred.client.core.util.Constants.DATE_PATTERN;
+import static com.coherentlogic.fred.client.core.util.Constants.FRED;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATIONS;
 import static com.coherentlogic.fred.client.core.util.Constants.RELATED;
 import static com.coherentlogic.fred.client.core.util.Constants.RELEASE;
@@ -181,7 +182,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         SEARCH_TEXT = "search_text",
         SEARCH_TYPE = "search_type",
         SEMICOLON = ";",
-        FRED_API_ENTRY_POINT = "https://api.stlouisfed.org/fred";
+        FRED_API_ENTRY_POINT = "https://api.stlouisfed.org/";
 
     private static final Calendar MIN_DATE_CALENDAR, MAX_DATE_CALENDAR;
 
@@ -303,6 +304,17 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         CacheServiceProviderSpecification<String, Object> cache
     ) {
         super(restTemplate, uriBuilder, cache);
+    }
+
+    /**
+     * Extends the path to include fred -- for example:
+     *
+     * https://api.stlouisfed.org/fred/
+     */
+    public QueryBuilder fred () {
+        extendPathWith(FRED);
+
+        return this;
     }
 
     /**

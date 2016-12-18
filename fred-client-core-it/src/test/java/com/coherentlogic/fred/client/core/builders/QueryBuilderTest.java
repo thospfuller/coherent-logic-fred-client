@@ -181,6 +181,7 @@ public class QueryBuilderTest {
     public void getSeries () {
 
         Seriess result = builder
+            .fred()
             .series()
             .withApiKey(API_KEY)
             .withSeriesId("GNPCA")
@@ -229,6 +230,7 @@ public class QueryBuilderTest {
     public void getAllSeries () {
 
         Seriess result = builder
+            .fred()
             .series()
             .search()
             .withApiKey(API_KEY)
@@ -245,6 +247,7 @@ public class QueryBuilderTest {
     public void getSeriesCategories () {
 
         Categories categories = builder
+            .fred()
             .series()
             .categories()
             .withApiKey(API_KEY)
@@ -469,6 +472,7 @@ public class QueryBuilderTest {
 
         Releases releases =
             builder
+                .fred()
                 .series()
                 .release()
                 .withApiKey(API_KEY)
@@ -502,6 +506,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         Seriess seriess =
             builder
+                .fred()
                 .series()
                 .updates()
                 .withApiKey(API_KEY)
@@ -560,6 +565,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         VintageDates vintageDates =
             builder
+                .fred()
                 .series()
                 .vintageDates()
                 .withApiKey(API_KEY)
@@ -593,6 +599,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSeriesSearch () {
 
         Seriess seriess = builder
+            .fred()
             .series()
             .search()
             .withApiKey(API_KEY)
@@ -629,6 +636,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 125;
 
         Categories categories = builder
+            .fred()
             .category()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
@@ -658,6 +666,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 13;
 
         Categories categories = builder
+            .fred()
             .category()
             .children()
             .withApiKey(API_KEY)
@@ -689,6 +698,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 32073;
 
         Categories categories = builder
+            .fred()
             .category()
             .related()
             .withApiKey(API_KEY)
@@ -720,6 +730,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 125;
 
         Seriess seriess = builder
+            .fred()
             .category()
             .series()
             .withApiKey(API_KEY)
@@ -779,6 +790,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSources () {
 
         Sources sources = builder
+            .fred()
             .sources()
             .withApiKey(API_KEY)
             .doGetAsSources ();
@@ -809,6 +821,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSource () {
 
         Sources sources = builder
+            .fred ()
             .source()
             .withApiKey(API_KEY)
             .withSourceId(1)
@@ -832,6 +845,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSourceRelease () {
 
         Releases releases = builder
+            .fred()
             .source()
             .releases()
             .withApiKey(API_KEY)
@@ -863,6 +877,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleases () {
 
         Releases releases = builder
+            .fred()
             .releases()
             .withApiKey(API_KEY)
             .doGetAsReleases();
@@ -891,6 +906,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleasesDates () {
 
         ReleaseDates releaseDates = builder
+            .fred()
             .releases()
             .dates()
             .withApiKey(API_KEY)
@@ -912,6 +928,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getRelease () {
 
         Releases releases = builder
+            .fred()
             .release()
             .withApiKey(API_KEY)
             .withReleaseId(53L)
@@ -938,6 +955,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseDates () {
 
         ReleaseDates releaseDates = builder
+            .fred()
             .release()
             .dates()
             .withApiKey(API_KEY)
@@ -967,6 +985,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseSeries () {
 
         Seriess result = builder
+            .fred()
             .release()
             .series()
             .withApiKey(API_KEY)
@@ -1006,6 +1025,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseSources () {
 
         Sources sources = builder
+            .fred()
             .release()
             .sources()
             .withApiKey(API_KEY)
@@ -1043,6 +1063,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         Date realtimeEnd = using (2004, Calendar.MAY, 17);
 
         Tags tags = builder
+            .fred()
             .series()
             .search()
             .tags()
@@ -1091,6 +1112,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         Observations observations =
             builder
+                .fred()
                 .series()
                 .observations()
                 .withApiKey(API_KEY)
@@ -1112,6 +1134,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void testObservationRequestFrequencyParam() {
 
         Observations observations = builder
+            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
@@ -1132,6 +1155,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void testOldDatesBeforeEpoch() {
 
         Observations observations = builder
+            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
@@ -1149,6 +1173,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void testPrecisionAndTZ() {
 
         Observations observations = builder
+            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
