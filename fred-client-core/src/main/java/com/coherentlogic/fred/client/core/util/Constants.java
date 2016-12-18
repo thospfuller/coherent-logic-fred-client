@@ -74,7 +74,8 @@ public class Constants {
     public static final String FULL_TEXT = "full_text", SERIES_ID = "series_id",
         SOURCE_ID = "source_id", RELEASE_ID = "release_id";
 
-    public static final String SERIES = "series",
+    public static final String FRED = "fred",
+        SERIES = "series",
         ID = "id",
         REALTIME_START = "realtime_start",
         REALTIME_END = "realtime_end",
