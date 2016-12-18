@@ -104,13 +104,13 @@ public class QueryBuilderTest {
     private RestTemplate restTemplate = null;
 
     static final DateTimeFormatter dateFormatter
-            = DateTimeFormat.forPattern("yyyy-MM-dd")
-                    .withLocale(Locale.ROOT)
-                    .withZoneUTC();
+        = DateTimeFormat.forPattern("yyyy-MM-dd")
+            .withLocale(Locale.ROOT)
+            .withZoneUTC();
     static final DateTimeFormatter isoDateFormatter
-            = ISODateTimeFormat.dateTime()
-                    .withLocale(Locale.ROOT)
-                    .withZoneUTC();
+        = ISODateTimeFormat.dateTime()
+            .withLocale(Locale.ROOT)
+            .withZoneUTC();
 
     @Before
     public void setUp () throws Exception {
@@ -156,14 +156,13 @@ public class QueryBuilderTest {
 
         String actualText = dateFormat.format(actual);
 
-        String message = "The expected value is not near the actual value; " +
-            "expected: " + expectedText + ", actual: " + actualText;
+        String message = "The expected value is not near the actual value; expected: " + expectedText + ", actual: "
+            + actualText;
 
         // We want the expected to be equal to or after.
         boolean result = 0 <= expected.compareTo(actual);
 
-        log.warn("assertDateIsAccurate: test logic has been disabled -- this " +
-            "needs to be fixed!");
+        log.warn("assertDateIsAccurate: test logic has been disabled -- this needs to be fixed!");
 
        //assertTrue(message, result);
 
@@ -195,12 +194,8 @@ public class QueryBuilderTest {
         Date realtimeEndDate = result.getRealtimeEnd();
 
         assertNotNull ("realtimeStart", realtimeStartDate);
-        assertDateIsAccurate (
-            realtimeStart,
-            realtimeStartDate);
-        assertDateIsAccurate (
-            realtimeEnd,
-            realtimeEndDate);
+        assertDateIsAccurate (realtimeStart, realtimeStartDate);
+        assertDateIsAccurate (realtimeEnd, realtimeEndDate);
 
         List<Series> seriesList = result.getSeriesList();
 
@@ -220,13 +215,10 @@ public class QueryBuilderTest {
         assertEquals (Frequency.a, seriesOne.getFrequency());
         assertEquals ("Billions of Chained 2000 Dollars", seriesOne.getUnits());
         assertEquals ("Bil. of Chn. 2000 $", seriesOne.getUnitsShort());
-        assertEquals (
-            "Not Seasonally Adjusted", seriesOne.getSeasonalAdjustment());
+        assertEquals ("Not Seasonally Adjusted", seriesOne.getSeasonalAdjustment());
         assertEquals ("NSA", seriesOne.getSeasonalAdjustmentShort());
         // We wont bother checking the time here.
-        assertDateIsAccurate (
-            using (2007, Calendar.JANUARY, 26),
-            seriesOne.getLastUpdated());
+        assertDateIsAccurate (using (2007, Calendar.JANUARY, 26), seriesOne.getLastUpdated());
         // Popularity may change so we'll just check for null.
         assertNotNull (seriesOne.getPopularity());
     }
@@ -234,9 +226,7 @@ public class QueryBuilderTest {
     @Test
     public void getAllSeries () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series");
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series");
 
         Seriess result = builder
             .search()
@@ -253,10 +243,7 @@ public class QueryBuilderTest {
     @Test
     public void getSeriesCategories () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/categories"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/categories");
 
         Categories categories = builder
             .withApiKey(API_KEY)
@@ -289,16 +276,13 @@ public class QueryBuilderTest {
 //    @Test
     public void getSeriesObservationsExpectingXML () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/observations"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
 
         Observations observations =
             builder
                 .withApiKey(API_KEY)
                 .withSeriesId("GNPCA")
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         Message content = observations.getMessage();
 
@@ -306,21 +290,11 @@ public class QueryBuilderTest {
 
         assertDateIsAccurateForToday(observations.getRealtimeStart());
         assertDateIsAccurateForToday(observations.getRealtimeEnd());
-        assertDateIsAccurate(
-            using (1776, Calendar.JULY, 4),
-            observations.getObservationStart()
-        );
-        assertDateIsAccurate(
-            using (9999, Calendar.DECEMBER, 31),
-            observations.getObservationEnd()
-        );
+        assertDateIsAccurate(using (1776, Calendar.JULY, 4), observations.getObservationStart());
+        assertDateIsAccurate(using (9999, Calendar.DECEMBER, 31), observations.getObservationEnd());
         assertEquals(Unit.lin, observations.getUnits());
-        assertEquals(
-            OutputType.observationsByRealTimePeriod,
-            observations.getOutputType());
-        assertEquals(
-            FileType.xml,
-            observations.getFileType());
+        assertEquals(OutputType.observationsByRealTimePeriod, observations.getOutputType());
+        assertEquals(FileType.xml, observations.getFileType());
         assertEquals(SortOrder.asc, observations.getSortOrder());
         assertEquals(84, observations.getCount());
 
@@ -330,10 +304,7 @@ public class QueryBuilderTest {
 
         assertDateIsAccurateForToday(obs2.getRealtimeStart());
         assertDateIsAccurateForToday(obs2.getRealtimeEnd());
-        assertDateIsAccurate(
-            using (1931, Calendar.JANUARY, 01),
-            obs2.getDate()
-        );
+        assertDateIsAccurate(using (1931, Calendar.JANUARY, 01), obs2.getDate());
         assertEquals (new BigDecimal("912.1"), obs2.getValue());
     }
 
@@ -349,10 +320,7 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/observations"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
 
         Observations observations =
             builder
@@ -370,7 +338,7 @@ public class QueryBuilderTest {
                 .withAggregationMethod(AggregationMethod.sum)
                 .withOutputType(OutputType.observationsByRealTimePeriod)
                 .withFileType(FileType.xls)
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         Message content = observations.getMessage();
 
@@ -396,10 +364,7 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/observations"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
 
         Observations observations =
             builder
@@ -417,25 +382,13 @@ public class QueryBuilderTest {
                 .withAggregationMethod(AggregationMethod.sum)
                 .withOutputType(OutputType.observationsByRealTimePeriod)
                 .withFileType(FileType.xml)
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         assertNotNull (observations);
-        assertDateIsAccurate(
-            realtimeStart,
-            observations.getRealtimeStart()
-        );
-        assertDateIsAccurate(
-            realtimeEnd,
-            observations.getRealtimeEnd()
-        );
-        assertDateIsAccurate(
-            realtimeStart,
-            observations.getObservationStart()
-        );
-        assertDateIsAccurate(
-            realtimeEnd,
-            observations.getObservationEnd()
-        );
+        assertDateIsAccurate(realtimeStart, observations.getRealtimeStart());
+        assertDateIsAccurate(realtimeEnd, observations.getRealtimeEnd());
+        assertDateIsAccurate(realtimeStart, observations.getObservationStart());
+        assertDateIsAccurate(realtimeEnd, observations.getObservationEnd());
         assertEquals(Unit.lin, observations.getUnits());
         assertEquals(SortOrder.desc, observations.getSortOrder());
         assertEquals(6, observations.getCount());
@@ -446,18 +399,9 @@ public class QueryBuilderTest {
 
         Observation observation2 = observationList.get(2);
 
-        assertDateIsAccurate(
-            using (2003, Calendar.DECEMBER, 23),
-            observation2.getRealtimeStart()
-        );
-        assertDateIsAccurate(
-            using (2004, Calendar.MAY, 17),
-            observation2.getRealtimeEnd()
-        );
-        assertDateIsAccurate(
-            using (2002, Calendar.JANUARY, 01),
-            observation2.getDate()
-        );
+        assertDateIsAccurate(using (2003, Calendar.DECEMBER, 23), observation2.getRealtimeStart());
+        assertDateIsAccurate(using (2004, Calendar.MAY, 17), observation2.getRealtimeEnd());
+        assertDateIsAccurate(using (2002, Calendar.JANUARY, 01), observation2.getDate());
         assertEquals(new BigDecimal ("10105.0"), observation2.getValue());
 
         Message content = observations.getMessage();
@@ -480,10 +424,7 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/observations"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
 
         Observations observations =
             builder
@@ -501,7 +442,7 @@ public class QueryBuilderTest {
                 .withAggregationMethod(AggregationMethod.sum)
                 .withOutputType(OutputType.observationsByRealTimePeriod)
                 .withFileType(FileType.txt)
-                .doGet(Observations.class);
+                .doGetAsObservations ();
 
         assertNotNull (observations);
 
@@ -525,10 +466,7 @@ public class QueryBuilderTest {
     @Test
     public void getSeriesRelease () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/release"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/release");
 
         Releases releases =
             builder
@@ -536,16 +474,10 @@ public class QueryBuilderTest {
                 .withSeriesId("IRA")
                 .withRealtimeStart(realtimeStart)
                 .withRealtimeEnd(realtimeEnd)
-                .doGet(Releases.class);
+                .doGetAsReleases();
 
-        assertDateIsAccurate(
-            realtimeStart,
-            releases.getRealtimeStart()
-        );
-        assertDateIsAccurate(
-            realtimeEnd,
-            releases.getRealtimeEnd()
-        );
+        assertDateIsAccurate(realtimeStart, releases.getRealtimeStart());
+        assertDateIsAccurate(realtimeEnd, releases.getRealtimeEnd());
 
         List<Release> releaseList = releases.getReleaseList();
 
@@ -554,16 +486,10 @@ public class QueryBuilderTest {
         assertEquals(Long.valueOf(21L), release.getId());
         assertEquals("H.6 Money Stock and Debt Measures", release.getName());
         assertEquals(Boolean.TRUE, release.isPressRelease());
-        assertEquals(
-            "http://www.federalreserve.gov/releases/h6/", release.getLink());
+        assertEquals("http://www.federalreserve.gov/releases/h6/", release.getLink());
 
-        assertDateIsAccurate(
-            realtimeStart,
-            release.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2002, Calendar.MAY, 01),
-            release.getRealtimeEnd()
-        );
+        assertDateIsAccurate(realtimeStart, release.getRealtimeStart());
+        assertDateIsAccurate(using (2002, Calendar.MAY, 01), release.getRealtimeEnd());
     }
 
     /* #3
@@ -573,10 +499,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getSeriesUpdates () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/updates"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/updates");
 
         Seriess seriess =
             builder
@@ -586,7 +509,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .withLimit(100)
                 .withOffset(1)
                 .withFilterValue(FilterValue.macro)
-                .doGet(Seriess.class);
+                .doGetAsSeriess();
 
         assertNotNull (seriess);
 
@@ -634,10 +557,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getVintageDates () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series/vintagedates"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/vintagedates");
 
         VintageDates vintageDates =
             builder
@@ -648,15 +568,11 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .withLimit(100)
                 .withOffset(1)
                 .withSortOrder(SortOrder.desc)
-                .doGet(VintageDates.class);
+                .doGetAsVintageDates();
 
         assertNotNull (vintageDates);
-        assertDateIsAccurate(
-            using (2001, Calendar.JANUARY, 20),
-            vintageDates.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2004, Calendar.MAY, 17),
-            vintageDates.getRealtimeEnd());
+        assertDateIsAccurate(using (2001, Calendar.JANUARY, 20), vintageDates.getRealtimeStart());
+        assertDateIsAccurate(using (2004, Calendar.MAY, 17), vintageDates.getRealtimeEnd());
         assertEquals (OrderBy.vintageDate, vintageDates.getOrderBy());
         assertEquals (SortOrder.desc, vintageDates.getSortOrder());
         assertEquals (8, vintageDates.getCount());
@@ -675,10 +591,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getSeriesSearch () {
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred");
 
         Seriess seriess = builder
             .withApiKey(API_KEY)
@@ -694,7 +607,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             .withSortOrder(SortOrder.desc)
             .withFilterVariable(FilterVariable.frequency)
             .withFilterValue(FilterValue.all)
-            .doGet(Seriess.class);
+            .doGetAsSeriess();
 
         assertNotNull (seriess);
         assertDateIsAccurate(
@@ -720,15 +633,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 125;
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/category"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category");
 
         Categories categories = builder
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
-            .doGet(Categories.class);
+            .doGetAsCategories();
 
         assertNotNull (categories);
 
@@ -753,15 +663,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 13;
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/category/children"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/children");
 
         Categories categories = builder
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
-            .doGet(Categories.class);
+            .doGetAsCategories();
 
         assertNotNull (categories);
 
@@ -787,15 +694,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 32073;
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/category/related"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/related");
 
         Categories categories = builder
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
-            .doGet(Categories.class);
+            .doGetAsCategories();
 
         assertNotNull (categories);
 
@@ -821,15 +725,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 125;
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/category/series"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/series");
 
         Seriess seriess = builder
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
-            .doGet(Seriess.class);
+            .doGetAsSeriess();
 
         assertNotNull (seriess);
 
@@ -865,13 +766,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurateForToday(series.getRealtimeStart());
         assertDateIsAccurateForToday(series.getRealtimeEnd());
         assertEquals("Balance on Goods and Services (DISCONTINUED)", series.getTitle());
-        assertDateIsAccurate(
-            using (1960, Calendar.JANUARY, 01),
-            series.getObservationStart());
+        assertDateIsAccurate(using (1960, Calendar.JANUARY, 01), series.getObservationStart());
         // TODO: Need to determine why the date has changed from JAN to APR.
-        assertDateIsAccurate(
-            using (2013, Calendar.JULY, 01),
-            series.getObservationEnd());
+        assertDateIsAccurate(using (2013, Calendar.JULY, 01), series.getObservationEnd());
         //assertEquals("Quarterly", series.getFrequency());
         assertEquals(Frequency.q, series.getFrequency());
         assertEquals("Billions of Dollars", series.getUnits());
@@ -880,19 +777,15 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertEquals("NSA", series.getSeasonalAdjustmentShort());
         // TODO: Need to determine why the date has changed from JUL 09 to
         //       SEPT 19.
-        assertDateIsAccurate(
-            using (2013, Calendar.DECEMBER, 17),
-            series.getLastUpdated());
+        assertDateIsAccurate(using (2013, Calendar.DECEMBER, 17), series.getLastUpdated());
         // Popularity can change so we're only checking if it's not null.
         assertNotNull(series.getPopularity());
     }
 
     @Test
     public void getSources () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/sources"
-        );
+
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/sources");
 
         Sources sources = builder
             .withApiKey(API_KEY)
@@ -916,17 +809,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
 //        assertDateIsAccurateForToday(source7.getRealtimeStart());
 //        assertDateIsAccurateForToday(source7.getRealtimeEnd());
-        assertEquals(
-            "US. Office of Management and Budget", source7.getName());
+        assertEquals("US. Office of Management and Budget", source7.getName());
         assertEquals("http://www.whitehouse.gov/omb/", source7.getLink());
     }
 
     @Test
     public void getSource () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/source"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/source");
 
         Sources sources = builder
             .withApiKey(API_KEY)
@@ -943,8 +832,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         assertDateIsAccurateForToday(source0.getRealtimeStart());
         assertDateIsAccurateForToday(source0.getRealtimeEnd());
-        assertEquals(
-            "Board of Governors of the Federal Reserve System (US)", source0.getName());
+        assertEquals("Board of Governors of the Federal Reserve System (US)", source0.getName());
         assertEquals("http://www.federalreserve.gov/", source0.getLink());
     }
 
@@ -978,16 +866,12 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 //        assertDateIsAccurateForToday(release.getRealtimeEnd());
         assertEquals("H.6 Money Stock Measures", release.getName());
         assertEquals(Boolean.TRUE, release.isPressRelease());
-        assertEquals(
-            "http://www.federalreserve.gov/releases/h6/", release.getLink());
+        assertEquals("http://www.federalreserve.gov/releases/h6/", release.getLink());
     }
 
     @Test
     public void getReleases () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/releases"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/releases");
 
         Releases releases = builder
             .withApiKey(API_KEY)
@@ -1010,41 +894,31 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertDateIsAccurateForToday(release.getRealtimeEnd());
         assertEquals("Employment Cost Index", release.getName());
         assertEquals(Boolean.TRUE, release.isPressRelease());
-        assertEquals(
-            "http://www.bls.gov/ncs/ect/", release.getLink());
+        assertEquals("http://www.bls.gov/ncs/ect/", release.getLink());
     }
 
     @Test
     public void getReleasesDates () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/releases/dates"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/releases/dates");
 
         ReleaseDates releaseDates = builder.withApiKey(API_KEY)
             .withRealtimeStart("2012-06-18")
             .withRealtimeEnd("2012-06-18")
-            .doGet(ReleaseDates.class);
+            .doGetAsReleaseDates();
 
         List<ReleaseDate> releaseDateList = releaseDates.getReleaseDateList();
 
         ReleaseDate releaseDate1 = releaseDateList.get(1);
 
         assertEquals(Long.valueOf("183"), releaseDate1.getReleaseId());
-        assertEquals("Weekly Retail Gasoline and Diesel Prices",
-            releaseDate1.getReleaseName());
+        assertEquals("Weekly Retail Gasoline and Diesel Prices", releaseDate1.getReleaseName());
 
-        assertDateIsAccurate(
-            using (2012, Calendar.JUNE, 18),
-            releaseDate1.getDate());
+        assertDateIsAccurate(using (2012, Calendar.JUNE, 18), releaseDate1.getDate());
     }
 
     @Test
     public void getRelease () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/release"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release");
 
         Releases releases = builder
             .withApiKey(API_KEY)
@@ -1053,55 +927,40 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             .withRealtimeEnd("2008-07-28")
             .doGetAsReleases ();
 
-        assertDateIsAccurate(
-            using (2008, Calendar.JULY, 28),
-            releases.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2008, Calendar.JULY, 28),
-            releases.getRealtimeEnd());
+        assertDateIsAccurate(using (2008, Calendar.JULY, 28), releases.getRealtimeStart());
+        assertDateIsAccurate(using (2008, Calendar.JULY, 28), releases.getRealtimeEnd());
 
         List<Release> releaseList = releases.getReleaseList();
 
         Release release = releaseList.get(0);
 
         assertEquals(Long.valueOf(53L), release.getId());
-        assertDateIsAccurate(
-            using (2008, Calendar.JULY, 28),
-            release.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2008, Calendar.JULY, 28),
-            release.getRealtimeEnd());
+        assertDateIsAccurate(using (2008, Calendar.JULY, 28), release.getRealtimeStart());
+        assertDateIsAccurate(using (2008, Calendar.JULY, 28), release.getRealtimeEnd());
         assertEquals("Gross Domestic Product", release.getName());
         assertEquals(Boolean.TRUE, release.isPressRelease());
-        assertEquals(
-            "http://www.bea.gov/national/index.htm", release.getLink());
+        assertEquals("http://www.bea.gov/national/index.htm", release.getLink());
     }
 
     @Test
     public void getReleaseDates () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/release/dates"
-        );
 
-        ReleaseDates releaseDates = builder.withApiKey(API_KEY)
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release/dates");
+
+        ReleaseDates releaseDates = builder
+            .withApiKey(API_KEY)
             .withReleaseId(82L)
             .withRealtimeStart("2010-06-01")
             .withRealtimeEnd("2012-06-18")
             .doGetAsReleaseDates();
 
-        assertDateIsAccurate(
-            using (2010, Calendar.JUNE, 01),
-            releaseDates.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2012, Calendar.JUNE, 18),
-            releaseDates.getRealtimeEnd());
+        assertDateIsAccurate(using (2010, Calendar.JUNE, 01), releaseDates.getRealtimeStart());
+        assertDateIsAccurate(using (2012, Calendar.JUNE, 18), releaseDates.getRealtimeEnd());
         assertEquals(OrderBy.releaseDate, releaseDates.getOrderBy());
         assertEquals(SortOrder.asc, releaseDates.getSortOrder());
         assertEquals(1, releaseDates.getCount());
         assertEquals(0, releaseDates.getOffset());
         assertEquals(10000, releaseDates.getLimit());
-
 
         List<ReleaseDate> releaseDateList = releaseDates.getReleaseDateList();
 
@@ -1109,18 +968,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         assertEquals(Long.valueOf("82"), releaseDate0.getReleaseId());
 
-        assertDateIsAccurate(
-            using (2011, Calendar.FEBRUARY, 23),
-            releaseDate0.getDate()
-        );
+        assertDateIsAccurate(using (2011, Calendar.FEBRUARY, 23), releaseDate0.getDate());
     }
 
     @Test
     public void getReleaseSeries () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/release/series");
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/release/series");
 
         Seriess result = builder
             .withApiKey(API_KEY)
@@ -1148,29 +1002,17 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         Series seriesOne = seriesList.get(1);
 
         assertEquals ("BOPGIMP", seriesOne.getId());
-        assertEquals ("Imports of Goods: Balance of Payments Basis",
-            seriesOne.getTitle());
-        assertDateIsAccurate(
-            realtimeStart,
-            seriesOne.getRealtimeStart());
-        assertDateIsAccurate(
-            realtimeEnd,
-            seriesOne.getRealtimeEnd());
-        assertDateIsAccurate (
-            using (1992, Calendar.JANUARY, 01),
-            seriesOne.getObservationStart());
-        assertDateIsAccurate (
-            using (2004, Calendar.MARCH, 01),
-            seriesOne.getObservationEnd());
+        assertEquals ("Imports of Goods: Balance of Payments Basis", seriesOne.getTitle());
+        assertDateIsAccurate(realtimeStart, seriesOne.getRealtimeStart());
+        assertDateIsAccurate(realtimeEnd, seriesOne.getRealtimeEnd());
+        assertDateIsAccurate (using (1992, Calendar.JANUARY, 01), seriesOne.getObservationStart());
+        assertDateIsAccurate (using (2004, Calendar.MARCH, 01), seriesOne.getObservationEnd());
         assertEquals (Frequency.m, seriesOne.getFrequency());
     }
 
     @Test
     public void getReleaseSources () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/release/sources"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release/sources");
 
         Sources sources = builder
             .withApiKey(API_KEY)
@@ -1180,25 +1022,16 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             .doGetAsSources();
 
         assertNotNull (sources);
-        assertDateIsAccurate (
-            using (2010, Calendar.JUNE, 01),
-            sources.getRealtimeStart());
-        assertDateIsAccurate (
-            using (2012, Calendar.JUNE, 18),
-            sources.getRealtimeEnd());
+        assertDateIsAccurate (using (2010, Calendar.JUNE, 01), sources.getRealtimeStart());
+        assertDateIsAccurate (using (2012, Calendar.JUNE, 18), sources.getRealtimeEnd());
 
         List<Source> sourceList = sources.getSourceList();
 
         Source source1 = sourceList.get(1);
 
-        assertDateIsAccurate (
-            using (2010, Calendar.JUNE, 01),
-            source1.getRealtimeStart());
-        assertDateIsAccurate (
-            using (2012, Calendar.JUNE, 18),
-            source1.getRealtimeEnd());
-        assertEquals(
-            "US. Bureau of the Census", source1.getName());
+        assertDateIsAccurate (using (2010, Calendar.JUNE, 01), source1.getRealtimeStart());
+        assertDateIsAccurate (using (2012, Calendar.JUNE, 18), source1.getRealtimeEnd());
+        assertEquals("US. Bureau of the Census", source1.getName());
         assertEquals("http://www.census.gov/", source1.getLink());
     }
 
@@ -1216,16 +1049,13 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         Date realtimeStart = using (2001, Calendar.JANUARY, 20);
         Date realtimeEnd = using (2004, Calendar.MAY, 17);
 
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred");
 
         Tags tags = builder
-            .withApiKey(API_KEY)
             .series()
             .search()
             .tags()
+            .withApiKey(API_KEY)
             .withRealtimeStart(realtimeStart)
             .withRealtimeEnd(realtimeEnd)
             .withSeriesSearchText("monetary service index")
@@ -1233,10 +1063,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         assertNotNull (tags);
 
-        assertDateIsAccurate (
-            realtimeStart, tags.getRealtimeStart());
-        assertDateIsAccurate (
-            realtimeEnd, tags.getRealtimeEnd());
+        assertDateIsAccurate (realtimeStart, tags.getRealtimeStart());
+        assertDateIsAccurate (realtimeEnd, tags.getRealtimeEnd());
 
         assertEquals(OrderBy.seriesCount, tags.getOrderBy());
         assertEquals(SortOrder.desc, tags.getSortOrder());
@@ -1269,10 +1097,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     // some observation values may equal "."
     @Test
     public void getRussell2000TotalMarketIndexObservations() {
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
         Observations observations =
             builder
@@ -1295,10 +1120,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void testObservationRequestFrequencyParam() {
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
         Observations observations =
             builder
@@ -1311,7 +1134,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .withFrequency(Frequency.a)
                 .withAggregationMethod(AggregationMethod.sum)
                 .withOutputType(OutputType.observationsByRealTimePeriod)
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         assertObsEquals("1978-01-01", null, observations, 0);
         assertObsEquals("1979-01-01", "31162.40", observations, 1);
@@ -1320,10 +1143,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void testOldDatesBeforeEpoch() {
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
         Observations observations =
             builder
@@ -1333,7 +1154,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .withSeriesId("GNPCA")
                 .withSortOrder(SortOrder.asc)
                 .withOrderBy(OrderBy.observationDate)
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         assertObsEquals("1929-01-01", "1066.8", observations, 0);
         assertObsEquals("1930-01-01", "976.3", observations, 1);
@@ -1342,10 +1163,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void testPrecisionAndTZ() {
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred"
-        );
+        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
         Observations observations =
             builder
@@ -1355,27 +1173,27 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
                 .withSeriesId("GNPCA")
                 .withSortOrder(SortOrder.asc)
                 .withOrderBy(OrderBy.observationDate)
-                .doGet(Observations.class);
+                .doGetAsObservations();
 
         assertEquals(
-                "1929-01-01T00:00:00.000Z",
-                isoDateFormatter.print(observations.getObservationList().get(0).getDate().getTime())
+            "1929-01-01T00:00:00.000Z",
+            isoDateFormatter.print(observations.getObservationList().get(0).getDate().getTime())
         );
     }
 
     private static void assertObsEquals(
-            String expectedDate,
-            String expectedValue,
-            Observations observations,
-            int index
+        String expectedDate,
+        String expectedValue,
+        Observations observations,
+        int index
     ) {
         assertEquals(
-                expectedDate,
-                dateFormatter.print(observations.getObservationList().get(index).getDate().getTime())
+            expectedDate,
+            dateFormatter.print(observations.getObservationList().get(index).getDate().getTime())
         );
         assertEquals(
-                expectedValue != null ? new BigDecimal(expectedValue) : null,
-                observations.getObservationList().get(index).getValue()
+            expectedValue != null ? new BigDecimal(expectedValue) : null,
+            observations.getObservationList().get(index).getValue()
         );
     }
 }
