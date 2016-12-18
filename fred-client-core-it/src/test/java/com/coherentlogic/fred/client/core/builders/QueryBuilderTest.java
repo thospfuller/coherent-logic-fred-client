@@ -98,10 +98,11 @@ public class QueryBuilderTest {
     static final String API_KEY = System.getenv(FRED_API_KEY);
 
     private final ApplicationContext context
-        = new FileSystemXmlApplicationContext (
-            "src/test/resources/spring/application-context.xml");
+        = new FileSystemXmlApplicationContext ("src/test/resources/spring/application-context.xml");
 
     private RestTemplate restTemplate = null;
+
+    private QueryBuilder builder = null;
 
     static final DateTimeFormatter dateFormatter
         = DateTimeFormat.forPattern("yyyy-MM-dd")
@@ -114,12 +115,16 @@ public class QueryBuilderTest {
 
     @Before
     public void setUp () throws Exception {
+
         restTemplate = (RestTemplate) context.getBean (FRED_REST_TEMPLATE_ID);
+
+        builder = new QueryBuilder (restTemplate);
     }
 
     @After
     public void tearDown () throws Exception {
         restTemplate = null;
+        builder = null;
     }
 
     /**
@@ -175,11 +180,8 @@ public class QueryBuilderTest {
     @Test
     public void getSeries () {
 
-        QueryBuilder builder = new QueryBuilder (
-            restTemplate,
-            "https://api.stlouisfed.org/fred/series");
-
         Seriess result = builder
+            .series()
             .withApiKey(API_KEY)
             .withSeriesId("GNPCA")
             .withRealtimeStart(realtimeStart)
@@ -226,9 +228,8 @@ public class QueryBuilderTest {
     @Test
     public void getAllSeries () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series");
-
         Seriess result = builder
+            .series()
             .search()
             .withApiKey(API_KEY)
             .withSearchText("*")
@@ -243,9 +244,9 @@ public class QueryBuilderTest {
     @Test
     public void getSeriesCategories () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/categories");
-
         Categories categories = builder
+            .series()
+            .categories()
             .withApiKey(API_KEY)
             .withSeriesId("EXJPUS")
             .withRealtimeStart(realtimeStart)
@@ -276,10 +277,10 @@ public class QueryBuilderTest {
 //    @Test
     public void getSeriesObservationsExpectingXML () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
-
         Observations observations =
             builder
+                .series()
+                .observations()
                 .withApiKey(API_KEY)
                 .withSeriesId("GNPCA")
                 .doGetAsObservations();
@@ -320,10 +321,10 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
-
         Observations observations =
             builder
+                .series()
+                .observations()
                 .withApiKey(API_KEY)
                 .withSeriesId("GNPCA")
                 .withRealtimeStart(realtimeStart)
@@ -364,10 +365,10 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
-
         Observations observations =
             builder
+                .series()
+                .observations()
                 .withApiKey(API_KEY)
                 .withSeriesId("FINSLCA")
                 .withRealtimeStart(realtimeStart)
@@ -424,10 +425,10 @@ public class QueryBuilderTest {
         Date observationStart = realtimeStart;
         Date observationEnd = realtimeEnd;
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/observations");
-
         Observations observations =
             builder
+                .series()
+                .observations()
                 .withApiKey(API_KEY)
                 .withSeriesId("GDPCA")
                 .withRealtimeStart(realtimeStart)
@@ -466,10 +467,10 @@ public class QueryBuilderTest {
     @Test
     public void getSeriesRelease () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/release");
-
         Releases releases =
             builder
+                .series()
+                .release()
                 .withApiKey(API_KEY)
                 .withSeriesId("IRA")
                 .withRealtimeStart(realtimeStart)
@@ -499,10 +500,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getSeriesUpdates () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/updates");
-
         Seriess seriess =
             builder
+                .series()
+                .updates()
                 .withApiKey(API_KEY)
                 .withRealtimeStart(realtimeStart)
                 .withRealtimeEnd(realtimeEnd)
@@ -557,10 +558,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getVintageDates () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/series/vintagedates");
-
         VintageDates vintageDates =
             builder
+                .series()
+                .vintageDates()
                 .withApiKey(API_KEY)
                 .withSeriesId("GNPCA")
                 .withRealtimeStart(realtimeStart)
@@ -591,12 +592,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getSeriesSearch () {
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred");
-
         Seriess seriess = builder
-            .withApiKey(API_KEY)
             .series()
             .search()
+            .withApiKey(API_KEY)
             .withSearchText("money stock")
             .withSearchType(SearchType.fullText)
             .withRealtimeStart(realtimeStart)
@@ -610,12 +609,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
             .doGetAsSeriess();
 
         assertNotNull (seriess);
-        assertDateIsAccurate(
-            using (2001, Calendar.JANUARY, 20),
-            seriess.getRealtimeStart());
-        assertDateIsAccurate(
-            using (2004, Calendar.MAY, 17),
-            seriess.getRealtimeEnd());
+        assertDateIsAccurate(using (2001, Calendar.JANUARY, 20), seriess.getRealtimeStart());
+        assertDateIsAccurate(using (2004, Calendar.MAY, 17), seriess.getRealtimeEnd());
         assertEquals(FilterValue.all, seriess.getFilterValue());
         assertEquals(OrderBy.searchRank, seriess.getOrderBy());
         assertEquals(SortOrder.desc, seriess.getSortOrder());
@@ -633,9 +628,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 125;
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category");
-
         Categories categories = builder
+            .category()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
             .doGetAsCategories();
@@ -663,9 +657,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 13;
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/children");
-
         Categories categories = builder
+            .category()
+            .children()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
             .doGetAsCategories();
@@ -694,9 +688,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 32073;
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/related");
-
         Categories categories = builder
+            .category()
+            .related()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
             .doGetAsCategories();
@@ -725,9 +719,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         int categoryId = 125;
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/category/series");
-
         Seriess seriess = builder
+            .category()
+            .series()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
             .doGetAsSeriess();
@@ -775,8 +769,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertEquals("Bil. of $", series.getUnitsShort());
         assertEquals("Not Seasonally Adjusted", series.getSeasonalAdjustment());
         assertEquals("NSA", series.getSeasonalAdjustmentShort());
-        // TODO: Need to determine why the date has changed from JUL 09 to
-        //       SEPT 19.
+        // TODO: Need to determine why the date has changed from JUL 09 to SEPT 19.
         assertDateIsAccurate(using (2013, Calendar.DECEMBER, 17), series.getLastUpdated());
         // Popularity can change so we're only checking if it's not null.
         assertNotNull(series.getPopularity());
@@ -785,9 +778,8 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getSources () {
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/sources");
-
         Sources sources = builder
+            .sources()
             .withApiKey(API_KEY)
             .doGetAsSources ();
 
@@ -815,9 +807,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getSource () {
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/source");
 
         Sources sources = builder
+            .source()
             .withApiKey(API_KEY)
             .withSourceId(1)
             .doGetAsSources ();
@@ -838,12 +830,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getSourceRelease () {
-        QueryBuilder builder = new QueryBuilder(
-            restTemplate,
-            "https://api.stlouisfed.org/fred/source/releases"
-        );
 
         Releases releases = builder
+            .source()
+            .releases()
             .withApiKey(API_KEY)
             .withSourceId(1)
             .doGetAsReleases();
@@ -871,9 +861,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getReleases () {
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/releases");
 
         Releases releases = builder
+            .releases()
             .withApiKey(API_KEY)
             .doGetAsReleases();
 
@@ -899,9 +889,11 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getReleasesDates () {
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/releases/dates");
 
-        ReleaseDates releaseDates = builder.withApiKey(API_KEY)
+        ReleaseDates releaseDates = builder
+            .releases()
+            .dates()
+            .withApiKey(API_KEY)
             .withRealtimeStart("2012-06-18")
             .withRealtimeEnd("2012-06-18")
             .doGetAsReleaseDates();
@@ -918,9 +910,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getRelease () {
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release");
 
         Releases releases = builder
+            .release()
             .withApiKey(API_KEY)
             .withReleaseId(53L)
             .withRealtimeStart("2008-07-28")
@@ -945,9 +937,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getReleaseDates () {
 
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release/dates");
-
         ReleaseDates releaseDates = builder
+            .release()
+            .dates()
             .withApiKey(API_KEY)
             .withReleaseId(82L)
             .withRealtimeStart("2010-06-01")
@@ -974,9 +966,9 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void getReleaseSeries () {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred/release/series");
-
         Seriess result = builder
+            .release()
+            .series()
             .withApiKey(API_KEY)
             .withReleaseId(51L)
             .withRealtimeStart(realtimeStart)
@@ -1012,9 +1004,10 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void getReleaseSources () {
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred/release/sources");
 
         Sources sources = builder
+            .release()
+            .sources()
             .withApiKey(API_KEY)
             .withReleaseId(51L)
             .withRealtimeStart("2010-06-01")
@@ -1048,8 +1041,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getTags () {
         Date realtimeStart = using (2001, Calendar.JANUARY, 20);
         Date realtimeEnd = using (2004, Calendar.MAY, 17);
-
-        QueryBuilder builder = new QueryBuilder(restTemplate, "https://api.stlouisfed.org/fred");
 
         Tags tags = builder
             .series()
@@ -1097,7 +1088,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     // some observation values may equal "."
     @Test
     public void getRussell2000TotalMarketIndexObservations() {
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
         Observations observations =
             builder
@@ -1121,20 +1111,17 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void testObservationRequestFrequencyParam() {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
-
-        Observations observations =
-            builder
-                .series()
-                .observations()
-                .withApiKey(API_KEY)
-                .withSeriesId("RU2000TR")
-                .withSortOrder(SortOrder.asc)
-                .withUnits(Unit.lin)
-                .withFrequency(Frequency.a)
-                .withAggregationMethod(AggregationMethod.sum)
-                .withOutputType(OutputType.observationsByRealTimePeriod)
-                .doGetAsObservations();
+        Observations observations = builder
+            .series()
+            .observations()
+            .withApiKey(API_KEY)
+            .withSeriesId("RU2000TR")
+            .withSortOrder(SortOrder.asc)
+            .withUnits(Unit.lin)
+            .withFrequency(Frequency.a)
+            .withAggregationMethod(AggregationMethod.sum)
+            .withOutputType(OutputType.observationsByRealTimePeriod)
+            .doGetAsObservations();
 
         assertObsEquals("1978-01-01", null, observations, 0);
         assertObsEquals("1979-01-01", "31162.40", observations, 1);
@@ -1144,17 +1131,14 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     @Test
     public void testOldDatesBeforeEpoch() {
 
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
-
-        Observations observations =
-            builder
-                .series()
-                .observations()
-                .withApiKey(API_KEY)
-                .withSeriesId("GNPCA")
-                .withSortOrder(SortOrder.asc)
-                .withOrderBy(OrderBy.observationDate)
-                .doGetAsObservations();
+        Observations observations = builder
+            .series()
+            .observations()
+            .withApiKey(API_KEY)
+            .withSeriesId("GNPCA")
+            .withSortOrder(SortOrder.asc)
+            .withOrderBy(OrderBy.observationDate)
+            .doGetAsObservations();
 
         assertObsEquals("1929-01-01", "1066.8", observations, 0);
         assertObsEquals("1930-01-01", "976.3", observations, 1);
@@ -1163,17 +1147,15 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
     @Test
     public void testPrecisionAndTZ() {
-        QueryBuilder builder = new QueryBuilder (restTemplate, "https://api.stlouisfed.org/fred");
 
-        Observations observations =
-            builder
-                .series()
-                .observations()
-                .withApiKey(API_KEY)
-                .withSeriesId("GNPCA")
-                .withSortOrder(SortOrder.asc)
-                .withOrderBy(OrderBy.observationDate)
-                .doGetAsObservations();
+        Observations observations = builder
+            .series()
+            .observations()
+            .withApiKey(API_KEY)
+            .withSeriesId("GNPCA")
+            .withSortOrder(SortOrder.asc)
+            .withOrderBy(OrderBy.observationDate)
+            .doGetAsObservations();
 
         assertEquals(
             "1929-01-01T00:00:00.000Z",
