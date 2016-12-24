@@ -22,7 +22,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +48,7 @@ import com.coherentlogic.fred.client.core.domain.Releases;
 import com.coherentlogic.fred.client.core.domain.SearchType;
 import com.coherentlogic.fred.client.core.domain.Series;
 import com.coherentlogic.fred.client.core.domain.Seriess;
+//import com.coherentlogic.fred.client.core.domain.Shapes;
 import com.coherentlogic.fred.client.core.domain.SortOrder;
 import com.coherentlogic.fred.client.core.domain.Source;
 import com.coherentlogic.fred.client.core.domain.Sources;
@@ -181,7 +181,7 @@ public class QueryBuilderTest {
     public void getSeries () {
 
         Seriess result = builder
-            .fred()
+//            .fred()
             .series()
             .withApiKey(API_KEY)
             .withSeriesId("GNPCA")
@@ -190,6 +190,8 @@ public class QueryBuilderTest {
             .doGetAsSeriess (
                 data -> {
                     System.out.println("data: " + data);
+
+                    return data;
                 }
             );
 
@@ -230,7 +232,6 @@ public class QueryBuilderTest {
     public void getAllSeries () {
 
         Seriess result = builder
-            .fred()
             .series()
             .search()
             .withApiKey(API_KEY)
@@ -247,7 +248,6 @@ public class QueryBuilderTest {
     public void getSeriesCategories () {
 
         Categories categories = builder
-            .fred()
             .series()
             .categories()
             .withApiKey(API_KEY)
@@ -472,7 +472,6 @@ public class QueryBuilderTest {
 
         Releases releases =
             builder
-                .fred()
                 .series()
                 .release()
                 .withApiKey(API_KEY)
@@ -506,7 +505,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         Seriess seriess =
             builder
-                .fred()
                 .series()
                 .updates()
                 .withApiKey(API_KEY)
@@ -565,7 +563,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         VintageDates vintageDates =
             builder
-                .fred()
                 .series()
                 .vintageDates()
                 .withApiKey(API_KEY)
@@ -599,7 +596,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSeriesSearch () {
 
         Seriess seriess = builder
-            .fred()
             .series()
             .search()
             .withApiKey(API_KEY)
@@ -636,7 +632,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 125;
 
         Categories categories = builder
-            .fred()
             .category()
             .withApiKey(API_KEY)
             .withCategoryId(categoryId)
@@ -666,7 +661,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 13;
 
         Categories categories = builder
-            .fred()
             .category()
             .children()
             .withApiKey(API_KEY)
@@ -698,7 +692,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 32073;
 
         Categories categories = builder
-            .fred()
             .category()
             .related()
             .withApiKey(API_KEY)
@@ -730,7 +723,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         int categoryId = 125;
 
         Seriess seriess = builder
-            .fred()
             .category()
             .series()
             .withApiKey(API_KEY)
@@ -790,7 +782,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSources () {
 
         Sources sources = builder
-            .fred()
             .sources()
             .withApiKey(API_KEY)
             .doGetAsSources ();
@@ -813,7 +804,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
 //        assertDateIsAccurateForToday(source7.getRealtimeStart());
 //        assertDateIsAccurateForToday(source7.getRealtimeEnd());
-        assertEquals("US. Office of Management and Budget", source7.getName());
+        assertEquals("U.S. Office of Management and Budget", source7.getName());
         assertEquals("http://www.whitehouse.gov/omb/", source7.getLink());
     }
 
@@ -821,7 +812,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSource () {
 
         Sources sources = builder
-            .fred ()
             .source()
             .withApiKey(API_KEY)
             .withSourceId(1)
@@ -845,7 +835,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getSourceRelease () {
 
         Releases releases = builder
-            .fred()
             .source()
             .releases()
             .withApiKey(API_KEY)
@@ -877,7 +866,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleases () {
 
         Releases releases = builder
-            .fred()
             .releases()
             .withApiKey(API_KEY)
             .doGetAsReleases();
@@ -906,7 +894,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleasesDates () {
 
         ReleaseDates releaseDates = builder
-            .fred()
             .releases()
             .dates()
             .withApiKey(API_KEY)
@@ -928,7 +915,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getRelease () {
 
         Releases releases = builder
-            .fred()
             .release()
             .withApiKey(API_KEY)
             .withReleaseId(53L)
@@ -955,7 +941,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseDates () {
 
         ReleaseDates releaseDates = builder
-            .fred()
             .release()
             .dates()
             .withApiKey(API_KEY)
@@ -985,7 +970,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseSeries () {
 
         Seriess result = builder
-            .fred()
             .release()
             .series()
             .withApiKey(API_KEY)
@@ -1025,7 +1009,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void getReleaseSources () {
 
         Sources sources = builder
-            .fred()
             .release()
             .sources()
             .withApiKey(API_KEY)
@@ -1044,7 +1027,7 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 
         assertDateIsAccurate (using (2010, Calendar.JUNE, 01), source1.getRealtimeStart());
         assertDateIsAccurate (using (2012, Calendar.JUNE, 18), source1.getRealtimeEnd());
-        assertEquals("US. Bureau of the Census", source1.getName());
+        assertEquals("U.S. Bureau of the Census", source1.getName());
         assertEquals("http://www.census.gov/", source1.getLink());
     }
 
@@ -1063,7 +1046,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         Date realtimeEnd = using (2004, Calendar.MAY, 17);
 
         Tags tags = builder
-            .fred()
             .series()
             .search()
             .tags()
@@ -1106,13 +1088,43 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         reviewTag (expectedTag, actualTag);
     }
 
+//    @Test
+//    public void getTags () {
+//        Date realtimeStart = using (2001, Calendar.JANUARY, 20);
+//        Date realtimeEnd = using (2004, Calendar.MAY, 17);
+//
+//        List<String> allNames = builder
+//            .fred()
+//            .series()
+//            .search()
+//            .tags()
+//            .withApiKey(API_KEY)
+//            .withRealtimeStart(realtimeStart)
+//            .withRealtimeEnd(realtimeEnd)
+//            .withSeriesSearchText("monetary service index")
+//            .doGetAsTags (
+//                List.class,
+//                data -> {
+//
+//                    List<String> names = new ArrayList<String> ();
+//
+//                    data.getTagList().forEach(
+//                        item -> {
+//                            names.add(item.getName());
+//                        }
+//                    );
+//
+//                    return names;
+//                }
+//            );
+//    }
+
     // some observation values may equal "."
     @Test
     public void getRussell2000TotalMarketIndexObservations() {
 
         Observations observations =
             builder
-                .fred()
                 .series()
                 .observations()
                 .withApiKey(API_KEY)
@@ -1134,7 +1146,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void testObservationRequestFrequencyParam() {
 
         Observations observations = builder
-            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
@@ -1155,7 +1166,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
     public void testOldDatesBeforeEpoch() {
 
         Observations observations = builder
-            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
@@ -1169,11 +1179,24 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
         assertObsEquals("1931-01-01", "912.9", observations, 2);
     }
 
+//    @Test
+//    public void testShapes1() {
+//
+//        String escapedUri = builder.geofred().shapes().withApiKey(API_KEY).withShapeTypeAsBEA().getEscapedURI();
+//
+//        System.out.println("escapedUri: " + escapedUri);
+//
+//        Shapes shapes = builder.geofred().shapes().withApiKey(API_KEY).withShapeTypeAsBEA().doGetAsShapes();
+//
+////        assertObsEquals("1929-01-01", "1066.8", observations, 0);
+////        assertObsEquals("1930-01-01", "976.3", observations, 1);
+////        assertObsEquals("1931-01-01", "912.9", observations, 2);
+//    }
+
     @Test
     public void testPrecisionAndTZ() {
 
         Observations observations = builder
-            .fred()
             .series()
             .observations()
             .withApiKey(API_KEY)
