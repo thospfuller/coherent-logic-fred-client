@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <java.version>1.8</java.version>
-        <data.model.version>1.0.27-RELEASE</data.model.version>
+        <data.model.version>1.0.28-RELEASE</data.model.version>
     </properties>
     <licenses>
         <license>
@@ -112,6 +112,7 @@
         <module>fred-client-config</module>
         <module>fred-client-misc</module>
         <module>fred-client-core</module>
+        <module>geofred-client-core</module>
         <module>fred-client-core-it</module>
         <module>fred-client-db-int</module>
         <!-- module>fred-client-webstart-application</module -->
@@ -144,6 +145,11 @@
                 <groupId>com.coherentlogic.fred.client</groupId>
                 <artifactId>fred-client-core</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+	        <groupId>com.coherentlogic.fred.client</groupId>
+	        <artifactId>geofred-client-core</artifactId>
+	        <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.coherentlogic.fred.client</groupId>
