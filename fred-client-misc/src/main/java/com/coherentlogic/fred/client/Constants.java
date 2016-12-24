@@ -9,4 +9,5 @@ public class Constants {
 
     public static final String SERVICE = "service", ID = "id";
 
+    public static final String FILE_TYPE = "file_type";
 }
