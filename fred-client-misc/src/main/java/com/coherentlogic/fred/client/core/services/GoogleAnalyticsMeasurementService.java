@@ -21,7 +21,13 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
 
     private static final Logger log = LoggerFactory.getLogger(GoogleAnalyticsMeasurementService.class);
 
-    @Override
+    private final String applicationName;
+
+    public GoogleAnalyticsMeasurementService(String applicationName) {
+		this.applicationName = applicationName;
+	}
+
+	@Override
     public void fireGAFrameworkUsageEvent () {
 
         log.info("fireGAFrameworkUsageEvent: method begins.");
@@ -34,7 +40,7 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
             .withCIDAsRandomUUID()
             .withTAsEvent()
             .withEc("Framework Usage") // event category
-            .withAn("FRED Client") // application name
+            .withAn(applicationName) // application name
             .withEa("Framework Started (direct)") // event action
             .withAv("Version 2.0.0-RELEASE") // Application version.
             .withEl("Version 2.0.0-RELEASE")
