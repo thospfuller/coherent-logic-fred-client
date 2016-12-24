@@ -26,6 +26,15 @@
             <artifactId>data-model-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.coherentlogic.coherent.data-model</groupId>
+            <artifactId>xstream-int</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.gama.client</groupId>
+            <artifactId>gama-client-core</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
