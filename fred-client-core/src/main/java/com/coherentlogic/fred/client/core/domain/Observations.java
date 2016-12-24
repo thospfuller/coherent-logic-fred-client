@@ -1,10 +1,10 @@
 package com.coherentlogic.fred.client.core.domain;
 
+import static com.coherentlogic.fred.client.Constants.FILE_TYPE;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.COUNT_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.UNITS_PROPERTY;
 import static com.coherentlogic.fred.client.core.util.Constants.COUNT;
 import static com.coherentlogic.fred.client.core.util.Constants.DEFAULT_LIMIT;
-import static com.coherentlogic.fred.client.core.util.Constants.FILE_TYPE;
 import static com.coherentlogic.fred.client.core.util.Constants.LIMIT_VALUE;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATIONS;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATION_END;

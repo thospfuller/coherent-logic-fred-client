@@ -1,5 +1,6 @@
 package com.coherentlogic.fred.client.core.domain;
 
+import static com.coherentlogic.fred.client.Constants.FILE_TYPE;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.COUNT_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.FILE_TYPE_PROPERTY;
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.OUTPUT_TYPE_PROPERTY;
@@ -7,7 +8,6 @@ import static com.coherentlogic.fred.client.core.domain.PropertyNames.SERIES_LIS
 import static com.coherentlogic.fred.client.core.domain.PropertyNames.UNITS_PROPERTY;
 import static com.coherentlogic.fred.client.core.util.Constants.COUNT;
 import static com.coherentlogic.fred.client.core.util.Constants.DEFAULT_LIMIT;
-import static com.coherentlogic.fred.client.core.util.Constants.FILE_TYPE;
 import static com.coherentlogic.fred.client.core.util.Constants.FILTER_VALUE;
 import static com.coherentlogic.fred.client.core.util.Constants.FILTER_VARIABLE;
 import static com.coherentlogic.fred.client.core.util.Constants.LIMIT_VALUE;

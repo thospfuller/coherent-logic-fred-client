@@ -32,7 +32,6 @@ public class Constants {
         ORDER_BY = "order_by",
         SORT_ORDER = "sort_order",
         OUTPUT_TYPE = "output_type",
-        FILE_TYPE = "file_type",
         COUNT = "count",
         OFFSET = "offset",
         OFFSET_TABLE = "offset_table",
@@ -75,6 +74,7 @@ public class Constants {
         SOURCE_ID = "source_id", RELEASE_ID = "release_id";
 
     public static final String FRED = "fred",
+        GEOFRED = "geofred",
         SERIES = "series",
         ID = "id",
         REALTIME_START = "realtime_start",

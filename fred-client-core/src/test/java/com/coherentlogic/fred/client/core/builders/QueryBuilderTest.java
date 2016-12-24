@@ -1,5 +1,6 @@
 package com.coherentlogic.fred.client.core.builders;
 
+import static com.coherentlogic.fred.client.Constants.FILE_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -528,7 +529,7 @@ public class QueryBuilderTest {
         String actual = builder.getEscapedURI();
 
         assertEquals (
-            format(QueryBuilder.FILE_TYPE, fileType.toString()),
+            format(FILE_TYPE, fileType.toString()),
             actual);
     }
 
