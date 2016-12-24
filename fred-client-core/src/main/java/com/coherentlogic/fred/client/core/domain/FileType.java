@@ -1,6 +1,6 @@
 package com.coherentlogic.fred.client.core.domain;
 
-import static com.coherentlogic.fred.client.core.util.Constants.FILE_TYPE;
+import static com.coherentlogic.fred.client.Constants.FILE_TYPE;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -15,5 +15,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias(FILE_TYPE)
 public enum FileType {
-    xml, txt, xls;
+    xml,
+    txt,
+    xls,
+    /**
+     * JSON is only available with GeoFRED queries.
+     */
+    json;
 }
