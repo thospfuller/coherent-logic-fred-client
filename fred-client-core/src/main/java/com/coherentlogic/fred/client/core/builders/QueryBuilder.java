@@ -7,6 +7,7 @@ import static com.coherentlogic.fred.client.core.util.Constants.DATES;
 import static com.coherentlogic.fred.client.core.util.Constants.DATE_FORMAT;
 import static com.coherentlogic.fred.client.core.util.Constants.DATE_PATTERN;
 import static com.coherentlogic.fred.client.core.util.Constants.FRED;
+import static com.coherentlogic.fred.client.core.util.Constants.GEOFRED;
 import static com.coherentlogic.fred.client.core.util.Constants.OBSERVATIONS;
 import static com.coherentlogic.fred.client.core.util.Constants.RELATED;
 import static com.coherentlogic.fred.client.core.util.Constants.RELEASE;
@@ -26,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 
 import javax.ws.rs.core.UriBuilder;
@@ -38,7 +40,6 @@ import org.springframework.web.client.RestTemplate;
 import com.coherentlogic.coherent.data.adapter.core.builders.rest.AbstractRESTQueryBuilder;
 import com.coherentlogic.coherent.data.adapter.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
-import com.coherentlogic.coherent.data.model.core.util.Action;
 import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.FileType;
@@ -66,19 +67,18 @@ import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
 import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService;
 
 /**
- * Class that allows the developer to construct and execute a query to the
- * Federal Reserve Bank of St. Louis' FRED web services.
+ * Class that allows the developer to construct and execute a query to the Federal Reserve Bank of St. Louis' FRED web
+ * services.
  * <p>
- * Note that this class is <b>not</b> thread-safe and cannot be used as a member
- * -level property -- if this is required, use the
- * {@link com.coherentlogic.fred.client.core.factories.QueryBuilderFactory
- * QueryBuilderFactory} class.
+ * Note that this class is <b>not</b> thread-safe and cannot be used as a member-level property -- if this is required,
+ * use the {@link com.coherentlogic.fred.client.core.factories.QueryBuilderFactory QueryBuilderFactory} class.
  * <p>
  * In order to facilitate method-chaining each setter method returns a reference
  * to this object.
  * <p>
  * For examples, refer to the QueryBuilderTest class.
  *
+ * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
@@ -90,7 +90,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         "***                                                                                                       ***",
         "***                                      Welcome to the FRED Client                                       ***",
         "***                                                                                                       ***",
-        "***                                        Version 2.0.0-RELEASE                                         ***",
+        "***                                        Version  2.0.0-RELEASE                                         ***",
         "***                                                                                                       ***",
         "***                              Please take a moment to follow us on Twitter:                            ***",
         "***                                                                                                       ***",
@@ -134,7 +134,8 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     static {
 
-        GoogleAnalyticsMeasurementService googleAnalyticsMeasurementService = new GoogleAnalyticsMeasurementService ();
+        GoogleAnalyticsMeasurementService googleAnalyticsMeasurementService = new GoogleAnalyticsMeasurementService (
+            "FRED Client");
 
         if (googleAnalyticsMeasurementService.shouldTrack()) {
             try {
@@ -165,8 +166,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         SORT_ORDER = "sort_order",
         FILTER_VARIABLE = "filter_variable",
         FILTER_VALUE = "filter_value",
-        INCLUDE_RELEASE_DATES_WITH_NO_DATA
-            = "include_release_dates_with_no_data",
+        INCLUDE_RELEASE_DATES_WITH_NO_DATA = "include_release_dates_with_no_data",
         RELEASE_ID = "release_id",
         OBSERVATION_START = "observation_start",
         OBSERVATION_END = "observation_end",
@@ -174,15 +174,18 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         FREQUENCY = "frequency",
         AGGREGATION_METHOD = "aggregation_method",
         OUTPUT_TYPE = "output_type",
-        FILE_TYPE = "file_type",
+//        FILE_TYPE = "file_type",
         VINTAGE_DATES = "vintagedates",
         VINTAGE_DATES_PARAM = "vintage_dates",
         SERIES_ID = "series_id",
         SOURCE_ID = "source_id",
         SEARCH_TEXT = "search_text",
         SEARCH_TYPE = "search_type",
+        SHAPES = "shapes",
+        SHAPE = "shape",
+        FILE = "file",
         SEMICOLON = ";",
-        FRED_API_ENTRY_POINT = "https://api.stlouisfed.org/";
+        FRED_API_ENTRY_POINT = "https://api.stlouisfed.org/fred";
 
     private static final Calendar MIN_DATE_CALENDAR, MAX_DATE_CALENDAR;
 
@@ -197,7 +200,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         MAX_DATE_CALENDAR.set(Calendar.MONTH, Calendar.DECEMBER);
         MAX_DATE_CALENDAR.set(Calendar.DAY_OF_MONTH, 31);
     }
-    
+
     /**
      * 
      * @return 9999-12-31
@@ -215,35 +218,29 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * A constructor that takes a RestTemplate and a uri that points to the web
-     * service endpoint.
+     * A constructor that takes a RestTemplate and a uri that points to the web service endpoint.
      *
-     * @param restTemplate Used to make the call to the web service and convert
-     *  the XML into an instance of a domain class.
+     * @param restTemplate Used to make the call to the web service and convert the XML into an instance of a domain
+     *  class.
      *
      * @param uri The uri to the web service endpoint.
      *
      * @see com.coherentlogic.coherent.data.model.core.builders.AbstractQueryBuilder
      */
-    public QueryBuilder (
-        RestTemplate restTemplate,
-        String uri
-    ) {
+    public QueryBuilder (RestTemplate restTemplate, String uri) {
         super (restTemplate, uri);
     }
 
-    public QueryBuilder (
-        RestTemplate restTemplate
-    ) {
+    public QueryBuilder (RestTemplate restTemplate) {
         super (restTemplate, FRED_API_ENTRY_POINT);
     }
 
     /**
-     * A constructor that takes a RestTemplate, String (uri), and a Map which is
-     * used to cache results returned from the call to the FRED web service.
+     * A constructor that takes a RestTemplate, String (uri), and a Map which is used to cache results returned from the
+     * call to the FRED web service.
      *
-     * @param restTemplate Used to make the call to the web service and convert
-     *  the XML into an instance of a domain class.
+     * @param restTemplate Used to make the call to the web service and convert the XML into an instance of a domain
+     *  class.
      *
      * @param uri The uri to the web service endpoint.
      *
@@ -260,36 +257,30 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         super(restTemplate, uri, cache);
     }
 
-    public QueryBuilder(
-        RestTemplate restTemplate,
-        CacheServiceProviderSpecification<String, Object> cache
-    ) {
+    public QueryBuilder(RestTemplate restTemplate, CacheServiceProviderSpecification<String, Object> cache) {
         super(restTemplate, FRED_API_ENTRY_POINT, cache);
     }
 
     /**
      * A constructor that takes a RestTemplate and a UriBuilder.
      *
-     * @param restTemplate Used to make the call to the web service and convert
-     *  the XML into an instance of a domain class.
+     * @param restTemplate Used to make the call to the web service and convert the XML into an instance of a domain
+     *  class.
      *
      * @param uriBuilder Used to construct the URI.
      *
      * @see com.coherentlogic.coherent.data.model.core.builders.AbstractQueryBuilder
      */
-    public QueryBuilder (
-        RestTemplate restTemplate,
-        UriBuilder uriBuilder
-    ) {
+    public QueryBuilder (RestTemplate restTemplate, UriBuilder uriBuilder) {
         super (restTemplate, uriBuilder);
     }
 
     /**
-     * A constructor that takes a RestTemplate, UriBuilder, and a Map which is
-     * used to cache results returned from the call to the FRED web service.
+     * A constructor that takes a RestTemplate, UriBuilder, and a Map which is used to cache results returned from the
+     * call to the FRED web service.
      *
-     * @param restTemplate Used to make the call to the web service and convert
-     *  the XML into an instance of a domain class.
+     * @param restTemplate Used to make the call to the web service and convert the XML into an instance of a domain
+     *  class.
      *
      * @param uriBuilder Used to construct the URI.
      *
@@ -306,16 +297,27 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         super(restTemplate, uriBuilder, cache);
     }
 
-    /**
-     * Extends the path to include fred -- for example:
-     *
-     * https://api.stlouisfed.org/fred/
-     */
-    public QueryBuilder fred () {
-        extendPathWith(FRED);
-
-        return this;
-    }
+//    /**
+//     * Extends the path to include fred -- for example:
+//     *
+//     * https://api.stlouisfed.org/fred/
+//     */
+//    public QueryBuilder fred () {
+//        extendPathWith(FRED);
+//
+//        return this;
+//    }
+//
+//    /**
+//     * Extends the path to include geofred -- for example:
+//     *
+//     * https://api.stlouisfed.org/geofred/
+//     */
+//    public QueryBuilder geofred () {
+//        extendPathWith(GEOFRED);
+//
+//        return this;
+//    }
 
     /**
      * Extends the path to include series -- for example:
@@ -483,11 +485,9 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Setter method for the API key parameter. Note the API key is required by
-     * every FRED web service call.
+     * Setter method for the API key parameter. Note the API key is required by every FRED web service call.
      *
-     * Register for an API key <a href="https://api.stlouisfed.org/api_key.html">
-     * here</a>.
+     * Register for an API key <a href="https://api.stlouisfed.org/api_key.html"> here</a>.
      *
      * @param apiKey For example, "abcdefghijklmnopqrstuvwxyz123456".
      */
@@ -505,7 +505,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSeriesId (String seriesId) {
 
-        put(SERIES_ID, seriesId);
+        addParameter(SERIES_ID, seriesId);
 
         return this;
     }
@@ -517,7 +517,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withReleaseId (long releaseId) {
 
-        put(RELEASE_ID, Long.toString(releaseId));
+        addParameter(RELEASE_ID, Long.toString(releaseId));
 
         return this;
     }
@@ -527,7 +527,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withCategoryId (long categoryId) {
 
-        put(CATEGORY_ID, Long.toString(categoryId));
+        addParameter(CATEGORY_ID, Long.toString(categoryId));
 
         return this;
     }
@@ -537,7 +537,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSourceId (long sourceId) {
 
-        put(SOURCE_ID, Long.toString(sourceId));
+        addParameter(SOURCE_ID, Long.toString(sourceId));
 
         return this;
     }
@@ -556,7 +556,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         String realtimeStartText = dateFormat.format(realtimeStart);
 
-        put(REALTIME_START, realtimeStartText);
+        addParameter(REALTIME_START, realtimeStartText);
 
         return this;
     }
@@ -564,14 +564,14 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the real-time start date parameter.
      *
-     * @throws InvalidDateFormatException When the date does not conform to the
-     *  expected format (ie. yyyy-MM-dd / 2012-06-21).
+     * @throws InvalidDateFormatException When the date does not conform to the expected format
+     *  (ie. yyyy-MM-dd / 2012-06-21).
      */
     public QueryBuilder withRealtimeStart (String realtimeStart) {
 
         assertDateFormatIsValid ("realtimeStart", realtimeStart);
 
-        put(REALTIME_START, realtimeStart);
+        addParameter(REALTIME_START, realtimeStart);
 
         return this;
     }
@@ -590,7 +590,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         String realtimeEndText = dateFormat.format(realtimeEnd);
 
-        put(REALTIME_END, realtimeEndText);
+        addParameter(REALTIME_END, realtimeEndText);
 
         return this;
     }
@@ -598,14 +598,14 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the real-time end date parameter.
      *
-     * @throws InvalidDateFormatException When the date does not conform to the
-     *  expected format (ie. yyyy-MM-dd / 2012-06-21).
+     * @throws InvalidDateFormatException When the date does not conform to the expected format
+     *  (ie. yyyy-MM-dd / 2012-06-21).
      */
     public QueryBuilder withRealtimeEnd (String realtimeEnd) {
 
         assertDateFormatIsValid ("realtimeEnd", realtimeEnd);
 
-        put(REALTIME_END, realtimeEnd);
+        addParameter(REALTIME_END, realtimeEnd);
 
         return this;
     }
@@ -620,7 +620,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         if (!(1 <= limit && limit <= 100000))
             throw new LimitOutOfBoundsException(limit);
 
-        put(LIMIT, Long.toString(limit));
+        addParameter(LIMIT, Long.toString(limit));
 
         return this;
     }
@@ -630,15 +630,14 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      *
      * @param offset A non-negative integer.
      *
-     * @throws OffsetOutOfBoundsException if the value of the offset is less
-     *  than zero.
+     * @throws OffsetOutOfBoundsException if the value of the offset is less than zero.
      */
     public QueryBuilder withOffset (int offset) {
 
         if (offset < 0)
             throw new OffsetOutOfBoundsException (offset);
 
-        put(OFFSET, Integer.toString(offset));
+        addParameter(OFFSET, Integer.toString(offset));
 
         return this;
     }
@@ -650,7 +649,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withOrderBy (OrderBy orderBy) {
 
-        put(ORDER_BY, orderBy.toString());
+        addParameter(ORDER_BY, orderBy.toString());
 
         return this;
     }
@@ -662,7 +661,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSortOrder (SortOrder sortOrder) {
 
-        put(SORT_ORDER, sortOrder.toString());
+        addParameter(SORT_ORDER, sortOrder.toString());
 
         return this;
     }
@@ -674,7 +673,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFilterVariable (FilterVariable filterVariable) {
 
-        put(FILTER_VARIABLE, filterVariable.toString());
+        addParameter(FILTER_VARIABLE, filterVariable.toString());
 
         return this;
     }
@@ -686,7 +685,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFilterValue (FilterValue filterValue) {
 
-        put(FILTER_VALUE, filterValue.toString());
+        addParameter(FILTER_VALUE, filterValue.toString());
 
         return this;
     }
@@ -696,7 +695,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withIncludeReleaseDatesWithNoData (boolean value) {
 
-        put(INCLUDE_RELEASE_DATES_WITH_NO_DATA, Boolean.toString(value));
+        addParameter(INCLUDE_RELEASE_DATES_WITH_NO_DATA, Boolean.toString(value));
 
         return this;
     }
@@ -715,7 +714,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         String observationStartText = dateFormat.format(observationStart);
 
-        put(OBSERVATION_START, observationStartText);
+        addParameter(OBSERVATION_START, observationStartText);
 
         return this;
     }
@@ -723,14 +722,14 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the observation start date parameter.
      *
-     * @throws InvalidDateFormatException When the date does not conform to the
-     *  expected format (ie. yyyy-MM-dd / 2012-06-21).
+     * @throws InvalidDateFormatException When the date does not conform to the expected format
+     *  (ie. yyyy-MM-dd / 2012-06-21).
      */
     public QueryBuilder withObservationStart (String observationStart) {
 
         assertDateFormatIsValid ("observationStart", observationStart);
 
-        put(OBSERVATION_START, observationStart);
+        addParameter(OBSERVATION_START, observationStart);
 
         return this;
     }
@@ -751,7 +750,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         String observationEndText = dateFormat.format(observationEnd);
 
-        put(OBSERVATION_END, observationEndText);
+        addParameter(OBSERVATION_END, observationEndText);
 
         return this;
     }
@@ -759,14 +758,14 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the observation end date parameter parameter.
      *
-     * @throws InvalidDateFormatException When the date does not conform to the
-     *  expected format (ie. yyyy-MM-dd / 2012-06-21).
+     * @throws InvalidDateFormatException When the date does not conform to the expected format
+     *  (ie. yyyy-MM-dd / 2012-06-21).
      */
     public QueryBuilder withObservationEnd (String observationEnd) {
 
         assertDateFormatIsValid ("observationEnd", observationEnd);
 
-        put(OBSERVATION_END, observationEnd);
+        addParameter(OBSERVATION_END, observationEnd);
 
         return this;
     }
@@ -778,7 +777,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withUnits (Unit unit) {
 
-        put(UNITS, unit.toString());
+        addParameter(UNITS, unit.toString());
 
         return this;
     }
@@ -790,7 +789,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFrequency (Frequency frequency) {
 
-        put(FREQUENCY, frequency.toString());
+        addParameter(FREQUENCY, frequency.toString());
 
         return this;
     }
@@ -802,7 +801,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
 
-        put(AGGREGATION_METHOD, aggregationMethod.toString());
+        addParameter(AGGREGATION_METHOD, aggregationMethod.toString());
 
         return this;
     }
@@ -814,7 +813,19 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withOutputType (OutputType outputType) {
 
-        put(OUTPUT_TYPE, outputType.toString());
+        addParameter(OUTPUT_TYPE, outputType.toString());
+
+        return this;
+    }
+
+    /**
+     * Setter method for the file type parameter.
+     *
+     * @see com.coherentlogic.fred.client.core.domain.FileType
+     */
+    public QueryBuilder withFileType (String fileType) {
+
+        addParameter(com.coherentlogic.fred.client.Constants.FILE_TYPE, fileType);
 
         return this;
     }
@@ -825,22 +836,27 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see com.coherentlogic.fred.client.core.domain.FileType
      */
     public QueryBuilder withFileType (FileType fileType) {
+        return withFileType (fileType.toString());
+    }
 
-        put(FILE_TYPE, fileType.toString());
+    public QueryBuilder withFileTypeAsXML() {
+        return withFileType(FileType.xml);
+    }
 
-        return this;
+    public QueryBuilder withFileTypeAsJSON() {
+        return withFileType(FileType.json);
     }
 
     /**
-     * Setter method for the vinatage dates parameter, which can be a single
-     * date, or a list of dates separated by a comma.
+     * Setter method for the vinatage dates parameter, which can be a single date, or a list of dates separated by a
+     * comma.
      *
-     * Note that the format of the dates is not checked client-side -- if there
-     * is an invalid date, the server will reject the call.
+     * Note that the format of the dates is not checked client-side -- if there is an invalid date, the server will
+     * reject the call.
      */
     public QueryBuilder withVintageDates (String vintageDates) {
 
-        put(VINTAGE_DATES_PARAM, vintageDates);
+        addParameter(VINTAGE_DATES_PARAM, vintageDates);
 
         return this;
     }
@@ -848,37 +864,34 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the array of vintage dates parameter.
      *
-     * @throws InvalidDateFormatException If any of the dates are not of the
-     *  format yyyy-MM-dd.
+     * @throws InvalidDateFormatException If any of the dates are not of the format yyyy-MM-dd.
      */
     public QueryBuilder withVintageDates (String... vintageDates) {
 
         String value = convertDates ("setVintageDates", ",", vintageDates);
 
-        put(VINTAGE_DATES_PARAM, value);
+        addParameter(VINTAGE_DATES_PARAM, value);
 
         return this;
     }
 
     /**
-     * Setter method for the search text  parameter which consists of the words
-     * to match against economic data series.
+     * Setter method for the search text  parameter which consists of the words to match against economic data series.
      */
     public QueryBuilder withSearchText (String searchText) {
 
-        put(SEARCH_TEXT, searchText);
+        addParameter(SEARCH_TEXT, searchText);
 
         return this;
     }
 
     /**
-     * Setter method for the series search text  parameter which consists of the
-     * words to match against economic data series -- for example
-     * "monetary service index".
+     * Setter method for the series search text  parameter which consists of the words to match against economic data
+     * series -- for example "monetary service index".
      */
     public QueryBuilder withSeriesSearchText (String seriesSearchText) {
 
-        put(SERIES_SEARCH_TEXT, seriesSearchText);
+        addParameter(SERIES_SEARCH_TEXT, seriesSearchText);
 
         return this;
     }
@@ -890,35 +903,31 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSearchType (SearchType searchType) {
 
-        put(SEARCH_TYPE, searchType.toString());
+        addParameter(SEARCH_TYPE, searchType.toString());
 
         return this;
     }
 
     /**
-     * Method takes a single string, such as "slovenia;food;oecd", and set this
-     * as the tagName; this value filters results to match either tag
-     * "slovenia", "food", or "oecd".
+     * Method takes a single string, such as "slovenia;food;oecd", and set this as the tagName; this value filters
+     * results to match either tag "slovenia", "food", or "oecd".
      *
      * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
     public QueryBuilder withTagNames (String tagNames) {
 
-        put(TAG_NAMES, tagNames);
+        addParameter(TAG_NAMES, tagNames);
 
         return this;
     }
 
     /**
-     * An array of tags to filter results by -- optional, no filtering by tags
-     * by default.
+     * An array of tags to filter results by -- optional, no filtering by tags by default.
      *
-     * For example: 'm1;m2' -- this value filters results to match either tag
-     * 'm1' or tag 'm2'.
+     * For example: 'm1;m2' -- this value filters results to match either tag 'm1' or tag 'm2'.
      *
-     * This method takes an array of strings, such as "slovenia", "food", "oecd"
-     * and creates a single aggregated string with each value separated by a
-     * semicolon (ie. "slovenia;food;oecd").
+     * This method takes an array of strings, such as "slovenia", "food", "oecd" and creates a single aggregated string
+     * with each value separated by a semicolon (ie. "slovenia;food;oecd").
      *
      * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
      */
@@ -945,31 +954,129 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withTagGroupId (TagGroupId tagGroupId) {
 
-        put (TAG_GROUP_ID, tagGroupId.toString());
+        addParameter (TAG_GROUP_ID, tagGroupId.toString());
 
         return this;
     }
 
     /**
-     * The words to find matching tags with -- optional, no filtering by search
-     * words by default.
+     * The words to find matching tags with -- optional, no filtering by search words by default.
      */
     public QueryBuilder withTagSearchText (String tagSearchText) {
 
-        put (TAG_SEARCH_TEXT, tagSearchText);
+        addParameter (TAG_SEARCH_TEXT, tagSearchText);
 
         return this;
     }
 
     /**
-     * Method adds a name-value pair to the internal list of name-value pairs.
+     * Extends the path with shapes/file/ -- ie.
      *
-     * @param name The name of the parameter.
-     * @param value The parameter value.
+     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
      */
-    private void put (String name, String value) {
-        addParameter(name, value);
+    public QueryBuilder shapes () {
+
+        extendPathWith(SHAPES);
+        extendPathWith(FILE);
+
+        return this;
     }
+
+    /**
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+     */
+    public QueryBuilder withShapeType (String shapeType) {
+
+        addParameter(SHAPE, shapeType);
+
+        return this;
+    }
+
+//    /**
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeType (ShapeType shapeType) {
+//        return withShapeType (shapeType.toString());
+//    }
+//
+//    /**
+//     * Bureau of Economic Analysis Region
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsBEA () {
+//        return withShapeType (ShapeType.bea);
+//    }
+//
+//    /**
+//     * Metropolitan Statistical Area
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsMSA () {
+//        return withShapeType (ShapeType.msa);
+//    }
+//
+//    /**
+//     * Federal Reserve Bank Districts
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsFRB () {
+//        return withShapeType (ShapeType.frb);
+//    }
+//
+//    /**
+//     * New England City and Town Area
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsNECTA () {
+//        return withShapeType (ShapeType.necta);
+//    }
+//
+//    /**
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsState () {
+//        return withShapeType (ShapeType.state);
+//    }
+//
+//    /**
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsCountry () {
+//        return withShapeType (ShapeType.country);
+//    }
+//
+//    /**
+//     * USA Counties
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsCounty () {
+//        return withShapeType (ShapeType.county);
+//    }
+//
+//    /**
+//     * US Census Regions
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsCensusRegion () {
+//        return withShapeType (ShapeType.censusregion);
+//    }
+//
+//    /**
+//     * US Census Divisons
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeTypeAsCensusDivision () {
+//        return withShapeType (ShapeType.censusdivision);
+//    }
 
     static String combine (String seperator, String... values) {
 
@@ -1000,13 +1107,12 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Method checks that the actual date is between the
-     * {@link #MIN_DATE_CALENDAR} and {@link #MAX_DATE_CALENDAR} dates.
+     * Method checks that the actual date is between the {@link #MIN_DATE_CALENDAR} and {@link #MAX_DATE_CALENDAR}
+     * dates.
      *
      * @param actual The actual date.
      *
-     * @return True if the actual date is between the {@link #MIN_DATE_CALENDAR}
-     *  and {@link #MAX_DATE_CALENDAR} dates.
+     * @return True if the actual date is between the {@link #MIN_DATE_CALENDAR} and {@link #MAX_DATE_CALENDAR} dates.
      */
     private boolean isBetween (Date actual) {
 
@@ -1022,20 +1128,16 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Method converts the <i>dates</i> into a single String, with each date
-     * separated by a comma.
+     * Method converts the <i>dates</i> into a single String, with each date separated by a comma.
      *
-     * @param method The name of the method calling this method; this is used
-     *  when an exception is thrown because one of the dates is in an invalid
-     *  format.
+     * @param method The name of the method calling this method; this is used when an exception is thrown because one of
+     * the dates is in an invalid format.
      *
      * @param seperator The character which separates the dates.
      *
-     * @param dates An array of dates. Note that each date must be in the format
-     *  yyyy-MM-dd.
+     * @param dates An array of dates. Note that each date must be in the format yyyy-MM-dd.
      *
-     * @return A single string consisting of all dates separated by the
-     *  separator.
+     * @return A single string consisting of all dates separated by the separator.
      */
     static String convertDates (
         String method,
@@ -1063,13 +1165,11 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Method simply checks that the date format is valid and throws an
-     * exception if it isn't.
+     * Method simply checks that the date format is valid and throws an exception if it isn't.
      *
      * @param method The method that was invoked.
      *
-     * @param date For example 2001-10-20, which is valid, or X001-1-2, which
-     *  is invalid.
+     * @param date For example 2001-10-20, which is valid, or X001-1-2, which is invalid.
      *
      * @throws InvalidDateFormatException Whenever the date is invalid.
      */
@@ -1078,8 +1178,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         if (!matcher.matches())
             throw new InvalidDateFormatException (
-                "The date parameter " + date +" passed to the method " +
-                method + " is invalid.");
+                "The date parameter " + date +" passed to the method " + method + " is invalid.");
     }
 
     @Override
@@ -1092,106 +1191,212 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         return (T) getRestTemplate ().getForObject(getEscapedURI (), type);
     }
 
+    /**
+     * Do get as {@link Seriess} and then return that result.
+     */
     public Seriess doGetAsSeriess () {
-        return doGet(Seriess.class);
+        return doGetAsSeriess(data -> { return data; });
     }
 
-    public Seriess doGetAsSeriess (Action<Seriess> action) {
+    /**
+     * Do get as {@link Seriess}, execute the given function, and then return an instance of type {@link Seriess}.
+     */
+    public Seriess doGetAsSeriess (Function<Seriess, Seriess> function) {
+        return doGetAsSeriess(Seriess.class, function);
+    }
 
-        Seriess result = doGet(Seriess.class);
+    /**
+     * Do get as {@link Seriess}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsSeriess (Class<R> resultType, Function<Seriess, R> function) {
 
-        action.execute(result);
+        Seriess seriess = doGet(Seriess.class);
+
+        R result = function.apply(seriess);
 
         return result;
     }
 
+    /**
+     * Do get as {@link Categories} and then return that result.
+     */
     public Categories doGetAsCategories () {
-        return doGet(Categories.class);
+        return doGetAsCategories(data -> { return data; });
     }
 
-    public Categories doGetAsCategories (Action<Categories> action) {
+    /**
+     * Do get as {@link Categories}, execute the given function, and then return an instance of type {@link Categories}.
+     */
+    public Categories doGetAsCategories (Function<Categories, Categories> function) {
+        return doGetAsCategories(Categories.class, function);
+    }
 
-        Categories result = doGet(Categories.class);
+    /**
+     * Do get as {@link Categories}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsCategories (Class<R> resultType, Function<Categories, R> function) {
 
-        action.execute(result);
+        Categories categories = doGet(Categories.class);
+
+        R result = function.apply(categories);
 
         return result;
     }
 
+    /**
+     * Do get as {@link Observations} and then return that result.
+     */
     public Observations doGetAsObservations () {
-        return doGet(Observations.class);
+        return doGetAsObservations(data -> { return data; });
     }
 
-    public Observations doGetAsObservations (Action<Observations> action) {
+    /**
+     * Do get as {@link Observations}, execute the given function, and then return an instance of type
+     * {@link Observations}.
+     */
+    public Observations doGetAsObservations (Function<Observations, Observations> function) {
+        return doGetAsObservations(Observations.class, function);
+    }
 
-        Observations result = doGet(Observations.class);
+    /**
+     * Do get as {@link Observations}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsObservations (Class<R> resultType, Function<Observations, R> function) {
 
-        action.execute(result);
+        Observations observations = doGet(Observations.class);
+
+        R result = function.apply(observations);
 
         return result;
     }
 
+    /**
+     * Do get as {@link Releases} and then return that result.
+     */
     public Releases doGetAsReleases () {
-        return doGet(Releases.class);
+        return doGetAsReleases(data -> { return data; });
     }
 
-    public Releases doGetAsReleases (Action<Releases> action) {
+    /**
+     * Do get as {@link Releases}, execute the given function, and then return an instance of type {@link Releases}.
+     */
+    public Releases doGetAsReleases (Function<Releases, Releases> function) {
+        return doGetAsReleases(Releases.class, function);
+    }
 
-        Releases result = doGet(Releases.class);
+    /**
+     * Do get as {@link Releases}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsReleases (Class<R> resultType, Function<Releases, R> function) {
 
-        action.execute(result);
+        Releases releases = doGet(Releases.class);
+
+        R result = function.apply(releases);
 
         return result;
     }
 
+    /**
+     * Do get as {@link VintageDates} and then return that result.
+     */
     public VintageDates doGetAsVintageDates () {
-        return doGet(VintageDates.class);
+        return doGetAsVintageDates(data -> { return data; });
     }
 
-    public VintageDates doGetAsVintageDates (Action<VintageDates> action) {
+    /**
+     * Do get as {@link VintageDates}, execute the given function, and then return an instance of type {@link VintageDates}.
+     */
+    public VintageDates doGetAsVintageDates (Function<VintageDates, VintageDates> function) {
+        return doGetAsVintageDates(VintageDates.class, function);
+    }
 
-        VintageDates result = doGet(VintageDates.class);
+    /**
+     * Do get as {@link VintageDates}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsVintageDates (Class<R> resultType, Function<VintageDates, R> function) {
 
-        action.execute(result);
+        VintageDates vintageDates = doGet(VintageDates.class);
+
+        R result = function.apply(vintageDates);
 
         return result;
     }
 
+    /**
+     * Do get as {@link Sources} and then return that result.
+     */
     public Sources doGetAsSources () {
-        return doGet(Sources.class);
+        return doGetAsSources(data -> { return data; });
     }
 
-    public Sources doGetAsSources (Action<Sources> action) {
+    /**
+     * Do get as {@link Sources}, execute the given function, and then return an instance of type {@link Sources}.
+     */
+    public Sources doGetAsSources (Function<Sources, Sources> function) {
+        return doGetAsSources(Sources.class, function);
+    }
 
-        Sources result = doGet(Sources.class);
+    /**
+     * Do get as {@link Sources}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsSources (Class<R> resultType, Function<Sources, R> function) {
 
-        action.execute(result);
+        Sources sources = doGet(Sources.class);
+
+        R result = function.apply(sources);
 
         return result;
     }
 
+    /**
+     * Do get as {@link ReleaseDates} and then return that result.
+     */
     public ReleaseDates doGetAsReleaseDates () {
-        return doGet(ReleaseDates.class);
+        return doGetAsReleaseDates(data -> { return data; });
     }
 
-    public ReleaseDates doGetAsReleaseDates (Action<ReleaseDates> action) {
+    /**
+     * Do get as {@link ReleaseDates}, execute the given function, and then return an instance of type
+     * {@link ReleaseDates}.
+     */
+    public ReleaseDates doGetAsReleaseDates (Function<ReleaseDates, ReleaseDates> function) {
+        return doGetAsReleaseDates(ReleaseDates.class, function);
+    }
 
-        ReleaseDates result = doGet(ReleaseDates.class);
+    /**
+     * Do get as {@link ReleaseDates}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsReleaseDates (Class<R> resultType, Function<ReleaseDates, R> function) {
 
-        action.execute(result);
+        ReleaseDates releaseDates = doGet(ReleaseDates.class);
+
+        R result = function.apply(releaseDates);
 
         return result;
     }
 
+    /**
+     * Do get as {@link Tags} and then return that result.
+     */
     public Tags doGetAsTags () {
-        return doGet(Tags.class);
+        return doGetAsTags(data -> { return data; });
     }
 
-    public Tags doGetAsTags (Action<Tags> action) {
+    /**
+     * Do get as {@link Tags}, execute the given function, and then return an instance of type {@link Tags}.
+     */
+    public Tags doGetAsTags (Function<Tags, Tags> function) {
+        return doGetAsTags(Tags.class, function);
+    }
 
-        Tags result = doGet(Tags.class);
+    /**
+     * Do get as {@link Tags}, execute the given function, and then return an instance of type resultType.
+     */
+    public <R> R doGetAsTags (Class<R> resultType, Function<Tags, R> function) {
 
-        action.execute(result);
+        Tags tags = doGet(Tags.class);
+
+        R result = function.apply(tags);
 
         return result;
     }
