@@ -23,6 +23,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+/**
+ * 
+ */
 public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> {
 
     private static final Logger log = LoggerFactory.getLogger(QueryBuilder.class);
@@ -60,6 +63,10 @@ public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> 
         return toSeriesGroupList (jsonArray, new ArrayList<SeriesGroup> ());
     }
 
+    /**
+     * {"series_group":[{"title":"All Employees: Total Private","region_type":"state","series_group":"1223",
+     *  "season":"NSA","units":"Thousands of Persons","frequency":"a","min_date":"1990-01-01","max_date":"2015-01-01"}]}
+     */
     protected List<SeriesGroup> toSeriesGroupList (JsonArray jsonArray, List<SeriesGroup> seriesGroupList) {
 
         jsonArray.forEach(
@@ -114,6 +121,9 @@ public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> 
         return seriesGroupList;
     }
 
+    /**
+     *
+     */
     private final SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-mm-dd");
 
     protected Date toDate (JsonElement dateElement) {
@@ -133,4 +143,3 @@ public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> 
         return result;
     }
 }
-//{"series_group":[{"title":"All Employees: Total Private","region_type":"state","series_group":"1223","season":"NSA","units":"Thousands of Persons","frequency":"a","min_date":"1990-01-01","max_date":"2015-01-01"}]}

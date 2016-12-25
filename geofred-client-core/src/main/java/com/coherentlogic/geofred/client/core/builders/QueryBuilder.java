@@ -1,14 +1,13 @@
 package com.coherentlogic.geofred.client.core.builders;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.function.Function;
 
 import javax.ws.rs.core.UriBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.converter.json.GsonFactoryBean;
-import org.springframework.http.converter.json.GsonBuilderUtils;
-import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.coherentlogic.coherent.data.adapter.core.builders.rest.AbstractRESTQueryBuilder;
@@ -27,7 +26,6 @@ import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
 //import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
 import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService;
 import com.coherentlogic.fred.client.domain.FileType;
-import com.coherentlogic.geofred.client.core.converters.ShapesDeserializer;
 import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.ShapeType;
@@ -45,8 +43,6 @@ import com.coherentlogic.geofred.client.core.domain.ShapeType;
 //import com.coherentlogic.fred.client.core.domain.SearchType;
 //import com.coherentlogic.fred.client.core.domain.Seriess;
 import com.coherentlogic.geofred.client.core.domain.Shapes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Class that allows the developer to construct and execute a query to the Federal Reserve Bank of St. Louis' FRED web
@@ -57,8 +53,9 @@ import com.google.gson.GsonBuilder;
  * <p>
  * In order to facilitate method-chaining each "with" method returns a reference to this object.
  * <p>
- * For examples, refer to the QueryBuilderTest class.
+ * For examples, refer to the {@link QueryBuilderTest} class in the fred-client-core-it module.
  *
+ * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
@@ -167,7 +164,10 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         SEMICOLON = ";",
         GEOFRED_API_ENTRY_POINT = "https://api.stlouisfed.org/geofred",
         SERIES = "series",
-        GROUP = "group";
+        GROUP = "group",
+        DATA = "data",
+        DATE = "date",
+        START_DATE = "start_date";
 
     /**
      * A constructor that takes a RestTemplate and a uri that points to the web service endpoint.
@@ -276,14 +276,59 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         return this;
     }
 
+    /**
+     * Adds the date name/value pair. Note that the format of the date string is not checked for correctness.
+     *
+     * @param date The date value.
+     */
     public QueryBuilder withDate (String date) {
+
+        addParameter(DATE, date);
+
         return this;
     }
 
+    /**
+     * Consider a date of 1992, Calendar.JULY, 20 (day) the call to {#link SimpleDateFormat#format} would yield
+     * "1992-07-20".
+     */
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
+    /**
+     * Adds the date name/value pair formatting the date value using the {@link #dateFormat}.
+     *
+     * @param date The date value.
+     */
+    public QueryBuilder withDate (Date date) {
+
+        addParameter(DATE, dateFormat, date);
+
+        return this;
+    }
+
+    /**
+     * Adds the startDate name/value pair. Note that the format of the startDate string is not checked for correctness.
+     *
+     * @param startDate The startDate value.
+     */
     public QueryBuilder withStartDate (String startDate) {
+
+        addParameter(START_DATE, startDate);
+
         return this;
     }
 
+    /**
+     * Adds the startDate name/value pair formatting the date value using the {@link #dateFormat}.
+     *
+     * @param startDate The startDate value.
+     */
+    public QueryBuilder withStartDate (Date startDate) {
+
+        addParameter(START_DATE, dateFormat, startDate);
+
+        return this;
+    }
 
 //    api_key
 //    file_type
@@ -773,7 +818,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Extends the path with series/group/ -- ie.
+     * Extends the path with series/group/; note that the {@link #withFileTypeAsJSON()} method is also.
      *
      * Note that the {@link #withFileTypeAsJSON()} method is called from within this method.
      *
@@ -786,6 +831,21 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         extendPathWith(SERIES);
         extendPathWith(GROUP);
+
+        return withFileTypeAsJSON();
+    }
+
+    /**
+     * Extends the path with series/data/; note that the {@link #withFileTypeAsJSON()} method is also.
+     *
+     * https://api.stlouisfed.org/geofred/series/group?series_id=SMU56000000500000001a&api_key=[TBD]
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/series_data.html">GeoFRED API - Series Data</a>
+     */
+    public QueryBuilder seriesData () {
+
+        extendPathWith(SERIES);
+        extendPathWith(DATA);
 
         return withFileTypeAsJSON();
     }

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
+import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.Shapes;
 
@@ -61,5 +62,18 @@ public class QueryBuilderTest {
             .doGetAsSeriesGroups();
 
         System.out.println("seriesGroups: " + seriesGroups);
+    }
+
+    @Test
+    public void testGetSeriesData() {
+
+        SeriesData seriesData = builder
+            .seriesData()
+            .withApiKey(API_KEY)
+            .withSeriesId("WIPCPI")
+            .withDate("2012-01-01")
+            .doGetAsSeriesData();
+
+        System.out.println("seriesData: " + seriesData);
     }
 }
