@@ -23,6 +23,7 @@ public class SeriesData extends SerializableBean<SeriesData> {
         SEASONALITY = "seasonality",
         UNITS = "units",
         FREQUENCY = "frequency",
+        DATA = "data",
         DATE = "date",
         OBSERVATION_LIST = "observationList";
 

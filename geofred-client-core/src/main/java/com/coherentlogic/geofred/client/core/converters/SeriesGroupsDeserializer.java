@@ -24,22 +24,23 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 /**
- * 
+ * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> {
 
-    private static final Logger log = LoggerFactory.getLogger(QueryBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(SeriesGroupsDeserializer.class);
 
     @Autowired
     private ApplicationContext applicationContext;
 
     @Override
-    public SeriesGroups deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context)
+    public SeriesGroups deserialize(JsonElement element, Type type, JsonDeserializationContext context)
         throws JsonParseException {
 
-        SeriesGroups result = applicationContext.getBean(SeriesGroups.class);
+        log.info("deserialize: method begins; element: " + element + ", type: " + type + ", context: " + context);
 
-        log.info("deserialize: method begins; element: " + element + ", typeOfT: " + typeOfT + ", context: " + context);
+        SeriesGroups result = applicationContext.getBean(SeriesGroups.class);
 
         JsonObject object = element.getAsJsonObject();
 
@@ -121,9 +122,6 @@ public class SeriesGroupsDeserializer implements JsonDeserializer<SeriesGroups> 
         return seriesGroupList;
     }
 
-    /**
-     *
-     */
     private final SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-mm-dd");
 
     protected Date toDate (JsonElement dateElement) {

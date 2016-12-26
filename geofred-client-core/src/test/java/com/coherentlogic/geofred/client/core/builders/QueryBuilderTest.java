@@ -71,7 +71,7 @@ public class QueryBuilderTest {
             .seriesData()
             .withApiKey(API_KEY)
             .withSeriesId("WIPCPI")
-            .withDate("2012-01-01")
+            .withStartDate("2012-01-01")
             .doGetAsSeriesData();
 
         System.out.println("seriesData: " + seriesData);

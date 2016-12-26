@@ -13,11 +13,15 @@ public class Observation extends SerializableBean<Observation> {
 
     private static final long serialVersionUID = 5420522367192074023L;
 
-    private static final String
+    public static final String
+        DATE = "date",
         REGION = "region",
         CODE = "code",
         VALUE = "value",
+        SERIES_ID = "series_id",
         SERIESID = "seriesId";
+
+    private String date;
 
     private String region;
 
@@ -29,6 +33,14 @@ public class Observation extends SerializableBean<Observation> {
 
     public String getRegion() {
         return region;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(@Changeable(DATE) String date) {
+        this.date = date;
     }
 
     public void setRegion(@Changeable(REGION) String region) {
@@ -64,6 +76,7 @@ public class Observation extends SerializableBean<Observation> {
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + ((code == null) ? 0 : code.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((region == null) ? 0 : region.hashCode());
         result = prime * result + ((seriesId == null) ? 0 : seriesId.hashCode());
         result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -83,6 +96,11 @@ public class Observation extends SerializableBean<Observation> {
             if (other.code != null)
                 return false;
         } else if (!code.equals(other.code))
+            return false;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
             return false;
         if (region == null) {
             if (other.region != null)
@@ -104,7 +122,8 @@ public class Observation extends SerializableBean<Observation> {
 
     @Override
     public String toString() {
-        return "Observation [region=" + region + ", code=" + code + ", value=" + value + ", seriesId=" + seriesId + "]";
+        return "Observation [date=" + date + ", region=" + region + ", code=" + code + ", value=" + value
+            + ", seriesId=" + seriesId + ", toString()=" + super.toString() + "]";
     }
 }
 
