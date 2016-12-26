@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import com.coherentlogic.geofred.client.core.builders.QueryBuilder;
 import com.coherentlogic.geofred.client.core.domain.Shape;
 import com.coherentlogic.geofred.client.core.domain.ShapeType;
 import com.coherentlogic.geofred.client.core.domain.Shapes;
@@ -20,9 +19,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+/**
+ * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
+ * @author <a href="mailto:support@coherentlogic.com">Support</a>
+ */
 public class ShapesDeserializer implements JsonDeserializer<Shapes> {
 
-    private static final Logger log = LoggerFactory.getLogger(QueryBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(ShapesDeserializer.class);
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -38,15 +41,17 @@ public class ShapesDeserializer implements JsonDeserializer<Shapes> {
         JsonObject object = element.getAsJsonObject();
 
         JsonArray jsonArray = object.getAsJsonArray(ShapeType.bea.toString());
+        // TODO: Handle the other ShapeTypes!
+
 
         if (jsonArray == null || jsonArray.isJsonNull()) {
             log.warn("No bea array in the element " + element);
         } else {
+
             result.setShapeType(ShapeType.bea);
             List<Shape> shapeList = toShapeList (jsonArray);
 
             result.getShapeList().addAll(shapeList);
-
         }
 
         log.info("deserialize: method ends; result: " + result);
