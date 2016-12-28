@@ -13,7 +13,8 @@ import com.coherentlogic.geofred.client.core.domain.Shapes;
 
 public class QueryBuilderTest {
 
-    static final String FRED_API_KEY = "FRED_API_KEY",
+    static final String
+        FRED_API_KEY = "FRED_API_KEY",
         GEOFRED_REST_TEMPLATE_ID = "geoFREDRestTemplate";
 
     /**
@@ -47,7 +48,7 @@ public class QueryBuilderTest {
     @Test
     public void testGetShapes() {
 
-        Shapes shapes = builder.shapes().withApiKey(API_KEY).withShapeTypeAsBEA().doGetAsShapes();
+        Shapes shapes = builder.shapesFile().withApiKey(API_KEY).withShapeTypeAsBEA().doGetAsShapes();
 
         System.out.println("shapes: " + shapes);
     }
@@ -55,13 +56,13 @@ public class QueryBuilderTest {
     @Test
     public void testGetSeriesGroups() {
 
-        SeriesGroups seriesGroups = builder
+        SeriesGroups result = builder
             .seriesGroup()
             .withApiKey(API_KEY)
             .withSeriesId("SMU56000000500000001a")
             .doGetAsSeriesGroups();
 
-        System.out.println("seriesGroups: " + seriesGroups);
+        System.out.println("seriesGroups: " + result);
     }
 
     @Test
@@ -75,5 +76,19 @@ public class QueryBuilderTest {
             .doGetAsSeriesData();
 
         System.out.println("seriesData: " + seriesData);
+    }
+
+    // Not available at this time.
+    @Test
+    public void testGetRegionalData() {
+
+//        RegionalData regionalData = builder
+//            .regionalData()
+//            .withApiKey(API_KEY)
+//            .withSeriesGroup()
+//            .withStartDate("2012-01-01")
+//            .doGetAsRegionalData();
+//
+//        System.out.println("seriesData: " + seriesData);
     }
 }
