@@ -3,9 +3,9 @@ package com.coherentlogic.fred.client.core.domain;
 /**
  * A key that indicates a data value transformation.
  *
- * @see <a href="https://alfred.stlouisfed.org/help#growth_formulas">
- * growth_formulas</a>
+ * @see <a href="https://alfred.stlouisfed.org/help#growth_formulas">growth_formulas</a>
  *
+ * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
 public enum Unit {

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.coherentlogic.coherent.data.adapter.core.exceptions.ConversionFailedException;
-import com.coherentlogic.geofred.client.core.builders.QueryBuilder;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroup;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.google.gson.JsonArray;
@@ -24,6 +23,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 /**
+ * Deserializer implementation for series group-related data.
+ *
  * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
