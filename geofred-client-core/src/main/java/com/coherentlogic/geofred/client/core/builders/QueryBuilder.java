@@ -714,20 +714,6 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * Do get as {@link Shapes} and then return that result.
      */
     public Shapes doGetAsShapes () {
-
-//        GsonFactoryBean gfb = new GsonFactoryBean ();
-//        
-//        
-////        import org.springframework.http.converter.json.GsonBuilderUtils;
-////        import org.springframework.http.converter.json.GsonHttpMessageConverter;
-//        
-//        GsonHttpMessageConverter ghmc = new GsonHttpMessageConverter ();
-//        
-//        ghmc.
-//        
-//        Gson gson = new GsonBuilder().registerTypeAdapter(Shapes.class, new ShapesDeserializer ()).create();
-//        
-//        
         return doGetAsShapes(data -> { return data; });
     }
 
