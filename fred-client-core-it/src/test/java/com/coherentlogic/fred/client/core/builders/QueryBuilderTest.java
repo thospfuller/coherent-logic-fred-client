@@ -29,13 +29,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.Category;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
 import com.coherentlogic.fred.client.core.domain.FilterVariable;
-import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.domain.Message;
 import com.coherentlogic.fred.client.core.domain.Observation;
 import com.coherentlogic.fred.client.core.domain.Observations;
@@ -57,6 +55,8 @@ import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
+import com.coherentlogic.fred.client.domain.AggregationMethod;
+import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * Integration test for the QueryBuilder class.
@@ -181,19 +181,12 @@ public class QueryBuilderTest {
     public void getSeries () {
 
         Seriess result = builder
-//            .fred()
             .series()
             .withApiKey(API_KEY)
             .withSeriesId("GNPCA")
             .withRealtimeStart(realtimeStart)
             .withRealtimeEnd(realtimeEnd)
-            .doGetAsSeriess (
-                data -> {
-                    System.out.println("data: " + data);
-
-                    return data;
-                }
-            );
+            .doGetAsSeriess ();
 
         Date realtimeStartDate = result.getRealtimeStart();
         Date realtimeEndDate = result.getRealtimeEnd();
@@ -226,6 +219,21 @@ public class QueryBuilderTest {
         assertDateIsAccurate (using (2007, Calendar.JANUARY, 26), seriesOne.getLastUpdated());
         // Popularity may change so we'll just check for null.
         assertNotNull (seriesOne.getPopularity());
+    }
+
+    @Test
+    public void getSeriesAsString () {
+
+        String series = builder
+            .series()
+            .withApiKey(API_KEY)
+            .withSeriesId("GS10!")
+            .withRealtimeStart(realtimeStart)
+            .withRealtimeEnd(realtimeEnd)
+            .doGetAsString();
+
+        assertNotNull(series);
+        assertTrue (series.contains("<series"));
     }
 
     @Test
@@ -1094,7 +1102,6 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 //        Date realtimeEnd = using (2004, Calendar.MAY, 17);
 //
 //        List<String> allNames = builder
-//            .fred()
 //            .series()
 //            .search()
 //            .tags()
@@ -1182,11 +1189,11 @@ popularity="53" notes="Averages of daily data.  Copyright, 2011, Moody's Investo
 //    @Test
 //    public void testShapes1() {
 //
-//        String escapedUri = builder.geofred().shapes().withApiKey(API_KEY).withShapeTypeAsBEA().getEscapedURI();
+//        String escapedUri = builder.shapes().withApiKey(API_KEY).withShapeTypeAsBEA().getEscapedURI();
 //
 //        System.out.println("escapedUri: " + escapedUri);
 //
-//        Shapes shapes = builder.geofred().shapes().withApiKey(API_KEY).withShapeTypeAsBEA().doGetAsShapes();
+//        Shapes shapes = builder.shapes().withApiKey(API_KEY).withShapeTypeAsBEA().doGetAsShapes();
 //
 ////        assertObsEquals("1929-01-01", "1066.8", observations, 0);
 ////        assertObsEquals("1930-01-01", "976.3", observations, 1);
