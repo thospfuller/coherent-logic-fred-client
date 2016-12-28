@@ -25,7 +25,9 @@ import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
 //import com.coherentlogic.fred.client.core.exceptions.LimitOutOfBoundsException;
 //import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
 import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService;
+import com.coherentlogic.fred.client.domain.AggregationMethod;
 import com.coherentlogic.fred.client.domain.FileType;
+import com.coherentlogic.fred.client.domain.Frequency;
 import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.ShapeType;
@@ -155,6 +157,10 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         VINTAGE_DATES = "vintagedates",
         VINTAGE_DATES_PARAM = "vintage_dates",
         SERIES_ID = "series_id",
+        SERIES_GROUP = "series_group",
+        REGION_TYPE = "region_type",
+        SEASON = "season",
+        TRANSFORMATION = "transformation",
         SOURCE_ID = "source_id",
         SEARCH_TEXT = "search_text",
         SEARCH_TYPE = "search_type",
@@ -164,6 +170,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         SEMICOLON = ";",
         GEOFRED_API_ENTRY_POINT = "https://api.stlouisfed.org/geofred",
         SERIES = "series",
+        REGIONAL = "regional",
         GROUP = "group",
         DATA = "data",
         DATE = "date",
@@ -250,6 +257,73 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
+     * Extends the path with shapes/file/ -- ie.
+     *
+     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+     */
+    public QueryBuilder shapesFile () {
+
+        extendPathWith(SHAPES);
+        extendPathWith(FILE);
+
+        return this;
+    }
+
+    /**
+     * Extends the path with series/group/.
+     *
+     * Note that the {@link #withFileTypeAsJSON()} method is called from within this method.
+     *
+     * https://api.stlouisfed.org/geofred/series/group?series_id=SMU56000000500000001a&api_key=[TBD]
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/series_group.html">
+     *  GeoFRED API - Series Group Info</a>
+     */
+    public QueryBuilder seriesGroup () {
+
+        extendPathWith(SERIES);
+        extendPathWith(GROUP);
+
+        return withFileTypeAsJSON();
+    }
+
+    /**
+     * Extends the path with series/data/.
+     *
+     * Note that the {@link #withFileTypeAsJSON()} method is called from within this method.
+     *
+     * https://api.stlouisfed.org/geofred/series/group?series_id=SMU56000000500000001a&api_key=[TBD]
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/series_data.html">GeoFRED API - Series Data</a>
+     */
+    public QueryBuilder seriesData () {
+
+        extendPathWith(SERIES);
+        extendPathWith(DATA);
+
+        return withFileTypeAsJSON();
+    }
+
+    /**
+     * Extends the path with regional/data/.
+     *
+     * Note that the {@link #withFileTypeAsJSON()} method is called from within this method.
+     *
+     * https://api.stlouisfed.org/geofred/regional/data?api_key=[TBD]&series_group=1348&date=2013-01-01&region_type=state&units=Dollars&frequency=a&season=NSA
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#series_group">GeoFRED® API - Regional Data</a>
+     */
+    public QueryBuilder regionalData () {
+
+        extendPathWith(REGIONAL);
+        extendPathWith(DATA);
+
+        return withFileTypeAsJSON();
+    }
+
+    /**
      * Setter method for the API key parameter. Note the API key is required by every FRED web service call.
      *
      * Register for an API key <a href="https://api.stlouisfed.org/api_key.html"> here</a>.
@@ -264,14 +338,26 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * The FRED series id you want to request GeoFRED meta information for. Not all series that are in FRED have
+     * The FRED series id you want to request GeoFRED meta information for; not all series that are in FRED have
      * geographical data.
      *
-     * @param seriesId For example, "GNPCA".
+     * @param seriesId For example, "WIPCPI".
      */
     public QueryBuilder withSeriesId (String seriesId) {
 
         addParameter(SERIES_ID, seriesId);
+
+        return this;
+    }
+
+    /**
+     * The ID for a group of seriess found in GeoFRED.
+     *
+     * @param seriesGroup For example, "1348".
+     */
+    public QueryBuilder withSeriesGroup (String seriesGroup) {
+
+        addParameter(SERIES_GROUP, seriesGroup);
 
         return this;
     }
@@ -330,326 +416,63 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         return this;
     }
 
-//    api_key
-//    file_type
-//    series_group
-//    region_type
-//    date
-//    start_date
-//    frequency
-//    units
-//    season
-//    transformation
-//    aggregation_method
+    /**
+     * The units of the series you want to pull.
+     */
+    public QueryBuilder withUnits (String units) {
 
+        addParameter(UNITS, units);
 
-//    /**
-//     * Setter method for the release id parameter.
-//     *
-//     * @param releaseId For example, 53L.
-//     */
-//    public QueryBuilder withReleaseId (long releaseId) {
-//
-//        addParameter(RELEASE_ID, Long.toString(releaseId));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the category id parameter.
-//     */
-//    public QueryBuilder withCategoryId (long categoryId) {
-//
-//        addParameter(CATEGORY_ID, Long.toString(categoryId));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the source id parameter.
-//     */
-//    public QueryBuilder withSourceId (long sourceId) {
-//
-//        addParameter(SOURCE_ID, Long.toString(sourceId));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the real-time start date parameter.
-//     */
-//    public QueryBuilder withRealtimeStart (Date realtimeStart) {
-//
-//        boolean between = isBetween (realtimeStart);
-//
-//        if (!between)
-//            throw new DateOutOfBoundsException(realtimeStart);
-//
-//        DateFormat dateFormat = new SimpleDateFormat (DATE_FORMAT);
-//
-//        String realtimeStartText = dateFormat.format(realtimeStart);
-//
-//        addParameter(REALTIME_START, realtimeStartText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the real-time start date parameter.
-//     *
-//     * @throws InvalidDateFormatException When the date does not conform to the expected format
-//     *  (ie. yyyy-MM-dd / 2012-06-21).
-//     */
-//    public QueryBuilder withRealtimeStart (String realtimeStart) {
-//
-//        assertDateFormatIsValid ("realtimeStart", realtimeStart);
-//
-//        addParameter(REALTIME_START, realtimeStart);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the real-time end date parameter.
-//     */
-//    public QueryBuilder withRealtimeEnd (Date realtimeEnd) {
-//
-//        boolean between = isBetween (realtimeEnd);
-//
-//        if (!between)
-//            throw new DateOutOfBoundsException(realtimeEnd);
-//
-//        DateFormat dateFormat = new SimpleDateFormat (DATE_FORMAT);
-//
-//        String realtimeEndText = dateFormat.format(realtimeEnd);
-//
-//        addParameter(REALTIME_END, realtimeEndText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the real-time end date parameter.
-//     *
-//     * @throws InvalidDateFormatException When the date does not conform to the expected format
-//     *  (ie. yyyy-MM-dd / 2012-06-21).
-//     */
-//    public QueryBuilder withRealtimeEnd (String realtimeEnd) {
-//
-//        assertDateFormatIsValid ("realtimeEnd", realtimeEnd);
-//
-//        addParameter(REALTIME_END, realtimeEnd);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the limit parameter.
-//     *
-//     * @param limit A value between 1 and 100000 (inclusive).
-//     */
-//    public QueryBuilder withLimit (long limit) {
-//
-//        if (!(1 <= limit && limit <= 100000))
-//            throw new LimitOutOfBoundsException(limit);
-//
-//        addParameter(LIMIT, Long.toString(limit));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the offset parameter.
-//     *
-//     * @param offset A non-negative integer.
-//     *
-//     * @throws OffsetOutOfBoundsException if the value of the offset is less than zero.
-//     */
-//    public QueryBuilder withOffset (int offset) {
-//
-//        if (offset < 0)
-//            throw new OffsetOutOfBoundsException (offset);
-//
-//        addParameter(OFFSET, Integer.toString(offset));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the order-by parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.OrderBy
-//     */
-//    public QueryBuilder withOrderBy (OrderBy orderBy) {
-//
-//        addParameter(ORDER_BY, orderBy.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the sort order parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.SortOrder
-//     */
-//    public QueryBuilder withSortOrder (SortOrder sortOrder) {
-//
-//        addParameter(SORT_ORDER, sortOrder.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the filter variable parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.FilterVariable
-//     */
-//    public QueryBuilder withFilterVariable (FilterVariable filterVariable) {
-//
-//        addParameter(FILTER_VARIABLE, filterVariable.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the filter value parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.FilterValue
-//     */
-//    public QueryBuilder withFilterValue (FilterValue filterValue) {
-//
-//        addParameter(FILTER_VALUE, filterValue.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the include-release-dates-with-no-data flag parameter.
-//     */
-//    public QueryBuilder withIncludeReleaseDatesWithNoData (boolean value) {
-//
-//        addParameter(INCLUDE_RELEASE_DATES_WITH_NO_DATA, Boolean.toString(value));
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the observation start date parameter.
-//     */
-//    public QueryBuilder withObservationStart (Date observationStart) {
-//
-//        boolean between = isBetween (observationStart);
-//
-//        if (!between)
-//            throw new DateOutOfBoundsException(observationStart);
-//
-//        DateFormat dateFormat = new SimpleDateFormat (DATE_FORMAT);
-//
-//        String observationStartText = dateFormat.format(observationStart);
-//
-//        addParameter(OBSERVATION_START, observationStartText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the observation start date parameter.
-//     *
-//     * @throws InvalidDateFormatException When the date does not conform to the expected format
-//     *  (ie. yyyy-MM-dd / 2012-06-21).
-//     */
-//    public QueryBuilder withObservationStart (String observationStart) {
-//
-//        assertDateFormatIsValid ("observationStart", observationStart);
-//
-//        addParameter(OBSERVATION_START, observationStart);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the observation end date parameter.
-//     *
-//     * @param observationEnd
-//     */
-//    public QueryBuilder withObservationEnd (Date observationEnd) {
-//
-//        boolean between = isBetween (observationEnd);
-//
-//        if (!between)
-//            throw new DateOutOfBoundsException(observationEnd);
-//
-//        DateFormat dateFormat = new SimpleDateFormat (DATE_FORMAT);
-//
-//        String observationEndText = dateFormat.format(observationEnd);
-//
-//        addParameter(OBSERVATION_END, observationEndText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the observation end date parameter parameter.
-//     *
-//     * @throws InvalidDateFormatException When the date does not conform to the expected format
-//     *  (ie. yyyy-MM-dd / 2012-06-21).
-//     */
-//    public QueryBuilder withObservationEnd (String observationEnd) {
-//
-//        assertDateFormatIsValid ("observationEnd", observationEnd);
-//
-//        addParameter(OBSERVATION_END, observationEnd);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the units parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.Unit
-//     */
-//    public QueryBuilder withUnits (Unit unit) {
-//
-//        addParameter(UNITS, unit.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the frequency parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.Frequency
-//     */
-//    public QueryBuilder withFrequency (Frequency frequency) {
-//
-//        addParameter(FREQUENCY, frequency.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the aggregation method parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
-//     */
-//    public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
-//
-//        addParameter(AGGREGATION_METHOD, aggregationMethod.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the output type parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.OutputType
-//     */
-//    public QueryBuilder withOutputType (OutputType outputType) {
-//
-//        addParameter(OUTPUT_TYPE, outputType.toString());
-//
-//        return this;
-//    }
+        return this;
+    }
+
+    /**
+     * An optional parameter that indicates a lower frequency to aggregate values to. The GeoFRED frequency aggregation
+     * feature converts higher frequency data series into lower frequency data series (e.g. converts a monthly data
+     * series into an annual data series). In GeoFRED, the highest frequency data is daily, and the lowest frequency
+     * data is annual.
+     * <p>
+     * There are 3 aggregation methods available- average, sum, and end of period.
+     * <p>
+     * Default: no value for no frequency aggregation
+     * <p>
+     * One of the following values: 'd', 'w', 'bw', 'm', 'q', 'sa', 'a', 'wef', 'weth', 'wew', 'wetu', 'wem', 'wesu',
+     * 'wesa', 'bwew', 'bwem'
+     * <p>
+     * Frequencies without period descriptions:
+     * <p>
+     * d = Daily
+     * w = Weekly
+     * bw = Biweekly
+     * m = Monthly
+     * q = Quarterly
+     * sa = Semiannual
+     * a = Annual 
+     *
+     * @see {@link com.coherentlogic.fred.client.core.domain.Frequency}
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#aggregation_method">aggregation_method</a>
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#frequency">Frequency</a>
+     */
+    public QueryBuilder withFrequency (Frequency frequency) {
+
+        addParameter(FREQUENCY, frequency);
+
+        return this;
+    }
+
+    /**
+     * Setter method for the aggregation method parameter.
+     *
+     * Default: avg
+     *
+     * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
+     */
+    public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
+
+        addParameter(AGGREGATION_METHOD, aggregationMethod);
+
+        return this;
+    }
 
     /**
      * Setter method for the file type parameter.
@@ -678,176 +501,6 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
     public QueryBuilder withFileTypeAsJSON() {
         return withFileType(FileType.json);
-    }
-
-//    /**
-//     * Setter method for the vinatage dates parameter, which can be a single date, or a list of dates separated by a
-//     * comma.
-//     *
-//     * Note that the format of the dates is not checked client-side -- if there is an invalid date, the server will
-//     * reject the call.
-//     */
-//    public QueryBuilder withVintageDates (String vintageDates) {
-//
-//        addParameter(VINTAGE_DATES_PARAM, vintageDates);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the array of vintage dates parameter.
-//     *
-//     * @throws InvalidDateFormatException If any of the dates are not of the format yyyy-MM-dd.
-//     */
-//    public QueryBuilder withVintageDates (String... vintageDates) {
-//
-//        String value = convertDates ("setVintageDates", ",", vintageDates);
-//
-//        addParameter(VINTAGE_DATES_PARAM, value);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the search text  parameter which consists of the words to match against economic data series.
-//     */
-//    public QueryBuilder withSearchText (String searchText) {
-//
-//        addParameter(SEARCH_TEXT, searchText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the series search text  parameter which consists of the words to match against economic data
-//     * series -- for example "monetary service index".
-//     */
-//    public QueryBuilder withSeriesSearchText (String seriesSearchText) {
-//
-//        addParameter(SERIES_SEARCH_TEXT, seriesSearchText);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Setter method for the search type parameter.
-//     *
-//     * @see com.coherentlogic.fred.client.core.domain.SearchType
-//     */
-//    public QueryBuilder withSearchType (SearchType searchType) {
-//
-//        addParameter(SEARCH_TYPE, searchType.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Method takes a single string, such as "slovenia;food;oecd", and set this as the tagName; this value filters
-//     * results to match either tag "slovenia", "food", or "oecd".
-//     *
-//     * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
-//     */
-//    public QueryBuilder withTagNames (String tagNames) {
-//
-//        addParameter(TAG_NAMES, tagNames);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * An array of tags to filter results by -- optional, no filtering by tags by default.
-//     *
-//     * For example: 'm1;m2' -- this value filters results to match either tag 'm1' or tag 'm2'.
-//     *
-//     * This method takes an array of strings, such as "slovenia", "food", "oecd" and creates a single aggregated string
-//     * with each value separated by a semicolon (ie. "slovenia;food;oecd").
-//     *
-//     * @see <a href="https://api.stlouisfed.org/docs/fred/series_search_related_tags.html">Series search related tags</a>
-//     */
-//    public QueryBuilder withTagNames (String... tagNames) {
-//
-//        String result = combine (SEMICOLON, tagNames);
-//
-//        return withTagNames (result);
-//    }
-//
-//    /**
-//     * A tag group id to filter tags by type.
-//     *
-//     * String, optional, no filtering by tag group by default.
-//     * One of the following: 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'.
-//     *
-//     * freq = Frequency
-//     * gen = General or Concept
-//     * geo = Geography
-//     * geot = Geography Type
-//     * rls = Release
-//     * seas = Seasonal Adjustment
-//     * src = Source
-//     */
-//    public QueryBuilder withTagGroupId (TagGroupId tagGroupId) {
-//
-//        addParameter (TAG_GROUP_ID, tagGroupId.toString());
-//
-//        return this;
-//    }
-//
-//    /**
-//     * The words to find matching tags with -- optional, no filtering by search words by default.
-//     */
-//    public QueryBuilder withTagSearchText (String tagSearchText) {
-//
-//        addParameter (TAG_SEARCH_TEXT, tagSearchText);
-//
-//        return this;
-//    }
-
-    /**
-     * Extends the path with shapes/file/ -- ie.
-     *
-     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
-     *
-     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-     */
-    public QueryBuilder shapes () {
-
-        extendPathWith(SHAPES);
-        extendPathWith(FILE);
-
-        return this;
-    }
-
-    /**
-     * Extends the path with series/group/; note that the {@link #withFileTypeAsJSON()} method is also.
-     *
-     * Note that the {@link #withFileTypeAsJSON()} method is called from within this method.
-     *
-     * https://api.stlouisfed.org/geofred/series/group?series_id=SMU56000000500000001a&api_key=[TBD]
-     *
-     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/series_group.html">
-     *  GeoFRED API - Series Group Info</a>
-     */
-    public QueryBuilder seriesGroup () {
-
-        extendPathWith(SERIES);
-        extendPathWith(GROUP);
-
-        return withFileTypeAsJSON();
-    }
-
-    /**
-     * Extends the path with series/data/; note that the {@link #withFileTypeAsJSON()} method is also.
-     *
-     * https://api.stlouisfed.org/geofred/series/group?series_id=SMU56000000500000001a&api_key=[TBD]
-     *
-     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/series_data.html">GeoFRED API - Series Data</a>
-     */
-    public QueryBuilder seriesData () {
-
-        extendPathWith(SERIES);
-        extendPathWith(DATA);
-
-        return withFileTypeAsJSON();
     }
 
     /**
