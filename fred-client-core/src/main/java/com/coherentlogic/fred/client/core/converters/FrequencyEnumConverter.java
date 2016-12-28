@@ -1,6 +1,6 @@
 package com.coherentlogic.fred.client.core.converters;
 
-import com.coherentlogic.fred.client.core.domain.Frequency;
+import com.coherentlogic.fred.client.domain.Frequency;
 import com.thoughtworks.xstream.converters.enums.EnumSingleValueConverter;
 
 /**

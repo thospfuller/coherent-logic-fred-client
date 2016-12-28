@@ -40,12 +40,10 @@ import org.springframework.web.client.RestTemplate;
 import com.coherentlogic.coherent.data.adapter.core.builders.rest.AbstractRESTQueryBuilder;
 import com.coherentlogic.coherent.data.adapter.core.cache.CacheServiceProviderSpecification;
 import com.coherentlogic.coherent.data.adapter.core.util.WelcomeMessage;
-import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
 import com.coherentlogic.fred.client.core.domain.FilterVariable;
-import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.domain.Observations;
 import com.coherentlogic.fred.client.core.domain.OrderBy;
 import com.coherentlogic.fred.client.core.domain.OutputType;
@@ -65,6 +63,8 @@ import com.coherentlogic.fred.client.core.exceptions.InvalidParameterValue;
 import com.coherentlogic.fred.client.core.exceptions.LimitOutOfBoundsException;
 import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
 import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementService;
+import com.coherentlogic.fred.client.domain.AggregationMethod;
+import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * Class that allows the developer to construct and execute a query to the Federal Reserve Bank of St. Louis' FRED web
@@ -785,7 +785,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the frequency parameter.
      *
-     * @see com.coherentlogic.fred.client.core.domain.Frequency
+     * @see com.coherentlogic.fred.client.domain.Frequency
      */
     public QueryBuilder withFrequency (Frequency frequency) {
 
@@ -797,7 +797,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     /**
      * Setter method for the aggregation method parameter.
      *
-     * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
+     * @see com.coherentlogic.fred.client.domain.AggregationMethod
      */
     public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
 

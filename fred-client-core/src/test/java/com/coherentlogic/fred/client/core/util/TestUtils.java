@@ -12,7 +12,7 @@ import java.util.Date;
 import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
 import com.coherentlogic.coherent.data.model.core.util.Action;
 import com.coherentlogic.coherent.data.model.core.util.Flag;
-import com.coherentlogic.fred.client.core.domain.Frequency;
+import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * This class contains helper methods that apply strictly to the domain package.

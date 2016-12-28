@@ -20,6 +20,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 /**
+ * Deserializer implementation for shape-related data.
+ *
+ * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">GeoFRED API - Shape Files</a>
+ *
  * @author <a href="https://www.linkedin.com/in/thomasfuller">Thomas P. Fuller</a>
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -40,19 +44,22 @@ public class ShapesDeserializer implements JsonDeserializer<Shapes> {
 
         JsonObject object = element.getAsJsonObject();
 
-        JsonArray jsonArray = object.getAsJsonArray(ShapeType.bea.toString());
-        // TODO: Handle the other ShapeTypes!
+        object.entrySet().forEach(
+            entry -> {
 
+                String key = entry.getKey();
 
-        if (jsonArray == null || jsonArray.isJsonNull()) {
-            log.warn("No bea array in the element " + element);
-        } else {
+                JsonElement valueElement = entry.getValue();
 
-            result.setShapeType(ShapeType.bea);
-            List<Shape> shapeList = toShapeList (jsonArray);
+                JsonArray valueArray = valueElement.getAsJsonArray();
 
-            result.getShapeList().addAll(shapeList);
-        }
+                result.setShapeType(ShapeType.valueOf(key));
+
+                List<Shape> shapeList = toShapeList (valueArray);
+
+                result.getShapeList().addAll(shapeList);
+            }
+        );
 
         log.info("deserialize: method ends; result: " + result);
 

@@ -20,9 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.builders.QueryBuilder;
-import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.FileType;
-import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.domain.Message;
 import com.coherentlogic.fred.client.core.domain.Observation;
 import com.coherentlogic.fred.client.core.domain.Observations;
@@ -30,6 +28,8 @@ import com.coherentlogic.fred.client.core.domain.OutputType;
 import com.coherentlogic.fred.client.core.domain.SortOrder;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.domain.AggregationMethod;
+import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * Unit test for the {@link ObservationsDAO} class.
