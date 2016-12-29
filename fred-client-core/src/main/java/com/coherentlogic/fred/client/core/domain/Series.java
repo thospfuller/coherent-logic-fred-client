@@ -34,8 +34,8 @@ import javax.persistence.Table;
 import com.coherentlogic.coherent.data.model.core.domain.IdentityBean;
 import com.coherentlogic.fred.client.core.converters.FrequencyEnumConverter;
 import com.coherentlogic.fred.client.core.converters.PopularityConverter;
+import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.util.Constants;
-import com.coherentlogic.fred.client.domain.Frequency;
 
 import static com.coherentlogic.fred.client.core.util.Constants.FREQUENCY;
 import com.thoughtworks.xstream.annotations.XStreamAlias;

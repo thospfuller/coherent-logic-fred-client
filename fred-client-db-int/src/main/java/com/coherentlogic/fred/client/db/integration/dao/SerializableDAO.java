@@ -15,7 +15,7 @@ import com.coherentlogic.coherent.data.model.core.domain.SerializableBean;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  *
- * @deprecated Moved to the FDA.
+ * @deprecated Use the repository pattern instead.
  */
 @Transactional
 public abstract class SerializableDAO<T extends SerializableBean> {

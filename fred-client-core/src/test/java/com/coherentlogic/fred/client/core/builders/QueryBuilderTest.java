@@ -11,9 +11,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
 import com.coherentlogic.fred.client.core.domain.FilterVariable;
+import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.domain.OrderBy;
 import com.coherentlogic.fred.client.core.domain.OutputType;
 import com.coherentlogic.fred.client.core.domain.SearchType;
@@ -24,8 +26,6 @@ import com.coherentlogic.fred.client.core.exceptions.InvalidDateFormatException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidParameterValue;
 import com.coherentlogic.fred.client.core.exceptions.LimitOutOfBoundsException;
 import com.coherentlogic.fred.client.core.exceptions.OffsetOutOfBoundsException;
-import com.coherentlogic.fred.client.domain.AggregationMethod;
-import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * Unit test for the QueryBuilder class.

@@ -1,4 +1,4 @@
-package com.coherentlogic.fred.client.domain;
+package com.coherentlogic.fred.client.core.domain;
 
 /**
  * An optional parameter that indicates a lower frequency to aggregate values

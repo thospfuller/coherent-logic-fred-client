@@ -1,4 +1,4 @@
-package com.coherentlogic.fred.client.domain;
+package com.coherentlogic.fred.client.core.domain;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

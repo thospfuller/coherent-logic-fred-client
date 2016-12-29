@@ -1,4 +1,4 @@
-package com.coherentlogic.fred.client.domain;
+package com.coherentlogic.fred.client.core.domain;
 
 /**
  * A key that indicates the aggregation method used for frequency aggregation.
