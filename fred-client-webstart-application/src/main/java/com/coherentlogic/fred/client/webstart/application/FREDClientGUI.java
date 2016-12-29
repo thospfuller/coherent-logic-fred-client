@@ -138,15 +138,10 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
     private final Map<ButtonModel, JRadioButtonMenuItem> radioButtonMap =
         new HashMap<ButtonModel, JRadioButtonMenuItem> ();
 
-//    @Autowired
     private GroovyEngine groovyEngine;
 
-//    @Autowired
-//    @Qualifier("queryBuilderFactoryMap")
     private Map<String, QueryBuilderFactory> queryBuilderFactoryMap;
 
-//    @Autowired
-//    @Qualifier("exampleMap")
     private Map<String, String> exampleMap;
 
     @Autowired
@@ -380,8 +375,7 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
 
         panel.add(runScriptButton);
 
-        JLabel outputAppearsBelowLabel = new JLabel(
-            "The output appears below:");
+        JLabel outputAppearsBelowLabel = new JLabel("The output appears below:");
 
         panel.add(outputAppearsBelowLabel);
 
@@ -390,14 +384,11 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
 
         JScrollPane outputTextAreaScrollPane = new JScrollPane(outputTextArea);
 
-        outputTextAreaScrollPane.
-            setVerticalScrollBarPolicy(
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        outputTextAreaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         panel.add(outputTextAreaScrollPane);
 
-        GraphicsEnvironment env =
-            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
         Rectangle bounds = env.getMaximumWindowBounds();
 
@@ -478,12 +469,18 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
                             objectStringifier.toString(result);
 
                         String fullResult =
-                            "// Note that null values are not indicative of a " +
-                            "problem, per se, for \n" +
-                            "// example the PrimaryKey is only ever assigned " +
-                            "when the object has been \n" +
-                            "// saved to a database and since this does not " +
-                            "happen in this example.\n\n\n" +
+                            "// Note that null values are not indicative of a problem, per se, for \n" +
+                            "// example the PrimaryKey is only ever assigned when the object has been \n" +
+                            "// saved to a database and since this does not happen in this example.\n" +
+                            "//\n" +
+                            "// -----\n" +
+                            "//\n" +
+                            "// JAMON Performance Metrics:\n" +
+                            "//\n" +
+                            "// " + monitor + "\n" +
+                            "//\n" +
+                            "// -----\n" +
+                            "//\n\n\n" +
                             stringifiedResult;
 
                         outputTextArea.setText(fullResult);
@@ -519,6 +516,13 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
 //            applicationContext.getBean(FRED_CLIENT_GUI);
 
         setVisible(true);
+
+        java.awt.EventQueue.invokeLater(
+            () -> {
+                toFront();
+                repaint();
+            }
+        );
     }
 
     public static void main (String[] unused) throws InterruptedException {
