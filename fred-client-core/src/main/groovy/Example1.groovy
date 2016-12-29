@@ -183,10 +183,10 @@ try {
     seriess = queryBuilder
         .category ()
         .series ()
-        .setSeriesId("GNPCA")
-        .setRealtimeStart(
+        .withSeriesId("GNPCA")
+        .withRealtimeStart(
             using (2001, Calendar.JANUARY, 20)
-        ).setRealtimeEnd(
+        ).withRealtimeEnd(
             using (2004, Calendar.MAY, 17)
         ).doGet (Seriess.class)
 } catch (HttpClientErrorException exception) {
