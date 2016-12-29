@@ -29,11 +29,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
+import com.coherentlogic.fred.client.core.domain.AggregationMethod;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.Category;
 import com.coherentlogic.fred.client.core.domain.FileType;
 import com.coherentlogic.fred.client.core.domain.FilterValue;
 import com.coherentlogic.fred.client.core.domain.FilterVariable;
+import com.coherentlogic.fred.client.core.domain.Frequency;
 import com.coherentlogic.fred.client.core.domain.Message;
 import com.coherentlogic.fred.client.core.domain.Observation;
 import com.coherentlogic.fred.client.core.domain.Observations;
@@ -55,8 +57,6 @@ import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.domain.Unit;
 import com.coherentlogic.fred.client.core.domain.VintageDate;
 import com.coherentlogic.fred.client.core.domain.VintageDates;
-import com.coherentlogic.fred.client.domain.AggregationMethod;
-import com.coherentlogic.fred.client.domain.Frequency;
 
 /**
  * Integration test for the QueryBuilder class.
@@ -227,7 +227,7 @@ public class QueryBuilderTest {
         String series = builder
             .series()
             .withApiKey(API_KEY)
-            .withSeriesId("GS10!")
+            .withSeriesId("GS10")
             .withRealtimeStart(realtimeStart)
             .withRealtimeEnd(realtimeEnd)
             .doGetAsString();
