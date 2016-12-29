@@ -104,14 +104,32 @@
         </property>
     </bean>
 
-    <bean id="cacheServiceProvider" class="com.coherentlogic.coherent.data.model.core.cache.MapCompliantCacheServiceProvider">
+    <bean id="cacheServiceProvider" class="com.coherentlogic.coherent.data.adapter.core.cache.MapCompliantCacheServiceProvider">
         <constructor-arg name="cache"><util:map/></constructor-arg>
     </bean>
 
     <bean id="queryBuilderFactory" class="com.coherentlogic.fred.client.core.factories.QueryBuilderFactory">
         <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
         <constructor-arg name="uri" value="https://api.stlouisfed.org/fred/"/>
-        <constructor-arg name="cacheServiceProvider" ref="cacheServiceProvider"/>
+        <constructor-arg name="cacheServiceProvider" ref="fredCacheServiceProvider"/><!-- cacheServiceProvider -->
+        <!-- NOTE: You must supply your own API key to run this example.
+          -->
+        <constructor-arg name="apiKey" ref="fredApiKey"/>
+    </bean>
+
+    <bean id="infinispanCacheServiceProviderFactory"
+     class="com.coherentlogic.fred.client.webstart.application.InfinispanCacheServiceProviderFactory"
+     init-method="start" destroy-method="stop"/>
+
+    <bean id="fredCacheServiceProvider"
+     class="com.coherentlogic.coherent.data.adapter.core.cache.MapCompliantCacheServiceProvider"
+     factory-bean="infinispanCacheServiceProviderFactory"
+     factory-method="getInstance"/>
+
+    <bean id="cacheEnabledQueryBuilderFactory" class="com.coherentlogic.fred.client.core.factories.QueryBuilderFactory">
+        <constructor-arg name="restTemplate" ref="fredRestTemplate"/>
+        <constructor-arg name="uri" value="https://api.stlouisfed.org/fred/"/>
+        <constructor-arg name="cacheServiceProvider" ref="fredCacheServiceProvider"/>
         <!-- NOTE: You must supply your own API key to run this example.
           -->
         <constructor-arg name="apiKey" ref="fredApiKey"/>
