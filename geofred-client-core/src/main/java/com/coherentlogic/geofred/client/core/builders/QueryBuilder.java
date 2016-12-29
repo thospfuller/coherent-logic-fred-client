@@ -28,6 +28,8 @@ import com.coherentlogic.fred.client.core.services.GoogleAnalyticsMeasurementSer
 import com.coherentlogic.fred.client.domain.AggregationMethod;
 import com.coherentlogic.fred.client.domain.FileType;
 import com.coherentlogic.fred.client.domain.Frequency;
+import com.coherentlogic.geofred.client.core.domain.RegionType;
+import com.coherentlogic.geofred.client.core.domain.Season;
 import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.ShapeType;
@@ -427,6 +429,38 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
+     * The seasonality of the series group.
+     *
+     * Required, two possible SA (Seasonally Adjusted) or NSA (Not Seasonally Adjusted)
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#season">Season</a>
+     */
+    public QueryBuilder withSeason(Season season) {
+
+        addParameter(SEASON, season);
+
+        return this;
+    }
+
+    /**
+     * Seasonally Adjusted
+     *
+     * @see {@link #withSeason(Season)}
+     */
+    public QueryBuilder withSeasonAsSA() {
+        return withSeason (Season.NSA);
+    }
+
+    /**
+     * Not Seasonally Adjusted
+     *
+     * @see {@link #withSeason(Season)}
+     */
+    public QueryBuilder withSeasonAsNSA() {
+        return withSeason (Season.NSA);
+    }
+
+    /**
      * An optional parameter that indicates a lower frequency to aggregate values to. The GeoFRED frequency aggregation
      * feature converts higher frequency data series into lower frequency data series (e.g. converts a monthly data
      * series into an annual data series). In GeoFRED, the highest frequency data is daily, and the lowest frequency
@@ -461,11 +495,172 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Setter method for the aggregation method parameter.
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsDaily () {
+        return withFrequency(Frequency.d);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsWeekly () {
+        return withFrequency(Frequency.w);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsBiweekly () {
+        return withFrequency(Frequency.bw);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsMonthly () {
+        return withFrequency(Frequency.m);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsQuarterly () {
+        return withFrequency(Frequency.q);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsSemiannually () {
+        return withFrequency(Frequency.sa);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     */
+    public QueryBuilder withFrequencyAsAnnually () {
+        return withFrequency(Frequency.a);
+    }
+
+    /**
+     * The region you want want to pull data for.
      *
-     * Default: avg
+     * One of the following values:
+     * bea
+     * msa
+     * frb
+     * necta
+     * state
+     * country
+     * county
+     * censusregion
+     * censusregion
+     *
+     * @see {@link com.coherentlogic.fred.client.core.domain.RegionType}
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">region_type</a>
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html">Regional Data</a>
+     */
+    public QueryBuilder withRegionType (RegionType regionType) {
+
+        addParameter(REGION_TYPE, regionType);
+
+        return this;
+    }
+
+    /**
+     * Bureau of Economic Analysis Region
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsBEA () {
+        return withRegionType (RegionType.bea);
+    }
+
+    /**
+     * Metropolitan Statistical Area
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsMSA () {
+        return withRegionType (RegionType.msa);
+    }
+
+    /**
+     * Federal Reserve Bank Districts
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsFRB () {
+        return withRegionType (RegionType.frb);
+    }
+
+    /**
+     * New England City and Town Area
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsNECTA () {
+        return withRegionType (RegionType.necta);
+    }
+
+    /**
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsState () {
+        return withRegionType (RegionType.state);
+    }
+
+    /**
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsCountry () {
+        return withRegionType (RegionType.country);
+    }
+
+    /**
+     * USA Counties
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsCounty () {
+        return withRegionType (RegionType.county);
+    }
+
+    /**
+     * US Census Regions
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsCensusRegion () {
+        return withRegionType (RegionType.censusregion);
+    }
+
+    /**
+     * US Census Divisons
+     *
+     * NOTE: Not sure about this value as the documentation has censusregion listed twice and the shape has this value
+     * (in fact the available shapes are, aside from this value, the same as the region types).
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html#shape">Shape</a>
+     *
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#region_type">Region Type</a>
+     */
+    public QueryBuilder withRegionTypeAsCensusDivision () {
+        return withRegionType (RegionType.censusdivision);
+    }
+
+    /**
+     * string, optional, default: avg
+     *
+     * One of the following values: 'avg', 'sum', 'eop'
+     *
+     * avg = Average 
+     * sum = Sum 
+     * eop = End of Period
      *
      * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#aggregation_method">aggregation_method</a>
      */
     public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
 
@@ -475,11 +670,42 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Setter method for the file type parameter.
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     */
+    public QueryBuilder withAggregationMethodAsAverage () {
+        return withAggregationMethod(AggregationMethod.avg);
+    }
+
+    /**
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     */
+    public QueryBuilder withAggregationMethodAsSum () {
+        return withAggregationMethod(AggregationMethod.sum);
+    }
+
+    /**
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     */
+    public QueryBuilder withAggregationMethodAsEndOfPeriod () {
+        return withAggregationMethod(AggregationMethod.eop);
+    }
+
+    /**
+     * A key or file extension that indicates the type of file to send.
+     *
+     * Note that the GeoFRED QueryBuilder will set the file_type to JSON automatically.
+     *
+     * string, optional, default: xml
+     *
+     * One of the following values: 'xml', 'json'
+     *
+     * xml = Extensible Markup Language. The HTTP Content-Type is text/xml.
+     * json = JavaScript Object Notation. The HTTP Content-Type is application/json.
      *
      * @see com.coherentlogic.fred.client.core.domain.FileType
+     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/regional_data.html#file_type">file_type</a>
      */
-    public QueryBuilder withFileType (String fileType) {
+    protected QueryBuilder withFileType (String fileType) {
 
         addParameter(FILE_TYPE, fileType);
 
@@ -487,19 +713,23 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
-     * Setter method for the file type parameter.
-     *
-     * @see com.coherentlogic.fred.client.core.domain.FileType
+     * @see {@link #withFileType(String)}
      */
-    public QueryBuilder withFileType (FileType fileType) {
+    protected QueryBuilder withFileType (FileType fileType) {
         return withFileType (fileType.toString());
     }
 
-    public QueryBuilder withFileTypeAsXML() {
+    /**
+     * @see {@link #withFileType(String)}
+     */
+    protected QueryBuilder withFileTypeAsXML() {
         return withFileType(FileType.xml);
     }
 
-    public QueryBuilder withFileTypeAsJSON() {
+    /**
+     * @see {@link #withFileType(String)}
+     */
+    protected QueryBuilder withFileTypeAsJSON() {
         return withFileType(FileType.json);
     }
 
@@ -596,109 +826,6 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     public QueryBuilder withShapeTypeAsCensusDivision () {
         return withShapeType (ShapeType.censusdivision);
     }
-
-//    static String combine (String seperator, String... values) {
-//
-//        assertNotNullOrEmpty ("values", values);
-//
-//        StringBuilder result = new StringBuilder ();
-//
-//        int ctr = values.length;
-//
-//        for (String next : values) {
-//            result.append(next);
-//
-//            if (1 < ctr--) {
-//                result.append(seperator);
-//            }
-//        }
-//        return result.toString();
-//    }
-//
-//    /**
-//     * Todo: Move this method to the parent package.
-//     */
-//    static void assertNotNullOrEmpty (String variableName, Object[] values) {
-//        if (values == null || values.length == 0)
-//            throw new InvalidParameterValue ("The variable named '" +
-//                variableName + "' is either null or empty (" +
-//                ToStringBuilder.reflectionToString(values) + ").");
-//    }
-//
-//    /**
-//     * Method checks that the actual date is between the {@link #MIN_DATE_CALENDAR} and {@link #MAX_DATE_CALENDAR}
-//     * dates.
-//     *
-//     * @param actual The actual date.
-//     *
-//     * @return True if the actual date is between the {@link #MIN_DATE_CALENDAR} and {@link #MAX_DATE_CALENDAR} dates.
-//     */
-//    private boolean isBetween (Date actual) {
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(actual);
-//
-//        int minValue = calendar.compareTo(MIN_DATE_CALENDAR);
-//        int maxValue = calendar.compareTo(MAX_DATE_CALENDAR);
-//
-//        boolean result = (0 <= minValue) && (maxValue <= 0);
-//
-//        return result;
-//    }
-//
-//    /**
-//     * Method converts the <i>dates</i> into a single String, with each date separated by a comma.
-//     *
-//     * @param method The name of the method calling this method; this is used when an exception is thrown because one of
-//     * the dates is in an invalid format.
-//     *
-//     * @param seperator The character which separates the dates.
-//     *
-//     * @param dates An array of dates. Note that each date must be in the format yyyy-MM-dd.
-//     *
-//     * @return A single string consisting of all dates separated by the separator.
-//     */
-//    static String convertDates (
-//        String method,
-//        String seperator,
-//        String... dates
-//    ) {
-//        StringBuffer buffer = new StringBuffer();
-//
-//        if (dates != null && 0 < dates.length) {
-//
-//            for (int ctr = 0; ctr < dates.length; ctr++) {
-//
-//                assertDateFormatIsValid (method, dates[ctr]);
-//
-//                buffer.append(dates[ctr]);
-//
-//                if (ctr < dates.length - 1)
-//                    buffer.append(seperator);
-//            }
-//        }
-//
-//        String result = (buffer.length() == 0) ? null : buffer.toString();
-//
-//        return result;
-//    }
-
-//    /**
-//     * Method simply checks that the date format is valid and throws an exception if it isn't.
-//     *
-//     * @param method The method that was invoked.
-//     *
-//     * @param date For example 2001-10-20, which is valid, or X001-1-2, which is invalid.
-//     *
-//     * @throws InvalidDateFormatException Whenever the date is invalid.
-//     */
-//    static void assertDateFormatIsValid (String method, String date) {
-//        Matcher matcher = DATE_PATTERN.matcher(date);
-//
-//        if (!matcher.matches())
-//            throw new InvalidDateFormatException (
-//                "The date parameter " + date +" passed to the method " + method + " is invalid.");
-//    }
 
     @Override
     protected String getKey() {
