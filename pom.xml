@@ -23,7 +23,7 @@
     <url>http://www.coherentlogic.com/wordpress/?page_id=1362</url>
     <properties>
         <java.version>1.8</java.version>
-        <data.model.version>1.0.28-RELEASE</data.model.version>
+        <enterprise.data.adapter.version>2.0.0-RELEASE</enterprise.data.adapter.version>
     </properties>
     <licenses>
         <license>
@@ -115,15 +115,15 @@
         <module>geofred-client-core</module>
         <module>fred-client-core-it</module>
         <module>fred-client-db-int</module>
-        <!-- module>fred-client-webstart-application</module -->
+        <module>fred-client-webstart-application</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.coherentlogic.coherent.data-model</groupId>
+                <groupId>com.coherentlogic.enterprise-data-adapter</groupId>
                 <artifactId>bom</artifactId>
-                <version>${data.model.version}</version>
+                <version>${enterprise.data.adapter.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

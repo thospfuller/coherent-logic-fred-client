@@ -28,12 +28,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.coherentlogic.coherent.data-model</groupId>
+            <groupId>com.coherentlogic.enterprise-data-adapter</groupId>
             <artifactId>data-model-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.coherentlogic.coherent.data-model</groupId>
+            <groupId>com.coherentlogic.enterprise-data-adapter</groupId>
             <artifactId>data-adapter-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.enterprise-data-adapter</groupId>
+            <artifactId>data-adapter-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coherentlogic.enterprise-data-adapter</groupId>
+            <artifactId>infinispan-int</artifactId>
         </dependency>
         <dependency>
             <groupId>com.coherentlogic.fred.client</groupId>
