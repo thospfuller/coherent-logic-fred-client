@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
+import com.coherentlogic.fred.client.domain.Frequency;
 import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.Shapes;
@@ -73,7 +74,14 @@ public class QueryBuilderTest {
             .withApiKey(API_KEY)
             .withSeriesId("WIPCPI")
             .withStartDate("2012-01-01")
-            .doGetAsSeriesData();
+            .doGetAsSeriesData(
+                data -> {
+
+                    System.out.println("data: " + data);
+
+                    return data;
+                }
+            );
 
         System.out.println("seriesData: " + seriesData);
     }
@@ -82,13 +90,18 @@ public class QueryBuilderTest {
     @Test
     public void testGetRegionalData() {
 
-//        RegionalData regionalData = builder
-//            .regionalData()
-//            .withApiKey(API_KEY)
-//            .withSeriesGroup()
-//            .withStartDate("2012-01-01")
-//            .doGetAsRegionalData();
-//
-//        System.out.println("seriesData: " + seriesData);
+        String regionalData = builder
+            .regionalData()
+            .withApiKey(API_KEY)
+            .withSeriesGroup("1223")
+            .withDate("2012-01-01")
+            .withFrequencyAsDaily()
+            .withRegionTypeAsBEA()
+            .withUnits("dollars")
+            .withSeasonAsNSA()
+            .withAggregationMethodAsSum()
+            .doGetAsString();
+
+        System.out.println("regionalData: " + regionalData);
     }
 }
