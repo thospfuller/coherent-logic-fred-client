@@ -2,12 +2,12 @@ package com.coherentlogic.geofred.client.core.builders;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
-import com.coherentlogic.fred.client.domain.Frequency;
 import com.coherentlogic.geofred.client.core.domain.SeriesData;
 import com.coherentlogic.geofred.client.core.domain.SeriesGroups;
 import com.coherentlogic.geofred.client.core.domain.Shapes;
@@ -87,6 +87,7 @@ public class QueryBuilderTest {
     }
 
     // Not available at this time.
+    @Ignore
     @Test
     public void testGetRegionalData() {
 
