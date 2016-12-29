@@ -19,11 +19,14 @@ Tags tags = queryBuilder
     .series()
     .search()
     .tags()
-    .setRealtimeStart(realtimeStart)
-    .setRealtimeEnd(realtimeEnd)
-    .setSeriesSearchText("monetary service index")
+    .withRealtimeStart(realtimeStart)
+    .withRealtimeEnd(realtimeEnd)
+    .withSeriesSearchText("monetary service index")
     .doGet(Tags.class);
 
-tagsDAO.persist(tags)
+// 
+// Uncomment to save to H2.
+//
+// tagsDAO.persist(tags)
 
 return tags

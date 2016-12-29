@@ -15,10 +15,13 @@ import com.coherentlogic.fred.client.core.domain.ReleaseDates
 ReleaseDates releaseDates = queryBuilder
     .releases ()
     .dates ()
-    .setRealtimeStart("2012-06-18")
-    .setRealtimeEnd("2012-06-18")
+    .withRealtimeStart("2012-06-18")
+    .withRealtimeEnd("2012-06-18")
     .doGet(ReleaseDates.class)
 
-releaseDatesDAO.persist (releaseDates)
+// 
+// Uncomment to save to H2.
+//
+// releaseDatesDAO.persist (releaseDates)
 
 return releaseDates

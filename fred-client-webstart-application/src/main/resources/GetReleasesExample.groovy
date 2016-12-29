@@ -16,13 +16,16 @@ import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 Releases releases = queryBuilder
     .series ()
     .release ()
-    .setSeriesId("IRA")
-    .setRealtimeStart(
+    .withSeriesId("IRA")
+    .withRealtimeStart(
         using (2001, Calendar.JANUARY, 20)
-    ).setRealtimeEnd(
+    ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
     ).doGet(Releases.class)
 
-releasesDAO.persist (releases)
+// 
+// Uncomment to save to H2.
+//
+// releasesDAO.persist (releases)
 
 return releases

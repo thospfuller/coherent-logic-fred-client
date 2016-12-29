@@ -16,12 +16,15 @@ import joinery.DataFrame.PlotType
 Observations observations = queryBuilder
     .series ()
     .observations ()
-    .setSeriesId("EXJPUS")
+    .withSeriesId("EXJPUS")
     .doGet(Observations.class)
 
 log.info "queryBuilder.escapedURI: ${queryBuilder.escapedURI}"
 
-observationsDAO.persist (observations)
+// 
+// Uncomment to save to H2.
+//
+// observationsDAO.persist (observations)
 
 def dataFrame = new DataFrame<Object> ()
 

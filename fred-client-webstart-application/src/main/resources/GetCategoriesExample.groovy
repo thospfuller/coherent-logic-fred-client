@@ -18,13 +18,16 @@ import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 Categories categories = queryBuilder
     .series ()
     .categories ()
-    .setSeriesId("EXJPUS")
-    .setRealtimeStart(
+    .withSeriesId("EXJPUS")
+    .withRealtimeStart(
         using (2001, Calendar.JANUARY, 20)
-    ).setRealtimeEnd(
+    ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
     ).doGet(Categories.class)
 
-categoriesDAO.persist (categories)
+// 
+// Uncomment to save to H2.
+//
+// categoriesDAO.persist (categories)
 
 return categories

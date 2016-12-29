@@ -15,11 +15,14 @@ import com.coherentlogic.fred.client.core.domain.Sources
 Sources sources = queryBuilder
     .release ()
     .sources ()
-    .setReleaseId(51L)
-    .setRealtimeStart("2010-06-01")
-    .setRealtimeEnd("2012-06-18")
+    .withReleaseId(51L)
+    .withRealtimeStart("2010-06-01")
+    .withRealtimeEnd("2012-06-18")
     .doGet(Sources.class)
 
-sourcesDAO.persist(sources)
+// 
+// Uncomment to save to H2.
+//
+// sourcesDAO.persist(sources)
 
 return sources

@@ -17,16 +17,19 @@ import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 VintageDates vintageDates = queryBuilder
     .series ()
     .vintageDates ()
-    .setSeriesId("GNPCA")
-    .setRealtimeStart(
+    .withSeriesId("GNPCA")
+    .withRealtimeStart(
         using (2001, Calendar.JANUARY, 20)
-    ).setRealtimeEnd(
+    ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
-    ).setLimit(100)
-    .setOffset(1)
-    .setSortOrder(SortOrder.desc)
+    ).withLimit(100)
+    .withOffset(1)
+    .withSortOrder(SortOrder.desc)
     .doGet(VintageDates.class)
 
-vintageDatesDAO.persist(vintageDates)
+// 
+// Uncomment to save to H2.
+//
+// vintageDatesDAO.persist(vintageDates)
 
 return vintageDates

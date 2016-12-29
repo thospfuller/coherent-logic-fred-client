@@ -18,6 +18,9 @@ Tags tags = queryBuilder
     .tags ()
     .doGet(Tags.class)
 
-tagsDAO.persist(tags)
+// 
+// Uncomment to save to H2.
+//
+// tagsDAO.persist(tags)
 
 return tags
