@@ -26,6 +26,6 @@ Releases releases = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// releasesDAO.persist (releases)
+// releasesService.save (releases)
 
 return releases

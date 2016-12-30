@@ -27,6 +27,6 @@ Tags tags = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// tagsDAO.persist(tags)
+// tagsService.save(tags)
 
 return tags

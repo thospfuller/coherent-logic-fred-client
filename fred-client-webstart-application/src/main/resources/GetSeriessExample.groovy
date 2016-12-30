@@ -26,6 +26,6 @@ Seriess seriess = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// seriessDAO.persist (seriess)
+// seriessService.save (seriess)
 
 return seriess

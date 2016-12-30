@@ -24,7 +24,7 @@ log.info "queryBuilder.escapedURI: ${queryBuilder.escapedURI}"
 // 
 // Uncomment to save to H2.
 //
-// observationsDAO.persist (observations)
+// observationsService.save (observations)
 
 def dataFrame = new DataFrame<Object> ()
 

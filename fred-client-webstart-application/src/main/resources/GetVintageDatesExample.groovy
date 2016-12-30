@@ -30,6 +30,6 @@ VintageDates vintageDates = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// vintageDatesDAO.persist(vintageDates)
+// vintageDatesService.save(vintageDates)
 
 return vintageDates

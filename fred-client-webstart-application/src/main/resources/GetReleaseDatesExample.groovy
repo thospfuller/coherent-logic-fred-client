@@ -22,6 +22,6 @@ ReleaseDates releaseDates = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// releaseDatesDAO.persist (releaseDates)
+// releaseDatesService.save (releaseDates)
 
 return releaseDates

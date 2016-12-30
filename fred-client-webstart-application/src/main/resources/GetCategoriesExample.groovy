@@ -28,6 +28,6 @@ Categories categories = queryBuilder
 // 
 // Uncomment to save to H2.
 //
-// categoriesDAO.persist (categories)
+// categoriesService.save (categories)
 
 return categories
