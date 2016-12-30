@@ -1,8 +1,6 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.OBSERVATIONS_DAO;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.Observations;
@@ -12,12 +10,7 @@ import com.coherentlogic.fred.client.core.domain.Observations;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Repository(OBSERVATIONS_DAO)
 @Transactional
-public class ObservationsDAO extends SerializableDAO<Observations> {
+public interface ObservationsRepository extends JpaRepository<Observations, Long> {
 
-    @Override
-    public Observations find (long primaryKey) {
-        return find(Observations.class, primaryKey);
-    }
 }

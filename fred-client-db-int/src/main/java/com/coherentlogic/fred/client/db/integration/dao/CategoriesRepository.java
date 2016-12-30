@@ -1,8 +1,6 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.CATEGORIES_DAO;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.Categories;
@@ -12,12 +10,7 @@ import com.coherentlogic.fred.client.core.domain.Categories;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Repository(CATEGORIES_DAO)
 @Transactional
-public class CategoriesDAO extends SerializableDAO<Categories> {
+public interface CategoriesRepository extends JpaRepository<Categories, Long> {
 
-    @Override
-    public Categories find (long primaryKey) {
-        return find(Categories.class, primaryKey);
-    }
 }

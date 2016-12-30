@@ -1,8 +1,6 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.SERIESS_DAO;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.Seriess;
@@ -12,12 +10,7 @@ import com.coherentlogic.fred.client.core.domain.Seriess;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Repository(SERIESS_DAO)
 @Transactional
-public class SeriessDAO extends SerializableDAO<Seriess> {
+public interface SeriessRepository extends JpaRepository<Seriess, Long> {
 
-    @Override
-    public Seriess find (long primaryKey) {
-        return find(Seriess.class, primaryKey);
-    }
 }

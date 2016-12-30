@@ -1,10 +1,9 @@
 package com.coherentlogic.fred.client.db.integration.dao;
 
-import static com.coherentlogic.fred.client.db.integration.dao.DAOConstants.SOURCES_DAO;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.Sources;
 
 /**
@@ -12,12 +11,7 @@ import com.coherentlogic.fred.client.core.domain.Sources;
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
-@Repository(SOURCES_DAO)
 @Transactional
-public class SourcesDAO extends SerializableDAO<Sources> {
+public interface SourcesRepository extends JpaRepository<Sources, Long> {
 
-    @Override
-    public Sources find(long primaryKey) {
-        return find(Sources.class, primaryKey);
-    }
 }
