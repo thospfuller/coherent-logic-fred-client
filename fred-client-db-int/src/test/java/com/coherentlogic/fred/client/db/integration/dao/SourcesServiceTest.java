@@ -20,9 +20,10 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.Source;
 import com.coherentlogic.fred.client.core.domain.Sources;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.SourcesService;
 
 /**
- * Unit test for the {@link SourcesDAO} class.
+ * Unit test for the {@link SourcesRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -30,10 +31,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class SourcesDAOTest {
+public class SourcesServiceTest {
 
     @Autowired
-    private SourcesDAO sourcesDAO = null;
+    private SourcesService sourcesService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -56,7 +57,7 @@ public class SourcesDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        sourcesDAO = null;
+        sourcesService = null;
         sources = null;
     }
 
@@ -69,13 +70,13 @@ public class SourcesDAOTest {
         assertNotNull (sourcesList);
         assertEquals (2, sourcesList.size());
 
-        sourcesDAO.persist(sources);
+        sourcesService.save(sources);
 
         Long primaryKey = sources.getPrimaryKey();
 
         assertNotNull (primaryKey);
 
-        Sources persistedSources = sourcesDAO.find(primaryKey);
+        Sources persistedSources = sourcesService.findOne(primaryKey);
 
         List<Source> persistedSourceList = persistedSources.getSourceList();
 
@@ -84,9 +85,9 @@ public class SourcesDAOTest {
 
         persistedSourceList.remove(0);
 
-        sourcesDAO.merge(persistedSources);
+        sourcesService.save(persistedSources);
 
-        Sources mergedPersistedSources = sourcesDAO.find(primaryKey);
+        Sources mergedPersistedSources = sourcesService.findOne(primaryKey);
 
         List<Source> mergedPersistedSourceList =
             mergedPersistedSources.getSourceList();
@@ -94,9 +95,9 @@ public class SourcesDAOTest {
         assertNotNull(mergedPersistedSourceList);
         assertEquals(1, mergedPersistedSourceList.size());
 
-        sourcesDAO.remove(mergedPersistedSources);
+        sourcesService.delete(mergedPersistedSources);
 
-        Sources nullSources = sourcesDAO.find(primaryKey);
+        Sources nullSources = sourcesService.findOne(primaryKey);
 
         assertNull (nullSources);
     }

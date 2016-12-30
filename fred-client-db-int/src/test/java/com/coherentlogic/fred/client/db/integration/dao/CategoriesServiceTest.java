@@ -23,9 +23,10 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.Categories;
 import com.coherentlogic.fred.client.core.domain.Category;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.CategoriesService;
 
 /**
- * Unit test for the {@link CategoriesDAO} class.
+ * Unit test for the {@link CategoriesRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -33,10 +34,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class CategoriesDAOTest {
+public class CategoriesServiceTest {
 
     @Autowired
-    private CategoriesDAO categoriesDAO = null;
+    private CategoriesService categoriesService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -62,7 +63,7 @@ public class CategoriesDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        categoriesDAO = null;
+        categoriesService = null;
         categories = null;
     }
 
@@ -77,13 +78,13 @@ public class CategoriesDAOTest {
         assertNotNull (categoryList);
         assertEquals (2, categoryList.size());
 
-        categoriesDAO.persist(categories);
+        categoriesService.save(categories);
 
         Long uniqueId = categories.getPrimaryKey();
 
         assertNotNull (uniqueId);
 
-        Categories persistedCategories = categoriesDAO.find(uniqueId);
+        Categories persistedCategories = categoriesService.findOne(uniqueId);
 
         List<Category> persistedCategoryList =
             persistedCategories.getCategoryList();
@@ -93,17 +94,17 @@ public class CategoriesDAOTest {
 
         persistedCategoryList.remove(0);
 
-        categoriesDAO.merge(persistedCategories);
+        categoriesService.save(persistedCategories);
 
-        Categories mergedPersistedCategories = categoriesDAO.find(uniqueId);
+        Categories mergedPersistedCategories = categoriesService.findOne(uniqueId);
 
         persistedCategoryList = mergedPersistedCategories.getCategoryList();
 
         assertEquals (1, persistedCategoryList.size());
 
-        categoriesDAO.remove(mergedPersistedCategories);
+        categoriesService.delete(mergedPersistedCategories);
 
-        Categories nullCategories = categoriesDAO.find(uniqueId);
+        Categories nullCategories = categoriesService.findOne(uniqueId);
 
         assertNull (nullCategories);
     }

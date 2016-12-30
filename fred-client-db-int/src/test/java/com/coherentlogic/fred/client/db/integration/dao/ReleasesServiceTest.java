@@ -23,9 +23,10 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.Release;
 import com.coherentlogic.fred.client.core.domain.Releases;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.ReleasesService;
 
 /**
- * Unit test for the {@link ReleasesDAO} class.
+ * Unit test for the {@link ReleasesRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -33,10 +34,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class ReleasesDAOTest {
+public class ReleasesServiceTest {
 
     @Autowired
-    private ReleasesDAO releasesDAO = null;
+    private ReleasesService releasesService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -63,7 +64,7 @@ public class ReleasesDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        releasesDAO = null;
+        releasesService = null;
         releases = null;
     }
 
@@ -76,13 +77,13 @@ public class ReleasesDAOTest {
         assertNotNull (releaseList);
         assertEquals (2, releaseList.size());
 
-        releasesDAO.persist(releases);
+        releasesService.save(releases);
 
         Long primaryKey = releases.getPrimaryKey();
 
         assertNotNull (primaryKey);
 
-        Releases persistedReleases = releasesDAO.find(primaryKey);
+        Releases persistedReleases = releasesService.findOne(primaryKey);
 
         List<Release> persistedReleaseList = persistedReleases.getReleaseList();
 
@@ -91,9 +92,9 @@ public class ReleasesDAOTest {
 
         persistedReleaseList.remove(0);
 
-        releasesDAO.merge(persistedReleases);
+        releasesService.save(persistedReleases);
 
-        Releases mergedPersistedReleases = releasesDAO.find(primaryKey);
+        Releases mergedPersistedReleases = releasesService.findOne(primaryKey);
 
         List<Release> mergedPersistedReleaseList =
             mergedPersistedReleases.getReleaseList();
@@ -101,9 +102,9 @@ public class ReleasesDAOTest {
         assertNotNull(mergedPersistedReleaseList);
         assertEquals(1, mergedPersistedReleaseList.size());
 
-        releasesDAO.remove(mergedPersistedReleases);
+        releasesService.delete(mergedPersistedReleases);
 
-        Releases nullReleases = releasesDAO.find(primaryKey);
+        Releases nullReleases = releasesService.findOne(primaryKey);
 
         assertNull (nullReleases);
     }

@@ -20,9 +20,10 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.ReleaseDate;
 import com.coherentlogic.fred.client.core.domain.ReleaseDates;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.ReleaseDatesService;
 
 /**
- * Unit test for the {@link ReleaseDatesDAO} class.
+ * Unit test for the {@link ReleaseDatesRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -30,10 +31,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class ReleaseDatesDAOTest {
+public class ReleaseDatesServiceTest {
 
     @Autowired
-    private ReleaseDatesDAO releaseDatesDAO = null;
+    private ReleaseDatesService releaseDatesService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -57,7 +58,7 @@ public class ReleaseDatesDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        releaseDatesDAO = null;
+        releaseDatesService = null;
         releaseDates = null;
     }
 
@@ -69,13 +70,13 @@ public class ReleaseDatesDAOTest {
         assertNotNull (releaseDateList);
         assertEquals (3, releaseDateList.size());
 
-        releaseDatesDAO.persist(releaseDates);
+        releaseDatesService.save(releaseDates);
 
         Long primaryKey = releaseDates.getPrimaryKey();
 
         assertNotNull (primaryKey);
 
-        ReleaseDates persistedReleaseDates = releaseDatesDAO.find(primaryKey);
+        ReleaseDates persistedReleaseDates = releaseDatesService.findOne(primaryKey);
 
         List<ReleaseDate> persistedReleaseDateList =
             persistedReleaseDates.getReleaseDateList();
@@ -85,10 +86,10 @@ public class ReleaseDatesDAOTest {
 
         persistedReleaseDateList.remove(0);
 
-        releaseDatesDAO.merge(persistedReleaseDates);
+        releaseDatesService.save(persistedReleaseDates);
 
         ReleaseDates mergedPersistedReleaseDates =
-            releaseDatesDAO.find(primaryKey);
+            releaseDatesService.findOne(primaryKey);
 
         List<ReleaseDate> mergedPersistedReleaseDateList =
             mergedPersistedReleaseDates.getReleaseDateList();
@@ -96,9 +97,9 @@ public class ReleaseDatesDAOTest {
         assertNotNull(mergedPersistedReleaseDateList);
         assertEquals(2, mergedPersistedReleaseDateList.size());
 
-        releaseDatesDAO.remove(mergedPersistedReleaseDates);
+        releaseDatesService.delete(mergedPersistedReleaseDates);
 
-        ReleaseDates nullReleaseDates = releaseDatesDAO.find(primaryKey);
+        ReleaseDates nullReleaseDates = releaseDatesService.findOne(primaryKey);
 
         assertNull (nullReleaseDates);
     }

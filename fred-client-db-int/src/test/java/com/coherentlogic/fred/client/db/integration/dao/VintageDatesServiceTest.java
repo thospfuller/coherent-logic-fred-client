@@ -26,7 +26,7 @@ import com.coherentlogic.fred.client.core.domain.VintageDates;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 
 /**
- * Unit test for the {@link ReleasesDAO} class.
+ * Unit test for the {@link ReleasesRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -34,10 +34,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class VintageDatesDAOTest {
+public class VintageDatesServiceTest {
 
     @Autowired
-    private VintageDatesDAO vintageDatesDAO = null;
+    private VintageDatesRepository vintageDatesService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -67,7 +67,7 @@ public class VintageDatesDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        vintageDatesDAO = null;
+        vintageDatesService = null;
         vintageDates = null;
     }
 
@@ -80,13 +80,13 @@ public class VintageDatesDAOTest {
         assertNotNull (vintangeDateList);
         assertEquals (7, vintangeDateList.size());
 
-        vintageDatesDAO.persist(vintageDates);
+        vintageDatesService.save(vintageDates);
 
         Long primaryKey = vintageDates.getPrimaryKey();
 
         assertNotNull(primaryKey);
 
-        VintageDates persistedVintageDates = vintageDatesDAO.find(primaryKey);
+        VintageDates persistedVintageDates = vintageDatesService.findOne(primaryKey);
 
         List<VintageDate> persistedVintageDateList = persistedVintageDates.
             getVintageDateList();
@@ -96,10 +96,10 @@ public class VintageDatesDAOTest {
 
         persistedVintageDateList.remove(0);
 
-        vintageDatesDAO.merge(persistedVintageDates);
+        vintageDatesService.save(persistedVintageDates);
 
         VintageDates mergedPersistedVintageDates =
-            vintageDatesDAO.find(primaryKey);
+            vintageDatesService.findOne(primaryKey);
 
         List<VintageDate> mergedPersistedVintageDateList =
             mergedPersistedVintageDates.getVintageDateList();
@@ -107,9 +107,9 @@ public class VintageDatesDAOTest {
         assertNotNull(mergedPersistedVintageDateList);
         assertEquals(6, mergedPersistedVintageDateList.size());
 
-        vintageDatesDAO.remove(mergedPersistedVintageDates);
+        vintageDatesService.delete(mergedPersistedVintageDates);
 
-        VintageDates nullVintageDates = vintageDatesDAO.find(primaryKey);
+        VintageDates nullVintageDates = vintageDatesService.findOne(primaryKey);
 
         assertNull (nullVintageDates);
     }

@@ -20,6 +20,7 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.Series;
 import com.coherentlogic.fred.client.core.domain.Seriess;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.SeriessService;
 
 /**
  * This tests saving an instance of {@link Seriess} to the H2 database, which is
@@ -36,10 +37,10 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 @Rollback
 @Transactional
 @ContextConfiguration(locations={"/spring/application-context.xml"})
-public class SeriessDAOTest {
+public class SeriessServiceTest {
 
     @Autowired
-    private SeriessDAO seriessDAO = null;
+    private SeriessService seriessService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -62,7 +63,7 @@ public class SeriessDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        seriessDAO = null;
+        seriessService = null;
         seriess = null;
     }
 
@@ -75,13 +76,13 @@ public class SeriessDAOTest {
         assertNotNull (seriesList);
         assertEquals (45, seriesList.size());
 
-        seriessDAO.persist(seriess);
+        seriessService.save(seriess);
 
         Long uniqueId = seriess.getPrimaryKey();
 
         assertNotNull (uniqueId);
 
-        Seriess persistedSeriess = seriessDAO.find(uniqueId);
+        Seriess persistedSeriess = seriessService.findOne(uniqueId);
         List<Series> persistedSeriesList = seriess.getSeriesList();
 
         assertNotNull (persistedSeriess);
@@ -89,17 +90,17 @@ public class SeriessDAOTest {
 
         persistedSeriesList.remove(0);
 
-        seriessDAO.merge(persistedSeriess);
+        seriessService.save(persistedSeriess);
 
-        Seriess mergedPersistedSeriess = seriessDAO.find(uniqueId);
+        Seriess mergedPersistedSeriess = seriessService.findOne(uniqueId);
 
         persistedSeriesList = mergedPersistedSeriess.getSeriesList();
 
         assertEquals (44, persistedSeriesList.size());
 
-        seriessDAO.remove(mergedPersistedSeriess);
+        seriessService.delete(mergedPersistedSeriess);
 
-        Seriess nullSeriess = seriessDAO.find(uniqueId);
+        Seriess nullSeriess = seriessService.findOne(uniqueId);
 
         assertNull(nullSeriess);
     }

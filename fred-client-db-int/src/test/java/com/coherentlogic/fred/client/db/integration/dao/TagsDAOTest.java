@@ -23,9 +23,10 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.domain.Tag;
 import com.coherentlogic.fred.client.core.domain.Tags;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
+import com.coherentlogic.fred.client.db.integration.services.TagsService;
 
 /**
- * Unit test for the {@link TagsDAO} class.
+ * Unit test for the {@link TagsRepository} class.
  *
  * @author <a href="mailto:support@coherentlogic.com">Support</a>
  */
@@ -36,7 +37,7 @@ import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
 public class TagsDAOTest {
 
     @Autowired
-    private TagsDAO tagsDAO = null;
+    private TagsService tagsService = null;
 
     @Autowired
     private QueryBuilderFactory queryBuilderFactory = null;
@@ -64,7 +65,7 @@ public class TagsDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        tagsDAO = null;
+        tagsService = null;
         tags = null;
     }
 
@@ -77,13 +78,13 @@ public class TagsDAOTest {
         assertNotNull (tagsList);
         assertEquals (12, tagsList.size());
 
-        tagsDAO.persist(tags);
+        tagsService.save(tags);
 
         Long primaryKey = tags.getPrimaryKey();
 
         assertNotNull(primaryKey);
 
-        Tags persistedTags = tagsDAO.find(primaryKey);
+        Tags persistedTags = tagsService.findOne(primaryKey);
 
         List<Tag> persistedTagList = persistedTags.
             getTagList();
@@ -93,10 +94,10 @@ public class TagsDAOTest {
 
         persistedTagList.remove(0);
 
-        tagsDAO.merge(persistedTags);
+        tagsService.save(persistedTags);
 
         Tags mergedPersistedTags =
-            tagsDAO.find(primaryKey);
+            tagsService.findOne(primaryKey);
 
         List<Tag> mergedPersistedTagList =
             mergedPersistedTags.getTagList();
@@ -104,9 +105,9 @@ public class TagsDAOTest {
         assertNotNull(mergedPersistedTagList);
         assertEquals(11, mergedPersistedTagList.size());
 
-        tagsDAO.remove(mergedPersistedTags);
+        tagsService.delete(mergedPersistedTags);
 
-        Tags nullVintageDates = tagsDAO.find(primaryKey);
+        Tags nullVintageDates = tagsService.findOne(primaryKey);
 
         assertNull (nullVintageDates);
     }
