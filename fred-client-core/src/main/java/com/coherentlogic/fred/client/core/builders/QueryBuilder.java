@@ -1077,6 +1077,134 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
     }
 
     /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#d}
+     */
+    public QueryBuilder withFrequencyAsDaily () {
+        return withFrequency (Frequency.d);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#w}
+     */
+    public QueryBuilder withFrequencyAsWeekly () {
+        return withFrequency (Frequency.w);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#bw}
+     */
+    public QueryBuilder withFrequencyAsBiweekly () {
+        return withFrequency (Frequency.bw);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#m}
+     */
+    public QueryBuilder withFrequencyAsMonthly () {
+        return withFrequency (Frequency.m);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#q}
+     */
+    public QueryBuilder withFrequencyAsQuarterly () {
+        return withFrequency (Frequency.q);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#sa}
+     */
+    public QueryBuilder withFrequencyAsSemiAnnually () {
+        return withFrequency (Frequency.sa);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#a}
+     */
+    public QueryBuilder withFrequencyAsAnnually () {
+        return withFrequency (Frequency.a);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wef}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingFriday () {
+        return withFrequency (Frequency.wef);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#weth}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingThursday () {
+        return withFrequency (Frequency.weth);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wew}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingWednesday () {
+        return withFrequency (Frequency.wew);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wetu}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingTuesday () {
+        return withFrequency (Frequency.wetu);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wem}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingMonday () {
+        return withFrequency (Frequency.wem);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wesu}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingSunday () {
+        return withFrequency (Frequency.wesu);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#wesa}
+     */
+    public QueryBuilder withFrequencyAsWeeklyEndingSaturday () {
+        return withFrequency (Frequency.wesa);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#bwew}
+     */
+    public QueryBuilder withFrequencyAsBiweeklyEndingWednesday () {
+        return withFrequency (Frequency.bwew);
+    }
+
+    /**
+     * @see {@link #withFrequency(Frequency)}
+     * @see {@link Frequency#bwem}
+     */
+    public QueryBuilder withFrequencyAsBiweeklyEndingMonday () {
+        return withFrequency (Frequency.bwem);
+    }
+
+    /**
      * Setter method for the aggregation method parameter.
      *
      * @see com.coherentlogic.fred.client.core.domain.AggregationMethod
@@ -1317,7 +1445,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#freq}
      */
-    public QueryBuilder withTagGroupIdAsFreq () {
+    public QueryBuilder withTagGroupIdAsFrequency () {
         return withTagGroupId (TagGroupId.freq);
     }
 
@@ -1325,7 +1453,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#gen}
      */
-    public QueryBuilder withTagGroupIdAsGen () {
+    public QueryBuilder withTagGroupIdAsGeneralOrConcept () {
         return withTagGroupId (TagGroupId.gen);
     }
 
@@ -1333,7 +1461,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#geo}
      */
-    public QueryBuilder withTagGroupIdAsGeo () {
+    public QueryBuilder withTagGroupIdAsGeography () {
         return withTagGroupId (TagGroupId.geo);
     }
 
@@ -1341,7 +1469,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#geot}
      */
-    public QueryBuilder withTagGroupIdAsGeot () {
+    public QueryBuilder withTagGroupIdAsGeographyType () {
         return withTagGroupId (TagGroupId.geot);
     }
 
@@ -1349,7 +1477,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#rls}
      */
-    public QueryBuilder withTagGroupIdAsRls () {
+    public QueryBuilder withTagGroupIdAsRelease () {
         return withTagGroupId (TagGroupId.rls);
     }
 
@@ -1357,7 +1485,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#seas}
      */
-    public QueryBuilder withTagGroupIdAsSeas () {
+    public QueryBuilder withTagGroupIdAsSeasonalAdjustment () {
         return withTagGroupId (TagGroupId.seas);
     }
 
@@ -1365,7 +1493,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      * @see {@link #withTagGroupId(TagGroupId)}
      * @see {@link TagGroupId#src}
      */
-    public QueryBuilder withTagGroupIdAsSrc () {
+    public QueryBuilder withTagGroupIdAsSource () {
         return withTagGroupId (TagGroupId.src);
     }
 
@@ -1378,115 +1506,6 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
 
         return this;
     }
-
-//    /**
-//     * Extends the path with shapes/file/ -- ie.
-//     *
-//     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder shapes () {
-//
-//        extendPathWith(SHAPES);
-//        extendPathWith(FILE);
-//
-//        return this;
-//    }
-//
-//    /**
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeType (String shapeType) {
-//
-//        addParameter(SHAPE, shapeType);
-//
-//        return this;
-//    }
-
-//    /**
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeType (ShapeType shapeType) {
-//        return withShapeType (shapeType.toString());
-//    }
-//
-//    /**
-//     * Bureau of Economic Analysis Region
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsBEA () {
-//        return withShapeType (ShapeType.bea);
-//    }
-//
-//    /**
-//     * Metropolitan Statistical Area
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsMSA () {
-//        return withShapeType (ShapeType.msa);
-//    }
-//
-//    /**
-//     * Federal Reserve Bank Districts
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsFRB () {
-//        return withShapeType (ShapeType.frb);
-//    }
-//
-//    /**
-//     * New England City and Town Area
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsNECTA () {
-//        return withShapeType (ShapeType.necta);
-//    }
-//
-//    /**
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsState () {
-//        return withShapeType (ShapeType.state);
-//    }
-//
-//    /**
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsCountry () {
-//        return withShapeType (ShapeType.country);
-//    }
-//
-//    /**
-//     * USA Counties
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsCounty () {
-//        return withShapeType (ShapeType.county);
-//    }
-//
-//    /**
-//     * US Census Regions
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsCensusRegion () {
-//        return withShapeType (ShapeType.censusregion);
-//    }
-//
-//    /**
-//     * US Census Divisons
-//     *
-//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-//     */
-//    public QueryBuilder withShapeTypeAsCensusDivision () {
-//        return withShapeType (ShapeType.censusdivision);
-//    }
 
     static String combine (String seperator, String... values) {
 
