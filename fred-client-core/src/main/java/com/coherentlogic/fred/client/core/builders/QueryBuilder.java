@@ -649,9 +649,153 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withOrderBy (OrderBy orderBy) {
 
-        addParameter(ORDER_BY, orderBy.toString());
+        addParameter(ORDER_BY, orderBy);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#searchRank}
+     */
+    public QueryBuilder withOrderByAsSearchRank () {
+        return withOrderBy (OrderBy.searchRank);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#seriesId}
+     */
+    public QueryBuilder withOrderByAsSeriesId () {
+        return withOrderBy (OrderBy.seriesId);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#sourceId}
+     */
+    public QueryBuilder withOrderByAsSourceId () {
+        return withOrderBy (OrderBy.sourceId);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#releaseId}
+     */
+    public QueryBuilder withOrderByAsReleaseId () {
+        return withOrderBy (OrderBy.releaseId);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#releaseDate}
+     */
+    public QueryBuilder withOrderByAsReleaseDate () {
+        return withOrderBy (OrderBy.releaseDate);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#title}
+     */
+    public QueryBuilder withOrderByAsTitle () {
+        return withOrderBy (OrderBy.title);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#units}
+     */
+    public QueryBuilder withOrderByAsUnits () {
+        return withOrderBy (OrderBy.units);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#frequency}
+     */
+    public QueryBuilder withOrderByAsFrequency () {
+        return withOrderBy (OrderBy.frequency);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#seasonalAdjustment}
+     */
+    public QueryBuilder withOrderByAsSeasonalAdjustment () {
+        return withOrderBy (OrderBy.seasonalAdjustment);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#realtimeStart}
+     */
+    public QueryBuilder withOrderByAsRealtimeStart () {
+        return withOrderBy (OrderBy.realtimeStart);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#realtimeEnd}
+     */
+    public QueryBuilder withOrderByAsRealtimeEnd () {
+        return withOrderBy (OrderBy.realtimeEnd);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#lastUpdated}
+     */
+    public QueryBuilder withOrderByAsLastUpdated () {
+        return withOrderBy (OrderBy.lastUpdated);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#observationStart}
+     */
+    public QueryBuilder withOrderByAsObservationStart () {
+        return withOrderBy (OrderBy.observationStart);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#observationEnd}
+     */
+    public QueryBuilder withOrderByAsObservationEnd () {
+        return withOrderBy (OrderBy.observationEnd);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#popularity}
+     */
+    public QueryBuilder withOrderByAsPopularity () {
+        return withOrderBy (OrderBy.popularity);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#vintageDate}
+     */
+    public QueryBuilder withOrderByAsVintageDate () {
+        return withOrderBy (OrderBy.vintageDate);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#seriesCount}
+     */
+    public QueryBuilder withOrderByAsSeriesCount () {
+        return withOrderBy (OrderBy.seriesCount);
+    }
+
+    /**
+     * @see {@link #withOrderBy(OrderBy)}
+     * @see {@link OrderBy#observationDate}
+     */
+    public QueryBuilder withOrderByAsObservationDate () {
+        return withOrderBy (OrderBy.observationDate);
     }
 
     /**
@@ -661,9 +805,23 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSortOrder (SortOrder sortOrder) {
 
-        addParameter(SORT_ORDER, sortOrder.toString());
+        addParameter(SORT_ORDER, sortOrder);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withSortOrder(SortOrder)}
+     */
+    public QueryBuilder withSortOrderAsAsc () {
+        return withSortOrder(SortOrder.asc);
+    }
+
+    /**
+     * @see {@link #withSortOrder(SortOrder)}
+     */
+    public QueryBuilder withSortOrderAsDesc () {
+        return withSortOrder(SortOrder.desc);
     }
 
     /**
@@ -673,9 +831,37 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFilterVariable (FilterVariable filterVariable) {
 
-        addParameter(FILTER_VARIABLE, filterVariable.toString());
+        addParameter(FILTER_VARIABLE, filterVariable);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withFilterVariable(FilterVariable)}
+     */
+    public QueryBuilder withFilterVariableAsFrequency () {
+        return withFilterVariable(FilterVariable.frequency);
+    }
+
+    /**
+     * @see {@link #withFilterVariable(FilterVariable)}
+     */
+    public QueryBuilder withFilterVariableAsUnits () {
+        return withFilterVariable(FilterVariable.units);
+    }
+
+    /**
+     * @see {@link #withFilterVariable(FilterVariable)}
+     */
+    public QueryBuilder withFilterVariableAsSeasonalAdjustment () {
+        return withFilterVariable(FilterVariable.seasonalAdjustment);
+    }
+
+    /**
+     * @see {@link #withFilterVariable(FilterVariable)}
+     */
+    public QueryBuilder withFilterVariableAsGeography () {
+        return withFilterVariable(FilterVariable.geography);
     }
 
     /**
@@ -685,9 +871,33 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFilterValue (FilterValue filterValue) {
 
-        addParameter(FILTER_VALUE, filterValue.toString());
+        addParameter(FILTER_VALUE, filterValue);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withFilterValue(FilterValue)}
+     * @see {@link FilterValue#all}
+     */
+    public QueryBuilder withFilterValueAsAll () {
+        return withFilterValue (FilterValue.all);
+    }
+
+    /**
+     * @see {@link #withFilterValue(FilterValue)}
+     * @see {@link FilterValue#macro}
+     */
+    public QueryBuilder withFilterValueAsMacro () {
+        return withFilterValue (FilterValue.macro);
+    }
+
+    /**
+     * @see {@link #withFilterValue(FilterValue)}
+     * @see {@link FilterValue#regional}
+     */
+    public QueryBuilder withFilterValueAsRegional () {
+        return withFilterValue (FilterValue.regional);
     }
 
     /**
@@ -777,9 +987,81 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withUnits (Unit unit) {
 
-        addParameter(UNITS, unit.toString());
+        addParameter(UNITS, unit);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#lin}
+     */
+    public QueryBuilder withUnitsAsLin () {
+        return withUnits (Unit.lin);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#chg}
+     */
+    public QueryBuilder withUnitsAsChg () {
+        return withUnits (Unit.chg);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#ch1}
+     */
+    public QueryBuilder withUnitsAsCh1 () {
+        return withUnits (Unit.ch1);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#pch}
+     */
+    public QueryBuilder withUnitsAsPch () {
+        return withUnits (Unit.pch);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#pc1}
+     */
+    public QueryBuilder withUnitsAsPc1 () {
+        return withUnits (Unit.pc1);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#pca}
+     */
+    public QueryBuilder withUnitsAsPca () {
+        return withUnits (Unit.pca);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#cch}
+     */
+    public QueryBuilder withUnitsAsCch () {
+        return withUnits (Unit.cch);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#cca}
+     */
+    public QueryBuilder withUnitsAsCca () {
+        return withUnits (Unit.cca);
+    }
+
+    /**
+     * @see {@link #withUnits(Units)}
+     * @see {@link Unit#log}
+     */
+    public QueryBuilder withUnitsAsLog () {
+        return withUnits (Unit.log);
     }
 
     /**
@@ -789,7 +1071,7 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withFrequency (Frequency frequency) {
 
-        addParameter(FREQUENCY, frequency.toString());
+        addParameter(FREQUENCY, frequency);
 
         return this;
     }
@@ -801,9 +1083,33 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withAggregationMethod (AggregationMethod aggregationMethod) {
 
-        addParameter(AGGREGATION_METHOD, aggregationMethod.toString());
+        addParameter(AGGREGATION_METHOD, aggregationMethod);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     * @see {@link AggregationMethod#avg}
+     */
+    public QueryBuilder withAggregationMethodAsAvg () {
+        return withAggregationMethod (AggregationMethod.avg);
+    }
+
+    /**
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     * @see {@link AggregationMethod#sum}
+     */
+    public QueryBuilder withAggregationMethodAsSum () {
+        return withAggregationMethod (AggregationMethod.sum);
+    }
+
+    /**
+     * @see {@link #withAggregationMethod(AggregationMethod)}
+     * @see {@link AggregationMethod#eop}
+     */
+    public QueryBuilder withAggregationMethodAsEop () {
+        return withAggregationMethod (AggregationMethod.eop);
     }
 
     /**
@@ -813,9 +1119,41 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withOutputType (OutputType outputType) {
 
-        addParameter(OUTPUT_TYPE, outputType.toString());
+        addParameter(OUTPUT_TYPE, outputType);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withOutputType(OutputType)}
+     * @see {@link OutputType#observationsByRealTimePeriod}
+     */
+    public QueryBuilder withOutputTypeAsObservationsByRealTimePeriod () {
+        return withOutputType (OutputType.observationsByRealTimePeriod);
+    }
+
+    /**
+     * @see {@link #withOutputType(OutputType)}
+     * @see {@link OutputType#observationsByVintageDateAllObservations}
+     */
+    public QueryBuilder withOutputTypeAsObservationsByVintageDateAllObservations () {
+        return withOutputType (OutputType.observationsByVintageDateAllObservations);
+    }
+
+    /**
+     * @see {@link #withOutputType(OutputType)}
+     * @see {@link OutputType#observationsByVintageDateNewAndRevisedObservationsOnly}
+     */
+    public QueryBuilder withOutputTypeAsObservationsByVintageDateNewAndRevisedObservationsOnly () {
+        return withOutputType (OutputType.observationsByVintageDateNewAndRevisedObservationsOnly);
+    }
+
+    /**
+     * @see {@link #withOutputType(OutputType)}
+     * @see {@link OutputType#observationsInitialReleaseOnly}
+     */
+    public QueryBuilder withOutputTypeAsObservationsInitialReleaseOnly () {
+        return withOutputType (OutputType.observationsInitialReleaseOnly);
     }
 
     /**
@@ -903,9 +1241,25 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withSearchType (SearchType searchType) {
 
-        addParameter(SEARCH_TYPE, searchType.toString());
+        addParameter(SEARCH_TYPE, searchType);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withSearchType(SearchType)}
+     * @see {@link SearchType#fullText}
+     */
+    public QueryBuilder withSearchTypeAsFullText () {
+        return withSearchType (SearchType.fullText);
+    }
+
+    /**
+     * @see {@link #withSearchType(SearchType)}
+     * @see {@link SearchType#seriesId}
+     */
+    public QueryBuilder withSearchTypeAsSeriesId () {
+        return withSearchType (SearchType.seriesId);
     }
 
     /**
@@ -954,9 +1308,65 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
      */
     public QueryBuilder withTagGroupId (TagGroupId tagGroupId) {
 
-        addParameter (TAG_GROUP_ID, tagGroupId.toString());
+        addParameter (TAG_GROUP_ID, tagGroupId);
 
         return this;
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#freq}
+     */
+    public QueryBuilder withTagGroupIdAsFreq () {
+        return withTagGroupId (TagGroupId.freq);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#gen}
+     */
+    public QueryBuilder withTagGroupIdAsGen () {
+        return withTagGroupId (TagGroupId.gen);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#geo}
+     */
+    public QueryBuilder withTagGroupIdAsGeo () {
+        return withTagGroupId (TagGroupId.geo);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#geot}
+     */
+    public QueryBuilder withTagGroupIdAsGeot () {
+        return withTagGroupId (TagGroupId.geot);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#rls}
+     */
+    public QueryBuilder withTagGroupIdAsRls () {
+        return withTagGroupId (TagGroupId.rls);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#seas}
+     */
+    public QueryBuilder withTagGroupIdAsSeas () {
+        return withTagGroupId (TagGroupId.seas);
+    }
+
+    /**
+     * @see {@link #withTagGroupId(TagGroupId)}
+     * @see {@link TagGroupId#src}
+     */
+    public QueryBuilder withTagGroupIdAsSrc () {
+        return withTagGroupId (TagGroupId.src);
     }
 
     /**
@@ -969,30 +1379,30 @@ public class QueryBuilder extends AbstractRESTQueryBuilder<String> {
         return this;
     }
 
-    /**
-     * Extends the path with shapes/file/ -- ie.
-     *
-     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
-     *
-     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-     */
-    public QueryBuilder shapes () {
-
-        extendPathWith(SHAPES);
-        extendPathWith(FILE);
-
-        return this;
-    }
-
-    /**
-     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
-     */
-    public QueryBuilder withShapeType (String shapeType) {
-
-        addParameter(SHAPE, shapeType);
-
-        return this;
-    }
+//    /**
+//     * Extends the path with shapes/file/ -- ie.
+//     *
+//     * https://api.stlouisfed.org/geofred/shapes/file?shape=bea&api_key=[TBD]
+//     *
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder shapes () {
+//
+//        extendPathWith(SHAPES);
+//        extendPathWith(FILE);
+//
+//        return this;
+//    }
+//
+//    /**
+//     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
+//     */
+//    public QueryBuilder withShapeType (String shapeType) {
+//
+//        addParameter(SHAPE, shapeType);
+//
+//        return this;
+//    }
 
 //    /**
 //     * @see <a href="https://research.stlouisfed.org/docs/api/geofred/shapes.html">Shapes</a>
