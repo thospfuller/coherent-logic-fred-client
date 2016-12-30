@@ -45,14 +45,14 @@ import com.coherentlogic.fred.client.core.builders.QueryBuilder;
 import com.coherentlogic.fred.client.core.exceptions.IORuntimeException;
 import com.coherentlogic.fred.client.core.exceptions.InvalidURIException;
 import com.coherentlogic.fred.client.core.factories.QueryBuilderFactory;
-import com.coherentlogic.fred.client.db.integration.dao.CategoriesDAO;
-import com.coherentlogic.fred.client.db.integration.dao.ObservationsDAO;
-import com.coherentlogic.fred.client.db.integration.dao.ReleaseDatesDAO;
-import com.coherentlogic.fred.client.db.integration.dao.ReleasesDAO;
-import com.coherentlogic.fred.client.db.integration.dao.SeriessDAO;
-import com.coherentlogic.fred.client.db.integration.dao.SourcesDAO;
-import com.coherentlogic.fred.client.db.integration.dao.TagsDAO;
-import com.coherentlogic.fred.client.db.integration.dao.VintageDatesDAO;
+import com.coherentlogic.fred.client.db.integration.dao.CategoriesRepository;
+import com.coherentlogic.fred.client.db.integration.dao.ObservationsRepository;
+import com.coherentlogic.fred.client.db.integration.dao.ReleaseDatesRepository;
+import com.coherentlogic.fred.client.db.integration.dao.ReleasesRepository;
+import com.coherentlogic.fred.client.db.integration.dao.SeriessRepository;
+import com.coherentlogic.fred.client.db.integration.dao.SourcesRepository;
+import com.coherentlogic.fred.client.db.integration.dao.TagsRepository;
+import com.coherentlogic.fred.client.db.integration.dao.VintageDatesRepository;
 import com.jamonapi.MonKey;
 import com.jamonapi.MonKeyImp;
 import com.jamonapi.Monitor;
@@ -88,14 +88,14 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
         FRED_CLIENT_GUI = "fredClientGUI";
 
     private static final String
-        CATEGORIES_DAO = "categoriesDAO",
-        SERIESS_DAO = "seriessDAO",
-        OBSERVATIONS_DAO = "observationsDAO",
-        RELEASEDATES_DAO = "releaseDatesDAO",
-        RELEASES_DAO = "releasesDAO",
-        SOURCES_DAO = "sourcesDAO",
-        TAGS_DAO = "tagsDAO",
-        VINTAGEDATES_DAO = "vintageDatesDAO";
+        CATEGORIES_SERVICE = "categoriesService",
+        SERIESS_SERVICE = "seriessService",
+        OBSERVATIONS_SERVICE = "observationsService",
+        RELEASEDATES_SERVICE = "releaseDatesService",
+        RELEASES_SERVICE = "releasesService",
+        SOURCES_SERVICE = "sourcesService",
+        TAGS_SERVICE = "tagsService",
+        VINTAGEDATES_SERVICE = "vintageDatesService";
 
     private static final String
         SERIESS_QUERY_BUILDER_FACTORY = "seriessQueryBuilderFactory",
@@ -419,25 +419,25 @@ public class FREDClientGUI extends JFrame implements CommandLineRunner {
                     QueryBuilder requestBuilder =
                         queryBuilderFactory.getInstance();
 
-                    CategoriesDAO categoriesDAO = applicationContext.getBean(CategoriesDAO.class);
-                    SeriessDAO seriessDAO = applicationContext.getBean(SeriessDAO.class);
-                    ObservationsDAO observationsDAO = applicationContext.getBean(ObservationsDAO.class);
-                    ReleaseDatesDAO releaseDatesDAO = applicationContext.getBean(ReleaseDatesDAO.class);
-                    ReleasesDAO releasesDAO = applicationContext.getBean(ReleasesDAO.class);
-                    SourcesDAO sourcesDAO = applicationContext.getBean(SourcesDAO.class);
-                    TagsDAO tagsDAO = applicationContext.getBean(TagsDAO.class);
-                    VintageDatesDAO vintageDatesDAO = applicationContext.getBean(VintageDatesDAO.class);
+                    CategoriesRepository categoriesDAO = applicationContext.getBean(CategoriesRepository.class);
+                    SeriessRepository seriessDAO = applicationContext.getBean(SeriessRepository.class);
+                    ObservationsRepository observationsDAO = applicationContext.getBean(ObservationsRepository.class);
+                    ReleaseDatesRepository releaseDatesDAO = applicationContext.getBean(ReleaseDatesRepository.class);
+                    ReleasesRepository releasesDAO = applicationContext.getBean(ReleasesRepository.class);
+                    SourcesRepository sourcesDAO = applicationContext.getBean(SourcesRepository.class);
+                    TagsRepository tagsDAO = applicationContext.getBean(TagsRepository.class);
+                    VintageDatesRepository vintageDatesDAO = applicationContext.getBean(VintageDatesRepository.class);
 
                     groovyEngine.setVariable(QUERY_BUILDER, requestBuilder);
                     groovyEngine.setVariable(LOG, log);
-                    groovyEngine.setVariable(CATEGORIES_DAO, categoriesDAO);
-                    groovyEngine.setVariable(SERIESS_DAO, seriessDAO);
-                    groovyEngine.setVariable(OBSERVATIONS_DAO, observationsDAO);
-                    groovyEngine.setVariable(RELEASEDATES_DAO, releaseDatesDAO);
-                    groovyEngine.setVariable(RELEASES_DAO, releasesDAO);
-                    groovyEngine.setVariable(SOURCES_DAO, sourcesDAO);
-                    groovyEngine.setVariable(TAGS_DAO, tagsDAO);
-                    groovyEngine.setVariable(VINTAGEDATES_DAO, vintageDatesDAO);
+                    groovyEngine.setVariable(CATEGORIES_SERVICE, categoriesDAO);
+                    groovyEngine.setVariable(SERIESS_SERVICE, seriessDAO);
+                    groovyEngine.setVariable(OBSERVATIONS_SERVICE, observationsDAO);
+                    groovyEngine.setVariable(RELEASEDATES_SERVICE, releaseDatesDAO);
+                    groovyEngine.setVariable(RELEASES_SERVICE, releasesDAO);
+                    groovyEngine.setVariable(SOURCES_SERVICE, sourcesDAO);
+                    groovyEngine.setVariable(TAGS_SERVICE, tagsDAO);
+                    groovyEngine.setVariable(VINTAGEDATES_SERVICE, vintageDatesDAO);
 
                     Object result = null;
 
