@@ -2,12 +2,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.coherentlogic.fred.client" />
+
+    <jpa:repositories base-package="com.coherentlogic.fred.client.db.integration.dao" />
 
     <bean id="fredRestTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
