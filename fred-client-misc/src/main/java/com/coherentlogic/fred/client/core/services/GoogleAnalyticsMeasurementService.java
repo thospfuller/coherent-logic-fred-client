@@ -24,10 +24,10 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
     private final String applicationName;
 
     public GoogleAnalyticsMeasurementService(String applicationName) {
-		this.applicationName = applicationName;
-	}
+        this.applicationName = applicationName;
+    }
 
-	@Override
+    @Override
     public void fireGAFrameworkUsageEvent () {
 
         log.info("fireGAFrameworkUsageEvent: method begins.");
@@ -41,7 +41,7 @@ public class GoogleAnalyticsMeasurementService extends AbstractGoogleAnalyticsMe
             .withTAsEvent()
             .withEc("Framework Usage") // event category
             .withAn(applicationName) // application name
-            .withEa("Framework Started (direct)") // event action
+            .withEa("Framework Started") // event action
             .withAv("Version 2.0.0-RELEASE") // Application version.
             .withEl("Version 2.0.0-RELEASE")
             .doPost();
