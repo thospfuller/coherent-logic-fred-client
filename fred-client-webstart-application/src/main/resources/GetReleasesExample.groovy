@@ -10,10 +10,9 @@
  * SELECT * FROM RELEASES, RELEASES_RELEASE_TABLE, RELEASE_TABLE WHERE RELEASES.PRIMARYKEY = RELEASES_RELEASE_TABLE.RELEASES_PRIMARYKEY AND RELEASE_TABLE.PRIMARYKEY = RELEASES_RELEASE_TABLE.RELEASELIST_PRIMARYKEY;
  */
 
-import com.coherentlogic.fred.client.core.domain.Releases
 import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 
-Releases releases = queryBuilder
+def releases = queryBuilder
     .series ()
     .release ()
     .withSeriesId("IRA")
@@ -21,7 +20,7 @@ Releases releases = queryBuilder
         using (2001, Calendar.JANUARY, 20)
     ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
-    ).doGet(Releases.class)
+    ).doGetAsReleases() // New method
 
 // 
 // Uncomment to save to H2.

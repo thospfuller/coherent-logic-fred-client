@@ -12,11 +12,9 @@
  * SELECT * FROM TAGS, TAGS_TAG, TAG WHERE TAGS.PRIMARYKEY = TAGS_TAG.TAGS_PRIMARYKEY AND TAG.PRIMARYKEY = TAGS_TAG.TAGLIST_PRIMARYKEY;
  */
 
-import com.coherentlogic.fred.client.core.domain.Tags
-
-Tags tags = queryBuilder
+def tags = queryBuilder
     .tags ()
-    .doGet(Tags.class)
+    .doGetAsTags() // New method
 
 // 
 // Uncomment to save to H2.

@@ -12,10 +12,9 @@
  * SELECT * FROM CATEGORIES, CATEGORIES_CATEGORY, CATEGORY WHERE CATEGORIES.PRIMARYKEY = CATEGORIES_CATEGORY.CATEGORIES_PRIMARYKEY AND CATEGORY.PRIMARYKEY = CATEGORIES_CATEGORY.CATEGORYLIST_PRIMARYKEY;
  */
 
-import com.coherentlogic.fred.client.core.domain.Categories
 import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 
-Categories categories = queryBuilder
+def categories = queryBuilder
     .series ()
     .categories ()
     .withSeriesId("EXJPUS")
@@ -23,7 +22,7 @@ Categories categories = queryBuilder
         using (2001, Calendar.JANUARY, 20)
     ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
-    ).doGet(Categories.class)
+    ).doGetAsCategories() // New method
 
 // 
 // Uncomment to save to H2.

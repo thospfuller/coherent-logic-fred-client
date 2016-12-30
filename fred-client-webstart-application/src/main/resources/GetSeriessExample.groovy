@@ -10,10 +10,9 @@
  * SELECT * FROM SERIESS, SERIESS_SERIES, SERIES WHERE SERIESS.PRIMARYKEY = SERIESS_SERIES.SERIESS_PRIMARYKEY AND SERIES.PRIMARYKEY = SERIESS_SERIES.SERIESLIST_PRIMARYKEY; 
  */
 
-import com.coherentlogic.fred.client.core.domain.Seriess
 import static com.coherentlogic.coherent.data.model.core.util.Utils.using
 
-Seriess seriess = queryBuilder
+def seriess = queryBuilder
     .category ()
     .series ()
     .withSeriesId("GNPCA")
@@ -21,7 +20,7 @@ Seriess seriess = queryBuilder
         using (2001, Calendar.JANUARY, 20)
     ).withRealtimeEnd(
         using (2004, Calendar.MAY, 17)
-    ).doGet (Seriess.class)
+    ).doGetAsSeriess() // New method
 
 // 
 // Uncomment to save to H2.

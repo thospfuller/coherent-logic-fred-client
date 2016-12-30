@@ -10,14 +10,12 @@
  * SELECT * FROM RELEASE_DATES, RELEASE_DATES_RELEASE_DATE, RELEASE_DATE WHERE RELEASE_DATES.PRIMARYKEY = RELEASE_DATES_RELEASE_DATE.RELEASEDATES_PRIMARYKEY AND RELEASE_DATE.PRIMARYKEY = RELEASE_DATES_RELEASE_DATE.RELEASEDATELIST_PRIMARYKEY;
  */
 
-import com.coherentlogic.fred.client.core.domain.ReleaseDates
-
-ReleaseDates releaseDates = queryBuilder
+def releaseDates = queryBuilder
     .releases ()
     .dates ()
     .withRealtimeStart("2012-06-18")
     .withRealtimeEnd("2012-06-18")
-    .doGet(ReleaseDates.class)
+    .doGetAsReleaseDates () // New method
 
 // 
 // Uncomment to save to H2.

@@ -17,7 +17,7 @@ Observations observations = queryBuilder
     .series ()
     .observations ()
     .withSeriesId("EXJPUS")
-    .doGet(Observations.class)
+    .doGetAsObservations () // New method
 
 log.info "queryBuilder.escapedURI: ${queryBuilder.escapedURI}"
 

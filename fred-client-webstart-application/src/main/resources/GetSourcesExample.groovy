@@ -10,15 +10,13 @@
  * SELECT * FROM SOURCES, SOURCES_SOURCE, SOURCE WHERE SOURCES.PRIMARYKEY = SOURCES_SOURCE.SOURCES_PRIMARYKEY AND SOURCE.PRIMARYKEY = SOURCES_SOURCE.SOURCELIST_PRIMARYKEY;
  */
 
-import com.coherentlogic.fred.client.core.domain.Sources
-
-Sources sources = queryBuilder
+def sources = queryBuilder
     .release ()
     .sources ()
     .withReleaseId(51L)
     .withRealtimeStart("2010-06-01")
     .withRealtimeEnd("2012-06-18")
-    .doGet(Sources.class)
+    .doGetAsSources () // New method
 
 // 
 // Uncomment to save to H2.
