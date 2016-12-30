@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.coherentlogic.fred.client.core.domain.VintageDates;
+import com.coherentlogic.fred.client.db.integration.dao.VintageDatesRepository;
 
 @Repository(VintageDatesService.BEAN_NAME)
 @Transactional
@@ -25,7 +26,7 @@ public class VintageDatesService {
     private EntityManager entityManager;
 
     @Autowired
-    private VintageDatesService vintageDatesRepository;
+    private VintageDatesRepository vintageDatesRepository;
 
     protected EntityManager getEntityManager() {
         return entityManager;
@@ -35,11 +36,11 @@ public class VintageDatesService {
         this.entityManager = entityManager;
     }
 
-    public VintageDatesService getVintageDatesRepository() {
+    protected VintageDatesRepository getVintageDatesRepository() {
         return vintageDatesRepository;
     }
 
-    public void setVintageDatesRepository(VintageDatesService vintageDatesRepository) {
+    protected void setVintageDatesRepository(VintageDatesRepository vintageDatesRepository) {
         this.vintageDatesRepository = vintageDatesRepository;
     }
 
