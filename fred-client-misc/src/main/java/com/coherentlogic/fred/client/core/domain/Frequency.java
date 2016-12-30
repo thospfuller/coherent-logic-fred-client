@@ -37,13 +37,24 @@ public enum Frequency {
     wetu,
     /** weeklyEndingMonday */
     wem,
+    /** weeklyEndingSunday */
+    wesu,
+    /** weeklyEndingSaturday */
+    wesa,
     /** biWeeklyEndingWednesday */
     bwew,
     /** biWeeklyEndingMonday */
     bwem,
-    /** 5y */
+    /**
+     * 5y
+     *
+     * @deprecated This value does not appear in the list of Frequencies and will be removed in the next iteration.
+     */
     _5y,
-    /** n/a */
+    /**
+     * n/a
+     *
+     * @deprecated This value does not appear in the list of Frequencies and will be removed in the next iteration.
+     */
     na;
- 
 }
